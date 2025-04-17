@@ -1,0 +1,13 @@
+---
+- name: Setup Docker and Docker-compose
+  hosts: webservers
+  become: yes
+  roles:  
+    - role: docker
+      tags: [docker]        
+    - role: docker_compose
+      tags: [docker_compose]
+    - role: nginx
+      tags: [nginx]
+    - role: system_tools
+      tags: [system_tools]    

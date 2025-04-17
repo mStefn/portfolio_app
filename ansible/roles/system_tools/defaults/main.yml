@@ -1,0 +1,13 @@
+---
+system_tools_packages:
+  - tree
+  - htop
+  - vim
+  - net-tools
+  - curl
+  - ncdu
+  - traceroute
+  - bind-utils   # dla 'dig'
+  - iftop
+  - dstat
+

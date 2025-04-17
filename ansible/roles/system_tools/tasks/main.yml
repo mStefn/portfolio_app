@@ -1,0 +1,7 @@
+---
+- name: Install useful system tools
+  package:
+    name: "{{ system_tools_packages }}"
+    state: present
+  tags: [system_tools]
+

@@ -1,0 +1,34 @@
+---
+- name: Install required dependencies
+  yum:
+    name:
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+    state: present
+
+- name: Add Docker CE repository
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  when: ansible_facts['distribution_version'] is version('8', '>=')
+
+- name: Install Docker CE
+  yum:
+    name: docker-ce
+    state: present
+
+- name: Enable and start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Verify Docker installation
+  command: docker --version
+  register: docker_version
+  changed_when: false
+
+- name: Show Docker version
+  debug:
+    var: docker_version.stdout
+
+

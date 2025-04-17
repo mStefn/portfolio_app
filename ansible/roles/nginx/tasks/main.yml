@@ -1,0 +1,35 @@
+---
+- name: Install Nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: Start Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes 
+
+- name: Check if Nginx is installed
+  command: nginx -v
+  register: nginx_installed
+  changed_when: false
+  failed_when: nginx_installed.rc != 0
+  ignore_errors: yes
+
+- name: Show Nginx installation status
+  debug:
+    msg: "Nginx is installed: {{ nginx_installed.stdout }}"
+
+- name: Check if Nginx service is running
+  service:
+    name: nginx
+    state: started
+  register: nginx_service_status
+  changed_when: false
+  failed_when: nginx_service_status.state != "started"
+
+- name: Show Nginx service status
+  debug:
+    msg: "Nginx service is running and enabled: {{ nginx_service_status.state }}"
+      

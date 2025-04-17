@@ -1,0 +1,30 @@
+---
+- name: Define Docker Compose version
+  set_fact:
+    docker_compose_version: "1.29.2"
+
+- name: Set Docker Compose URL
+  set_fact:
+    docker_compose_url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_facts['system'] | lower }}-{{ ansible_facts['architecture'] | lower }}"
+
+- name: Download Docker Compose binary
+  get_url:
+    url: "{{ docker_compose_url }}"
+    dest: /usr/local/bin/docker-compose
+    mode: 'u+x'
+
+- name: Create symlink for Docker Compose in /usr/bin
+  file:
+    src: /usr/local/bin/docker-compose
+    dest: /usr/bin/docker-compose
+    state: link
+
+- name: Verify Docker Compose installation
+  command: docker-compose --version
+  register: compose_version
+  changed_when: false
+
+- name: Show Docker Compose version
+  debug:
+    var: compose_version.stdout
+
