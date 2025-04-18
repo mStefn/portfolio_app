@@ -1,11 +1,9 @@
-/* Reset podstawowy */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Ustawienia globalne */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f9f9f9;
@@ -14,7 +12,6 @@ body {
     padding: 0 20px;
 }
 
-/* Nagłówek */
 header {
     background-color: #1e1e2f;
     color: #fff;
@@ -31,30 +28,40 @@ header p {
     font-size: 1.2rem;
 }
 
-/* Nawigacja */
+/* Nawigacja jako kolumnowa lista z opisami */
 nav ul {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     list-style: none;
-    margin-top: 20px;
-    flex-wrap: wrap;
+    margin-top: 30px;
+    gap: 20px;
 }
 
-nav ul li {
-    margin: 10px 15px;
+.nav-item {
+    text-align: center;
+    max-width: 300px;
 }
 
-nav ul li a {
+.nav-item a {
+    display: inline-block;
     text-decoration: none;
     color: #fff;
     background-color: #3b3b5d;
     padding: 10px 20px;
     border-radius: 25px;
+    font-weight: bold;
     transition: background-color 0.3s;
+    margin-bottom: 5px;
 }
 
-nav ul li a:hover {
+.nav-item a:hover {
     background-color: #56567a;
+}
+
+.nav-item p {
+    font-size: 0.95rem;
+    color: #ccc;
 }
 
 /* Sekcje */
@@ -79,7 +86,6 @@ section p {
     font-size: 1rem;
 }
 
-/* Stopka */
 footer {
     text-align: center;
     padding: 20px;
@@ -88,7 +94,6 @@ footer {
     color: #666;
 }
 
-/* Responsywność */
 @media (max-width: 600px) {
     header h1 {
         font-size: 2rem;
@@ -98,7 +103,7 @@ footer {
         flex-direction: column;
     }
 
-    nav ul li {
-        margin: 5px 0;
+    .nav-item {
+        max-width: 90%;
     }
 }

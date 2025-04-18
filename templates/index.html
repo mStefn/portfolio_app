@@ -8,18 +8,42 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to my portfolio</h1>
+        <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio.</h1>
         <p>I am a student aspiring to start a career in IT as a DevOps or Linux administrator</p>
     </header>
 
     <main>
         <nav>
             <ul>
-                <li><a href="#about">About me</a></li>
-                <li><a href="#project1">Project 1</a></li>
-                <li><a href="#project2">Projct 2</a></li>
+                <li class="nav-item">
+                    <a href="#about">About me</a>
+                    <p>Who I am and what drives me in tech</p>
+                </li>
+                <li class="nav-item">
+                    <a href="#project1">Project 1</a>
+                    <p>A simple portfolio app built with Go and HTML/CSS</p>
+                </li>
+                <li class="nav-item">
+                    <a href="#project2">Project 2</a>
+                    <p>Infrastructure automation with Ansible and Docker</p>
+                </li>
             </ul>
         </nav>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I'm passionate about Linux, automation, and building my skills as a DevOps engineer.</p>
+        </section>
+
+        <section id="project1">
+            <h2>Project 1</h2>
+            <p>This is a lightweight personal portfolio built using Go and served via an HTTP server. It shows how to build full-stack apps without frameworks.</p>
+        </section>
+
+        <section id="project2">
+            <h2>Project 2</h2>
+            <p>This project demonstrates how to deploy and automate infrastructure using Ansible, Docker, and CI/CD pipelines on AWS EC2 instances.</p>
+        </section>
     </main>
 
     <footer>
