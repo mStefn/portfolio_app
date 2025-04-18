@@ -1,0 +1,6 @@
+---
+go_version: "1.21.5"
+go_download_url: "https://golang.org/dl/go{{ go_version }}.linux-amd64.tar.gz"
+go_install_dir: "/usr/local"
+go_bin_path: "/usr/local/go/bin"
+

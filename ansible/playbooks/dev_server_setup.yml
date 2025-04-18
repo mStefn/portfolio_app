@@ -1,6 +1,6 @@
 ---
-- name: Setup Docker and Docker-compose
-  hosts: webservers
+- name: Setup DevServer environment
+  hosts: devservers
   become: yes
   roles:  
     - role: docker
@@ -9,5 +9,7 @@
       tags: [docker_compose]
     - role: nginx
       tags: [nginx]
-    - role: system_tools
-      tags: [system_tools]
+        #- role: system_tools
+        #tags: [system_tools]
+    - role: golang
+      tags: [go]    
