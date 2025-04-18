@@ -1,87 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Wizytówka</title>
+    <title>Moje Portfolio</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
-
 <body>
-
     <header>
-        <h1>Maciej Stefanowicz</h1>
-        <p>Developer</p>
+        <h1>Witaj na moim portfolio</h1>
+        <p>Jestem programistą Go z pasją do tworzenia lekkich i nowoczesnych aplikacji.</p>
+        <nav>
+            <ul>
+                <li><a href="#about">O mnie</a></li>
+                <li><a href="#project1">Projekt 1</a></li>
+                <li><a href="#project2">Projekt 2</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <nav>
-        <a href="#aboutMe">O mnie</a>
-        <a href="#contact">Kontakt</a>
-    </nav>
-
     <main>
-        <section id="aboutMe">
+        <section id="about">
             <h2>O mnie</h2>
-            <p>Cześć, mam na imię Maciej, jestem studentem CDV i chcę rozpocząć prace w branży IT.</p>
+            <p>Tu możesz dodać więcej informacji o sobie – kim jesteś, czym się zajmujesz, jakie masz doświadczenie i zainteresowania.</p>
         </section>
 
-        <section id="cwiczenie1">
-            <h2>Zmiana treści elementu po kliknięciu</h2>
-            <div id="paragraf">Początkowy tekst</div>
-            <button onclick="zmienTekst()">Zmień tekst</button>
-            <script>
-                // Funkcja zmieniająca treść elementu
-                function zmienTekst() {
-                    const element = document.getElementById('paragraf');
-                    element.textContent = "Tekst został zaktualizowany!";
-                }
-            </script>
-
+        <section id="project1">
+            <h2>Projekt 1</h2>
+            <p>Opis pierwszego projektu. Możesz tu wstawić nazwę projektu, technologię, link do GitHuba i zrzut ekranu.</p>
         </section>
 
-        <section id="cwiczenie2">
-            <h2>Formularz reagujący na zmiany</h2>
-            <input type="text" id="poleTekstowe" placeholder="Wpisz coś...">
-            <div id="wynik"></div>
-            <script>
-                // Nasłuchiwanie zdarzenia input i aktualizacja treści elementu "wynik"
-                document.getElementById('poleTekstowe').addEventListener('input', function (e) {
-                    document.getElementById('wynik').textContent = "Aktualna wartość: " + e.target.value;
-                });
-            </script>
+        <section id="project2">
+            <h2>Projekt 2</h2>
+            <p>Opis drugiego projektu. Tak samo jak wyżej – krótki opis, tech stack, link i ewentualnie screen.</p>
         </section>
-
-        <section>
-            
-        </section>
-
-        <section id="contact">
-            <h2>Kontakt</h2>
-            <from action="submint_from.php" methotd="post">
-                <label for="name">Imię i nazwisko</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="email">Email</label>
-                <input type="text" id="email" email="email" required>
-
-                <label for="message">Wiadmość</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-
-                <button type="submin">Wyślij</button>
-
-            </from>
-        </section>
-
-
-
     </main>
 
-
     <footer>
-        <p>&copy; 2025 Maciej Stefanowicz. Wszelkie prawa zastrzeżone.</p>
+        <p>© 2025 Twoje Imię i Nazwisko. Wszelkie prawa zastrzeżone.</p>
     </footer>
-
 </body>
-
 </html>
