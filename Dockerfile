@@ -29,6 +29,8 @@ COPY --from=builder /app/my_app .
 COPY app/templates ./templates
 COPY app/static ./static
 
-# Uruchomienie aplikacji
+# Określenie portu, na którym aplikacja nasłuchuje
+EXPOSE 8080  
+
 CMD ["./my_app"]
 
