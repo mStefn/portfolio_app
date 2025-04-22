@@ -6,14 +6,14 @@ services:
       context: .
     container_name: portfolio-app
     expose:
-      - "8080"  # Aplikacja Go będzie nasłuchiwać na porcie 8080 w obrębie sieci Docker
+      - "8080"  
 
   nginx:
     build:
       context: ./nginx
     container_name: nginx-proxy
     ports:
-      - "80:80"  # Nginx będzie nasłuchiwać na porcie 80 na hoście
+      - "80:80"  
     depends_on:
       - app
 

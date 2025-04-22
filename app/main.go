@@ -7,17 +7,16 @@ import (
 	"path/filepath"
 )
 
-// Struktura dla danych do template (na razie pusta, do rozbudowy)
 type PageData struct {
 	Title string
 }
 
 func main() {
-	// Ścieżka do template
+	
 	tmplPath := filepath.Join("templates", "index.html")
 	tmpl := template.Must(template.ParseFiles(tmplPath))
 
-	// Obsługa strony głównej
+	
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := PageData{
 			Title: "Moje Portfolio",
@@ -28,7 +27,7 @@ func main() {
 		}
 	})
 
-	// Obsługa statycznych plików (CSS itd.)
+	
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
