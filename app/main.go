@@ -15,8 +15,7 @@ type PageData struct {
 	Visits int
 }
 
-func getVisitCount() (int, error) {
-	// Zmienna środowiskowa z danymi bazy
+func getVisitCount() (int, error) {	
 	dbURL := os.Getenv("DATABASE_URL")
 	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
@@ -33,8 +32,7 @@ func getVisitCount() (int, error) {
 	return count, nil
 }
 
-func incrementVisitCount() error {
-	// Zmienna środowiskowa z danymi bazy
+func incrementVisitCount() error {	
 	dbURL := os.Getenv("DATABASE_URL")
 	db, err := sql.Open("postgres", dbURL)
 	if err != nil {

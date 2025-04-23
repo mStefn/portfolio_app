@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-# Tworzymy tabelę do przechowywania liczby odwiedzin
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
     CREATE TABLE IF NOT EXISTS visit_counter (
         id SERIAL PRIMARY KEY,

@@ -28,7 +28,6 @@ header p {
     font-size: 1.2rem;
 }
 
-/* Nawigacja jako kolumnowa lista z opisami */
 nav ul {
     display: flex;
     flex-direction: column;
@@ -64,7 +63,6 @@ nav ul {
     color: #ccc;
 }
 
-/* Sekcje */
 main {
     margin: 40px auto;
     max-width: 800px;
