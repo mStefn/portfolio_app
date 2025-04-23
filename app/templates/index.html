@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>{{.Title}}</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -44,6 +44,10 @@
             <h2>Project 2</h2>
             <p>This project demonstrates how to deploy and automate infrastructure using Ansible, Docker, and CI/CD pipelines on AWS EC2 instances.</p>
         </section>
+
+        <section>
+            <h2>Number of visits: {{.Visits}}</h2>
+        </section>
     </main>
 
     <footer>
@@ -51,3 +55,4 @@
     </footer>
 </body>
 </html>
+

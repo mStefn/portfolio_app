@@ -1,1 +1,3 @@
 ansible/secrets/
+.env
+db_data
