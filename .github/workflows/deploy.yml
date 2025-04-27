@@ -34,7 +34,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H $WEB_SERVER_IP >> ~/.ssh/known_hosts
         env:
-          WEB_SERVER_IP: ${{ secrets.WEB_SERVER_IP }}
+          WEB_SERVER_IP: ${{ secrets.WEB01_HOST }}
           WEB_SERVER_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy the app on Web Server
