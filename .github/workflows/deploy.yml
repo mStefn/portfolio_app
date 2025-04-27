@@ -28,18 +28,21 @@ jobs:
           docker pull ghcr.io/mstefn/portfolio_app:latest
 
       - name: Set up SSH key
+        env:
+          WEB_SERVER_IP: ${{ secrets.WEB01_HOST }}
+          WEB_SERVER_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
           echo "$WEB_SERVER_SSH_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H $WEB_SERVER_IP >> ~/.ssh/known_hosts
-        env:
-          WEB_SERVER_IP: ${{ secrets.WEB01_HOST }}
-          WEB_SERVER_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Stop running containers on the web server (optional)
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@$WEB_SERVER_IP 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml down'
 
       - name: Deploy the app on Web Server
+        env:
+          WEB_SERVER_IP: ${{ secrets.WEB01_HOST }}
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@$WEB_SERVER_IP 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml up -d'
-        env:
-          WEB_SERVER_IP: ${{ secrets.WEB_SERVER_IP }} 
-          WEB_SERVER_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  
