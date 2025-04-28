@@ -28,21 +28,14 @@ jobs:
           # Utwórz folder na klucze SSH
           mkdir -p ~/.ssh
           
-          # Sprawdź, czy wartość zmiennej SSH_PRIVATE_KEY jest poprawna
-          echo "Checking SSH_PRIVATE_KEY"
-          echo "${{ secrets.SSH_PRIVATE_KEY }}"
-          
           # Zapisz klucz do pliku id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-          # Debugowanie: sprawdź czy ssh-keyscan dodaje fingerprint
-          echo "Running ssh-keyscan"
+          # Dodaj fingerprint do known_hosts
           ssh-keyscan -H ${{ secrets.WEB01_HOST }} >> ~/.ssh/known_hosts
-          cat ~/.ssh/known_hosts  # Sprawdzenie zawartości known_hosts
 
           # Testowanie połączenia SSH
-          echo "Testing SSH connection"
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'echo "Connection successful"'
 
       - name: Stop running containers on the web server
