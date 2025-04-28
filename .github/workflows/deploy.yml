@@ -11,13 +11,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4  # <-- aktualna wersja
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3  # <-- aktualna wersja
 
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}   
@@ -28,21 +28,16 @@ jobs:
           docker pull ghcr.io/mstefn/portfolio_app:latest
 
       - name: Set up SSH key
-        env:
-          WEB_SERVER_IP: ${{ secrets.WEB01_HOST }}
-          WEB_SERVER_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "$WEB_SERVER_SSH_KEY" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H $WEB_SERVER_IP >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.WEB01_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Stop running containers on the web server (optional)
+      - name: Stop running containers on the web server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@$WEB_SERVER_IP 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml down'
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml down'
 
       - name: Deploy the app on Web Server
-        env:
-          WEB_SERVER_IP: ${{ secrets.WEB01_HOST }}
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@$WEB_SERVER_IP 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml up -d'
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml up -d'
