@@ -23,10 +23,6 @@ jobs:
           username: ${{ secrets.GHCR_USERNAME }}   
           password: ${{ secrets.GHCR_TOKEN }}  
 
-      - name: Pull the Docker image from GHCR
-        run: |
-          docker pull ghcr.io/mstefn/portfolio_app:latest
-
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
@@ -37,6 +33,10 @@ jobs:
       - name: Stop running containers on the web server
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml down'
+
+      - name: Pull the Docker image from GHCR on Web Server
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker pull ghcr.io/mstefn/portfolio_app:latest'
 
       - name: Deploy the app on Web Server
         run: |
