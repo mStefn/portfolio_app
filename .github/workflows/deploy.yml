@@ -28,6 +28,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+
+          # Sprawdzenie dostępności serwera i dodanie fingerprinta do known_hosts
           ssh-keyscan -H ${{ secrets.WEB01_HOST }} >> ~/.ssh/known_hosts
 
       - name: Stop running containers on the web server
