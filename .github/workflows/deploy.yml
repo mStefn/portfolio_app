@@ -11,18 +11,15 @@ jobs:
 
     env:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
-      AWS_SG_NAME: ${{ secrets.AWS_SECURITY_GROUP_NAME }}
+      AWS_SECURITY_GROUP_ID: ${{ secrets.AWS_SECURITY_GROUP_ID }}
 
     steps:
-      # Checkout repozytorium
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # Logowanie do GitHub Container Registry
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -30,26 +27,22 @@ jobs:
           username: ${{ secrets.GHCR_USERNAME }}   
           password: ${{ secrets.GHCR_TOKEN }}  
 
-      # Budowanie obrazu Docker
       - name: Build Docker image
         run: |
           docker build -t ghcr.io/mstefn/portfolio_app:latest .
 
-      # Pushowanie obrazu do GitHub Container Registry
       - name: Push Docker image to GHCR
         run: |
           docker push ghcr.io/mstefn/portfolio_app:latest
 
-      # Pobranie publicznego IP GitHub runnera
       - name: Get public IP of GitHub runner
         id: ip
         run: echo "ipv4=$(curl -s https://api.ipify.org)" >> $GITHUB_OUTPUT
 
-      # Dodanie IP GitHub Actions do Security Group (na podstawie group-name)
-      - name: Add GitHub Actions IP to Security group
+      - name: Add GitHub Actions IP to Security Group
         run: |
           aws ec2 authorize-security-group-ingress \
-            --group-name ${{ env.AWS_SG_NAME }} \
+            --security-group-id ${{ env.AWS_SECURITY_GROUP_ID }} \
             --protocol tcp \
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
@@ -58,7 +51,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
 
-      # Set up SSH
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
@@ -67,26 +59,22 @@ jobs:
           ssh-keyscan -H ${{ secrets.WEB01_HOST }} >> ~/.ssh/known_hosts
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'echo "SSH connection established"'
 
-      # Stop containers
       - name: Stop running containers
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml down'
 
-      # Pull image
       - name: Pull Docker image
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker pull ghcr.io/mstefn/portfolio_app:latest'
 
-      # Deploy app
       - name: Deploy the app
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml up -d'
 
-      # Usuwanie IP z Security Group
       - name: Remove GitHub Actions IP from Security Group
         run: |
           aws ec2 revoke-security-group-ingress \
-            --group-name ${{ env.AWS_SG_NAME }} \
+            --security-group-id ${{ env.AWS_SECURITY_GROUP_ID }} \
             --protocol tcp \
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
