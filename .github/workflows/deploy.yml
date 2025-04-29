@@ -11,7 +11,7 @@ jobs:
 
     env:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
-      AWS_SG_NAME: ${{ secrets.AWS_SECURITY_GROUP_NAME }}  # używamy secretu AWS_SECURITY_GROUP_NAME
+      AWS_SG_NAME: ${{ secrets.AWS_SECURITY_GROUP_NAME }} 
 
     steps:
       - name: Checkout repository
