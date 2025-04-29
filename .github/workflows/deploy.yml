@@ -53,9 +53,16 @@ jobs:
       # Dodanie IP GitHub Actions Runnera do Security Group
       - name: Add runner IP to Security Group
         run: |
+          # Sprawdzenie, czy zmienna RUNNER_IP jest ustawiona
+          if [ -z "${{ env.RUNNER_IP }}" ]; then
+            echo "RUNNER_IP is not set!"
+            exit 1
+          fi
+
+          # Dodanie IP do Security Group
           aws ec2 authorize-security-group-ingress --region ${{ secrets.AWS_REGION }} \
             --security-group-id ${{ secrets.AWS_SECURITY_GROUP_ID }} \
-            --protocol tcp --port 22 --cidr ${{ env.RUNNER_IP }}/32
+            --protocol tcp --port 22 --cidr "${{ env.RUNNER_IP }}/32"
 
       # Ustawienie klucza SSH i konfiguracja połączenia z serwerem
       - name: Set up SSH key
@@ -93,4 +100,4 @@ jobs:
         run: |
           aws ec2 revoke-security-group-ingress --region ${{ secrets.AWS_REGION }} \
             --security-group-id ${{ secrets.AWS_SECURITY_GROUP_ID }} \
-            --protocol tcp --port 22 --cidr ${{ env.RUNNER_IP }}/32
+            --protocol tcp --port 22 --cidr "${{ env.RUNNER_IP }}/32"
