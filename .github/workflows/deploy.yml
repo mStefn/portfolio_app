@@ -52,6 +52,27 @@ jobs:
           # Testowanie połączenia SSH (klucz nie będzie wyświetlany)
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'echo "Connection successful"'
 
+      # Pobranie publicznego IP GitHub Actions Runnera
+      - name: Get public IP of GitHub runner
+        id: get_ip
+        run: |
+          echo "RUNNER_IP=$(curl -s https://api.ipify.org)" >> $GITHUB_ENV
+
+      # Konfiguracja AWS CLI z sekretami
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Dodanie IP GitHub Actions Runnera do Security Group
+      - name: Add runner IP to Security Group
+        run: |
+          aws ec2 authorize-security-group-ingress --region ${{ secrets.AWS_REGION }} \
+            --security-group-id ${{ secrets.AWS_SECURITY_GROUP_ID }} \
+            --protocol tcp --port 80 --cidr ${{ env.RUNNER_IP }}/32
+
       # Zatrzymywanie istniejących kontenerów na serwerze
       - name: Stop running containers on the web server
         run: |
@@ -66,3 +87,10 @@ jobs:
       - name: Deploy the app on Web Server
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml up -d'
+
+      # Usuwanie IP GitHub Actions Runnera z Security Group po zakończeniu zadania
+      - name: Remove runner IP from Security Group
+        run: |
+          aws ec2 revoke-security-group-ingress --region ${{ secrets.AWS_REGION }} \
+            --security-group-id ${{ secrets.AWS_SECURITY_GROUP_ID }} \
+            --protocol tcp --port 80 --cidr ${{ env.RUNNER_IP }}/32
