@@ -9,12 +9,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+      AWS_SG_NAME: ${{ secrets.AWS_SECURITY_GROUP_NAME }}
+
     steps:
       # Checkout repozytorium
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Set up Docker Buildx (przydatne do budowy obrazów)
+      # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -36,68 +40,57 @@ jobs:
         run: |
           docker push ghcr.io/mstefn/portfolio_app:latest
 
-      # Pobranie publicznego IP GitHub Actions Runnera
+      # Pobranie publicznego IP GitHub runnera
       - name: Get public IP of GitHub runner
-        id: get_ip
+        id: ip
+        run: echo "ipv4=$(curl -s https://api.ipify.org)" >> $GITHUB_OUTPUT
+
+      # Dodanie IP GitHub Actions do Security Group (na podstawie group-name)
+      - name: Add GitHub Actions IP to Security group
         run: |
-          echo "RUNNER_IP=$(curl -s https://api.ipify.org)" >> $GITHUB_ENV
+          aws ec2 authorize-security-group-ingress \
+            --group-name ${{ env.AWS_SG_NAME }} \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
 
-      # Konfiguracja AWS CLI z sekretami
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      # Dodanie IP GitHub Actions Runnera do Security Group
-      - name: Add runner IP to Security Group
-        run: |
-          # Sprawdzenie, czy zmienna RUNNER_IP jest ustawiona
-          if [ -z "${{ env.RUNNER_IP }}" ]; then
-            echo "RUNNER_IP is not set!"
-            exit 1
-          fi
-
-          # Dodanie IP do Security Group
-          aws ec2 authorize-security-group-ingress --region ${{ secrets.AWS_REGION }} \
-            --security-group-id ${{ secrets.AWS_SECURITY_GROUP_ID }} \
-            --protocol tcp --port 22 --cidr "${{ env.RUNNER_IP }}/32"
-
-      # Ustawienie klucza SSH i konfiguracja połączenia z serwerem
+      # Set up SSH
       - name: Set up SSH key
         run: |
-          # Utwórz folder na klucze SSH
           mkdir -p ~/.ssh
-          
-          # Zapisz klucz do pliku id_rsa (klucz nie jest wyświetlany w logach)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-
-          # Dodaj fingerprint do known_hosts
           ssh-keyscan -H ${{ secrets.WEB01_HOST }} >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'echo "SSH connection established"'
 
-          # Testowanie połączenia SSH (klucz nie będzie wyświetlany)
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'echo "Connection successful"'
-
-      # Zatrzymywanie istniejących kontenerów na serwerze
-      - name: Stop running containers on the web server
+      # Stop containers
+      - name: Stop running containers
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml down'
 
-      # Pobieranie nowego obrazu Docker z GHCR na serwerze
-      - name: Pull the Docker image from GHCR on Web Server
+      # Pull image
+      - name: Pull Docker image
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker pull ghcr.io/mstefn/portfolio_app:latest'
 
-      # Uruchomienie nowego kontenera na serwerze
-      - name: Deploy the app on Web Server
+      # Deploy app
+      - name: Deploy the app
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ secrets.WEB01_HOST }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml up -d'
 
-      # Usuwanie IP GitHub Actions Runnera z Security Group po zakończeniu zadania
-      - name: Remove runner IP from Security Group
+      # Usuwanie IP z Security Group
+      - name: Remove GitHub Actions IP from Security Group
         run: |
-          aws ec2 revoke-security-group-ingress --region ${{ secrets.AWS_REGION }} \
-            --security-group-id ${{ secrets.AWS_SECURITY_GROUP_ID }} \
-            --protocol tcp --port 22 --cidr "${{ env.RUNNER_IP }}/32"
+          aws ec2 revoke-security-group-ingress \
+            --group-name ${{ env.AWS_SG_NAME }} \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
