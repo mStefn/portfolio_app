@@ -16,7 +16,17 @@ header {
     background-color: #1e1e2f;
     color: #fff;
     padding: 40px 20px;
-    text-align: center;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.header-text {
+    max-width: 70%;
 }
 
 header h1 {
@@ -28,60 +38,55 @@ header p {
     font-size: 1.2rem;
 }
 
-nav ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.visit-counter {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    white-space: nowrap;
+}
+
+.nav-left ul {
     list-style: none;
     margin-top: 30px;
-    gap: 20px;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-.nav-item {
-    text-align: center;
-    max-width: 300px;
+.nav-left .nav-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.nav-item a {
-    display: inline-block;
+.nav-left .nav-item a {
     text-decoration: none;
     color: #fff;
     background-color: #3b3b5d;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border-radius: 25px;
     font-weight: bold;
+    margin-right: 15px;
     transition: background-color 0.3s;
-    margin-bottom: 5px;
 }
 
-.nav-item a:hover {
+.nav-left .nav-item a:hover {
     background-color: #56567a;
 }
 
-.nav-item p {
-    font-size: 0.95rem;
-    color: #ccc;
+.nav-left .nav-item p {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
 }
 
 main {
     margin: 40px auto;
     max-width: 800px;
-}
-
-section {
-    margin-bottom: 60px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-}
-
-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: #222;
-}
-
-section p {
-    font-size: 1rem;
 }
 
 footer {
@@ -97,12 +102,21 @@ footer {
         font-size: 2rem;
     }
 
-    nav ul {
+    .header-container {
         flex-direction: column;
+        align-items: flex-start;
     }
 
-    .nav-item {
-        max-width: 90%;
+    .visit-counter {
+        margin-top: 20px;
+    }
+
+    .nav-left .nav-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-left .nav-item a {
+        margin-bottom: 5px;
     }
 }
-
