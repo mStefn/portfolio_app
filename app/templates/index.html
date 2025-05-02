@@ -7,17 +7,20 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="visit-counter">
-        <p>Visits: {{.Visits}}</p>
-    </div>
-
     <header>
-        <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio test.</h1>
-        <p>I am a student aspiring to start a career in IT as a DevOps or Linux administrator</p>
+        <div class="header-container">
+            <div class="header-text">
+                <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio test.</h1>
+                <p>I am a student aspiring to start a career in IT as a DevOps or Linux administrator</p>
+            </div>
+            <div class="visit-counter">
+                <span>👀 Visits:</span> <strong>{{.Visits}}</strong>
+            </div>
+        </div>
     </header>
 
     <main>
-        <nav class="vertical-nav">
+        <nav class="nav-left">
             <ul>
                 <li class="nav-item">
                     <a href="#about">About me</a>
