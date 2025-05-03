@@ -1,21 +1,45 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Title}}</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
     <header>
-        <h1>{{.Title}}</h1>
-        <nav>
-            <a href="/">Home</a> | <a href="/about">About</a> | <a href="/project1">Project 1</a> | <a href="/project2">Project 2</a>
-        </nav>
+        <div class="header-container">
+            <div class="header-text">
+                <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio test.</h1>
+                <p>I am a student aspiring to start a career in IT as a DevOps or Linux administrator</p>
+            </div>
+            <div class="visit-counter">
+                👀 Visits: {{ .Visits }}
+            </div>
+        </div>
     </header>
+
     <main>
-        <h2>Welcome to my Portfolio</h2>
-        <p>Number of visits: {{.Visits}}</p>
+        <nav class="nav-left">
+            <ul>
+                <li class="nav-item">
+                    <a href="/about">About me</a>
+                    <p>Who I am and what drives me in tech</p>
+                </li>
+                <li class="nav-item">
+                    <a href="/project1">Project 1</a>
+                    <p>A simple portfolio app built with Go and HTML/CSS</p>
+                </li>
+                <li class="nav-item">
+                    <a href="/project2">Project 2</a>
+                    <p>Infrastructure automation with Ansible and Docker</p>
+                </li>
+            </ul>
+        </nav>
     </main>
+
+    <footer>
+        <p>&copy; 2025 Maciej Stefanowicz. All rights reserved.</p>
+    </footer>
 </body>
 </html>
