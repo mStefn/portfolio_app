@@ -10,12 +10,13 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// Struktura do przechowywania danych strony
 type PageData struct {
-	Title string
+	Title  string
 	Visits int
 }
 
-func getVisitCount() (int, error) {	
+func getVisitCount() (int, error) {
 	dbURL := os.Getenv("DATABASE_URL")
 	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
@@ -32,7 +33,7 @@ func getVisitCount() (int, error) {
 	return count, nil
 }
 
-func incrementVisitCount() error {	
+func incrementVisitCount() error {
 	dbURL := os.Getenv("DATABASE_URL")
 	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
@@ -48,41 +49,97 @@ func incrementVisitCount() error {
 	return nil
 }
 
-func main() {
+// Obsługuje stronę główną
+func serveHome(w http.ResponseWriter, r *http.Request) {
+	err := incrementVisitCount()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	visits, err := getVisitCount()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	data := PageData{
+		Title:  "Moje Portfolio",
+		Visits: visits,
+	}
+
 	tmplPath := "templates/index.html"
 	tmpl := template.Must(template.ParseFiles(tmplPath))
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		err := incrementVisitCount()
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
 
-		visits, err := getVisitCount()
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+// Obsługuje stronę 'about'
+func serveAbout(w http.ResponseWriter, r *http.Request) {
+	data := PageData{
+		Title:  "About Me",
+		Visits: 0, // Możesz ustawić odpowiednią liczbę wizyt lub zaktualizować bazę danych, jeśli chcesz
+	}
 
-		data := PageData{
-			Title: "Moje Portfolio",
-			Visits: visits,
-		}
+	tmplPath := "templates/about.html"
+	tmpl := template.Must(template.ParseFiles(tmplPath))
 
-		err = tmpl.Execute(w, data)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	})
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
 
+// Obsługuje stronę 'project1'
+func serveProject1(w http.ResponseWriter, r *http.Request) {
+	data := PageData{
+		Title:  "Project 1",
+		Visits: 0,
+	}
+
+	tmplPath := "templates/project1.html"
+	tmpl := template.Must(template.ParseFiles(tmplPath))
+
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+// Obsługuje stronę 'project2'
+func serveProject2(w http.ResponseWriter, r *http.Request) {
+	data := PageData{
+		Title:  "Project 2",
+		Visits: 0,
+	}
+
+	tmplPath := "templates/project2.html"
+	tmpl := template.Must(template.ParseFiles(tmplPath))
+
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func main() {
+	// Ustawienie routingu
+	http.HandleFunc("/", serveHome)       // Strona główna
+	http.HandleFunc("/about", serveAbout) // Strona "About"
+	http.HandleFunc("/project1", serveProject1) // Strona "Project 1"
+	http.HandleFunc("/project2", serveProject2) // Strona "Project 2"
+
+	// Obsługa plików statycznych
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
+	// Uruchomienie serwera
 	log.Println("Serwer działa na http://localhost:8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal("Błąd serwera:", err)
 	}
 }
-
