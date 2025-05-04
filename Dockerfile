@@ -19,4 +19,3 @@ COPY app/templates ./templates
 COPY app/static ./static
 
 CMD ["/app/my_app"]
-
