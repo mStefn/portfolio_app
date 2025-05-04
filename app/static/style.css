@@ -64,7 +64,7 @@ main {
 }
 
 .nav-left {
-    width: 250px; /* Ustawiamy szerokość nawigacji */
+    width: 200px; /* Ustawienie szerokości nawigacji jeszcze bardziej w lewo */
 }
 
 .nav-left ul {
@@ -103,7 +103,7 @@ main {
 }
 
 .looping-gif {
-    width: 80%;
+    width: 65%; /* Zmniejszono gif o 15% więcej, 80% -> 65% */
     max-width: 600px;
     height: auto;
     border-radius: 10px;
