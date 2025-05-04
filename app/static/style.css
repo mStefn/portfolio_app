@@ -59,8 +59,12 @@ main {
     display: flex;
     gap: 40px;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start; /* Zmieniono z center na flex-start, żeby wyrównać do lewej */
     flex-wrap: wrap;
+}
+
+.nav-left {
+    width: 250px; /* Ustawiamy szerokość nawigacji */
 }
 
 .nav-left ul {
@@ -124,5 +128,9 @@ footer {
 
     .looping-gif {
         width: 100%;
+    }
+
+    .nav-left {
+        width: 100%; /* Nawigacja zajmuje pełną szerokość na małych ekranach */
     }
 }
