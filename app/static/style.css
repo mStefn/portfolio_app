@@ -16,17 +16,18 @@ header {
     background-color: #1e1e2f;
     color: #fff;
     padding: 40px 20px;
+    text-align: center;
 }
 
-.header-container {
+.centered-header {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .header-text {
-    max-width: 70%;
+    max-width: 900px;
 }
 
 header h1 {
@@ -49,9 +50,21 @@ header p {
     white-space: nowrap;
 }
 
+main {
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+.content-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .nav-left ul {
     list-style: none;
-    margin-top: 30px;
     padding-left: 0;
     display: flex;
     flex-direction: column;
@@ -60,8 +73,9 @@ header p {
 
 .nav-left .nav-item {
     display: flex;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
 }
 
 .nav-left .nav-item a {
@@ -84,17 +98,12 @@ header p {
     margin: 0;
 }
 
-main {
-    margin: 40px auto;
-    max-width: 900px;
-}
-
 .looping-gif {
-    width: 100%;
+    width: 80%;
+    max-width: 600px;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    margin-bottom: 30px;
     display: block;
 }
 
@@ -108,21 +117,12 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .header-container {
+    .content-container {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
-    .visit-counter {
-        margin-top: 20px;
-    }
-
-    .nav-left .nav-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nav-left .nav-item a {
-        margin-bottom: 5px;
+    .looping-gif {
+        width: 100%;
     }
 }
