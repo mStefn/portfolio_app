@@ -1,3 +1,14 @@
+:root {
+    --primary-bg: #1b1b2e;
+    --accent-purple: #443C68;
+    --accent-pink: #ff4f91;
+    --text-light: #ffffff;
+    --text-dark: #333;
+    --nav-hover: #5a4b7c;
+    --highlight-green: #00ff88;
+    --background-light: #f5f3f7;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,15 +17,15 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f6f6;
-    color: #333;
+    background-color: var(--background-light);
+    color: var(--text-dark);
     line-height: 1.6;
     padding: 0 20px;
 }
 
 header {
-    background-color: #1e1e2f;
-    color: #fff;
+    background-color: var(--primary-bg);
+    color: var(--text-light);
     padding: 40px 20px;
     text-align: center;
 }
@@ -59,12 +70,16 @@ main {
     display: flex;
     gap: 40px;
     align-items: flex-start;
-    justify-content: flex-start; /* Zmieniono z center na flex-start, żeby wyrównać do lewej */
+    justify-content: flex-start;
     flex-wrap: wrap;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .nav-left {
-    width: 200px; /* Ustawienie szerokości nawigacji jeszcze bardziej w lewo */
+    width: 200px;
 }
 
 .nav-left ul {
@@ -84,40 +99,44 @@ main {
 
 .nav-left .nav-item a {
     text-decoration: none;
-    color: #fff;
-    background-color: #3b3b5d;
+    color: var(--text-light);
+    background-color: var(--accent-purple);
     padding: 10px 20px;
     border-radius: 25px;
     font-weight: bold;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 3px 10px rgba(68, 60, 104, 0.2);
 }
 
 .nav-left .nav-item a:hover {
-    background-color: #56567a;
+    background-color: var(--nav-hover);
+    box-shadow: 0 5px 15px rgba(90, 75, 124, 0.4);
 }
 
 .nav-left .nav-item p {
     font-size: 1rem;
-    color: #333;
+    color: var(--text-dark);
     margin: 0;
 }
 
 .looping-gif {
-    width: 65%; /* Zmniejszono gif o 15% więcej, 80% -> 65% */
+    width: 65%;
     max-width: 600px;
     height: auto;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
     display: block;
 }
 
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #f2f2f2;
+    background-color: #ece9f1;
     font-size: 0.9rem;
     color: #666;
     margin-top: 60px;
+    border-radius: 10px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
 }
 
 @media (max-width: 768px) {
@@ -131,6 +150,6 @@ footer {
     }
 
     .nav-left {
-        width: 100%; /* Nawigacja zajmuje pełną szerokość na małych ekranach */
+        width: 100%;
     }
 }
