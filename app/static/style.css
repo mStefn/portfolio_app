@@ -51,8 +51,8 @@ header p {
 }
 
 .visit-counter {
-    background: linear-gradient(135deg, var(--accent-pink), #ff6aa4);
-    color: var(--text-light);
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    color: #fff;
     padding: 10px 20px;
     border-radius: 30px;
     font-weight: bold;
