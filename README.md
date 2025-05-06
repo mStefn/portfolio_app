@@ -23,19 +23,6 @@ The primary goal is to **learn by doing** — to continuously improve my skills 
 - **HTML/CSS** – Static front-end
 - **Nginx** – Reverse proxy
 
-## 📁 Project Structure
-.
-├── ansible/ # Infrastructure automation (roles, playbooks, inventory)
-│ ├── playbooks/
-│ └── roles/ # Includes docker, nginx, golang setup etc.
-├── app/ # Golang-based web app and static files
-│ ├── static/ # CSS and media (e.g. gif)
-│ └── templates/ # HTML templates
-├── db/ # Database init script and data volume
-├── nginx/ # Nginx configuration and Dockerfile
-├── docker-compose.yml
-├── Dockerfile # App container definition
-└── README.md
 
 ## 📦 Key Features
 
