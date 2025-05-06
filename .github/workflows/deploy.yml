@@ -3,7 +3,7 @@ name: Deploy to Web Server
 on:
   push:
     branches:
-      - main
+      - main  
 
 jobs:
   deploy:
@@ -11,7 +11,7 @@ jobs:
 
     env:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
-      AWS_SG_NAME: ${{ secrets.AWS_SECURITY_GROUP_NAME }}
+      AWS_SG_NAME: ${{ secrets.AWS_SECURITY_GROUP_NAME }} 
 
     steps:
       - name: Checkout repository
@@ -35,6 +35,22 @@ jobs:
         run: |
           docker push ghcr.io/mstefn/portfolio_app:latest
 
+      - name: Get public IP of GitHub runner
+        id: ip
+        run: echo "ipv4=$(curl -s https://api.ipify.org)" >> $GITHUB_OUTPUT
+
+      - name: Add GitHub Actions IP to Security Group
+        run: |
+          aws ec2 authorize-security-group-ingress \
+            --group-name ${{ env.AWS_SG_NAME }} \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+
       - name: Get EC2 public IP
         id: get_ec2_ip
         run: |
@@ -43,46 +59,28 @@ jobs:
             --instance-ids $INSTANCE_ID \
             --query "Reservations[0].Instances[0].PublicIpAddress" \
             --output text)
-          
-          echo "Public IP: $PUBLIC_IP"  # Log the public IP (no masking)
-          echo "public_ip=$PUBLIC_IP" >> $GITHUB_OUTPUT
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
-
-      - name: Add GitHub Actions IP to Security Group
-        run: |
-          aws ec2 authorize-security-group-ingress \
-            --group-name ${{ env.AWS_SG_NAME }} \
-            --protocol tcp \
-            --port 22 \
-            --cidr ${{ steps.get_ec2_ip.outputs.public_ip }}/32
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+          echo "EC2 Instance IP: $PUBLIC_IP"
+          echo "ec2_ip=$PUBLIC_IP" >> $GITHUB_ENV
 
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ steps.get_ec2_ip.outputs.public_ip }} >> ~/.ssh/known_hosts
-          echo "Attempting SSH connection to: ${{ steps.get_ec2_ip.outputs.public_ip }}"
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@${{ steps.get_ec2_ip.outputs.public_ip }} 'echo "SSH connection established"'
+          ssh-keyscan -H ${{ env.ec2_ip }} >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'echo "SSH connection established"'
 
       - name: Stop running containers
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ steps.get_ec2_ip.outputs.public_ip }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml down'
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml down'
 
       - name: Pull Docker image
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ steps.get_ec2_ip.outputs.public_ip }} 'docker pull ghcr.io/mstefn/portfolio_app:latest'
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker pull ghcr.io/mstefn/portfolio_app:latest'
 
       - name: Deploy the app
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ steps.get_ec2_ip.outputs.public_ip }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml up -d'
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml up -d'
 
       - name: Remove GitHub Actions IP from Security Group
         run: |
@@ -90,7 +88,7 @@ jobs:
             --group-name ${{ env.AWS_SG_NAME }} \
             --protocol tcp \
             --port 22 \
-            --cidr ${{ steps.get_ec2_ip.outputs.public_ip }}/32
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
