@@ -1,16 +1,58 @@
-name: Start EC2 Instance
+name: Start EC2 Instance and Update DNS
 
 on:
   workflow_dispatch:
 
 jobs:
-  start-ec2:
+  start-ec2-and-update-dns:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
       - name: Start EC2 instance
         run: |
           aws ec2 start-instances --instance-ids ${{ secrets.EC2_INSTANCE_ID }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+
+      - name: Wait for instance to be in running state
+        run: |
+          aws ec2 wait instance-running --instance-ids ${{ secrets.EC2_INSTANCE_ID }}
+
+      - name: Get EC2 public IP
+        id: get_ip
+        run: |
+          INSTANCE_ID=${{ secrets.EC2_INSTANCE_ID }}
+          PUBLIC_IP=$(aws ec2 describe-instances \
+            --instance-ids "$INSTANCE_ID" \
+            --query "Reservations[0].Instances[0].PublicIpAddress" \
+            --output text)
+          echo "EC2 Instance IP: $PUBLIC_IP"
+          echo "ec2_ip=$PUBLIC_IP" >> $GITHUB_ENV
+
+      - name: Update Route 53 DNS record
+        run: |
+          cat > change-batch.json <<EOF
+          {
+            "Comment": "Update record to reflect new EC2 IP",
+            "Changes": [{
+              "Action": "UPSERT",
+              "ResourceRecordSet": {
+                "Name": "m-stefn.pl",
+                "Type": "A",
+                "TTL": 300,
+                "ResourceRecords": [{
+                  "Value": "${{ env.ec2_ip }}"
+                }]
+              }
+            }]
+          }
+          EOF
+
+          aws route53 change-resource-record-sets \
+            --hosted-zone-id Z0073682HDCNOR680OYQ \
+            --change-batch file://change-batch.json
