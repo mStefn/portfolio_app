@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Title}}</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/subpage.css">
 </head>
 <body>
     <header>
         <h1>{{.Title}}</h1>
-        <nav>
-            <a href="/">Home</a> | <a href="/about">About</a> | <a href="/project1">Project 1</a> | <a href="/project2">Project 2</a>
-        </nav>
+        <div class="nav-container">
+            <a href="/" class="nav-button">Home</a>            
+            <a href="/about" class="nav-button">About</a>
+            <a href="/project1" class="nav-button">Project 1</a>
+        </div>
     </header>
     <main>
         <div class="content-container">
-            <h2>Project 2</h2>
-            <p>This project demonstrates how to deploy and automate infrastructure using Ansible, Docker, and CI/CD pipelines on AWS EC2 instances.</p>
+            <h2></h2>
+            <p>Work in progress.</p>
         </div>
     </main>
 </body>
