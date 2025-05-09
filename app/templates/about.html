@@ -5,22 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Title}}</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="stylesheet" href="/static/subpage.css"> <!-- Nowy plik CSS dla strony About -->
+    <link rel="stylesheet" href="/static/subpage.css"> 
 </head>
 <body>
     <header>
-        <h1>{{.Title}}</h1>
-        <!-- Nowy kontener dla przycisków -->
+        <h1>{{.Title}}</h1>        
         <div class="nav-container">
-            <a href="/" class="nav-button">Home</a>
-            <a href="/about" class="nav-button active">About</a> <!-- Usunięcie linku na stronę About -->
+            <a href="/" class="nav-button">Home</a>            
             <a href="/project1" class="nav-button">Project 1</a>
             <a href="/project2" class="nav-button">Project 2</a>
         </div>
     </header>
     <main>
         <div class="content-container">
-            <h2>About Me</h2>
             <p>I'm passionate about Linux, automation, and building my skills as a DevOps engineer.</p>
         </div>
     </main>
