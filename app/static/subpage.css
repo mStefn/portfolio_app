@@ -1,0 +1,29 @@
+/* Specyficzny CSS dla strony "About" */
+.nav-container {
+    display: flex;
+    justify-content: center; /* Wyśrodkowanie przycisków */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.nav-button {
+    text-decoration: none;
+    color: var(--text-light);
+    background-color: var(--accent-purple);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 3px 10px rgba(68, 60, 104, 0.2);
+}
+
+.nav-button:hover {
+    background-color: var(--nav-hover);
+    box-shadow: 0 5px 15px rgba(90, 75, 124, 0.4);
+}
+
+/* Wyróżnienie aktywnej strony */
+.nav-button.active {
+    background-color: var(--highlight-green); /* Aktywny link */
+}
+

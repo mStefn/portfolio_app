@@ -5,13 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Title}}</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/about.css"> <!-- Nowy plik CSS dla strony About -->
 </head>
 <body>
     <header>
         <h1>{{.Title}}</h1>
-        <nav>
-            <a href="/">Home</a> | <a href="/about">About</a> | <a href="/project1">Project 1</a> | <a href="/project2">Project 2</a>
-        </nav>
+        <!-- Nowy kontener dla przycisków -->
+        <div class="nav-container">
+            <a href="/" class="nav-button">Home</a>
+            <a href="/about" class="nav-button active">About</a> <!-- Usunięcie linku na stronę About -->
+            <a href="/project1" class="nav-button">Project 1</a>
+            <a href="/project2" class="nav-button">Project 2</a>
+        </div>
     </header>
     <main>
         <div class="content-container">
