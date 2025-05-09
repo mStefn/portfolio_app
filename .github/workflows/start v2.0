@@ -1,0 +1,93 @@
+name: Start EC2 Instance, Update DNS and Deploy App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  start-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Start EC2 instance
+        run: |
+          aws ec2 start-instances --instance-ids ${{ secrets.EC2_INSTANCE_ID }}
+
+      - name: Wait for instance to be in running state
+        run: |
+          aws ec2 wait instance-running --instance-ids ${{ secrets.EC2_INSTANCE_ID }}
+
+      - name: Get EC2 public IP
+        id: get_ip
+        run: |
+          INSTANCE_ID=${{ secrets.EC2_INSTANCE_ID }}
+          PUBLIC_IP=$(aws ec2 describe-instances \
+            --instance-ids "$INSTANCE_ID" \
+            --query "Reservations[0].Instances[0].PublicIpAddress" \
+            --output text)
+          echo "EC2 Instance IP: $PUBLIC_IP"
+          echo "ec2_ip=$PUBLIC_IP" >> $GITHUB_ENV
+
+      - name: Update Route 53 DNS record
+        run: |
+          cat > change-batch.json <<EOF
+          {
+            "Comment": "Update record to reflect new EC2 IP",
+            "Changes": [{
+              "Action": "UPSERT",
+              "ResourceRecordSet": {
+                "Name": "m-stefn.pl",
+                "Type": "A",
+                "TTL": 300,
+                "ResourceRecords": [{
+                  "Value": "${{ env.ec2_ip }}"
+                }]
+              }
+            }]
+          }
+          EOF
+
+          aws route53 change-resource-record-sets \
+            --hosted-zone-id Z0073682HDCNOR680OYQ \
+            --change-batch file://change-batch.json
+
+      - name: Get public IP of GitHub runner
+        id: ip
+        run: echo "ipv4=$(curl -s https://api.ipify.org)" >> $GITHUB_OUTPUT
+
+      - name: Allow SSH from GitHub Actions to EC2
+        run: |
+          aws ec2 authorize-security-group-ingress \
+            --group-name ${{ secrets.AWS_SECURITY_GROUP_NAME }} \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
+
+      - name: Set up SSH key and connect to EC2
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ env.ec2_ip }} >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'echo "SSH OK"'
+
+      - name: Run app with docker-compose
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} '
+            cd /home/ec2-user/portfolio-deploy && \
+            docker-compose up -d
+          '
+
+      - name: Revoke SSH access from GitHub Actions IP
+        run: |
+          aws ec2 revoke-security-group-ingress \
+            --group-name ${{ secrets.AWS_SECURITY_GROUP_NAME }} \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
