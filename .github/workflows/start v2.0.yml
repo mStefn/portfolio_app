@@ -61,13 +61,14 @@ jobs:
         id: ip
         run: echo "ipv4=$(curl -s https://api.ipify.org)" >> $GITHUB_OUTPUT
 
-      - name: Allow SSH from GitHub Actions to EC2
+      - name: Add GitHub Actions IP to Security Group
         run: |
           aws ec2 authorize-security-group-ingress \
-            --group-name ${{ secrets.AWS_SECURITY_GROUP_NAME }} \
+            --group-name ${{ env.AWS_SG_NAME }} \
             --protocol tcp \
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
+
 
       - name: Set up SSH key and connect to EC2
         run: |
