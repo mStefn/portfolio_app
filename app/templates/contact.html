@@ -10,16 +10,13 @@
 <body>
     <header>
         <h1>{{.Title}}</h1>
-    </header>
-
-    <main>
-        <div class="nav-container">
-            <a class="nav-button" href="/">Home</a>
-            <a class="nav-button" href="/about">About</a>
-            <a class="nav-button" href="/project1">Project 1</a>
-            <a class="nav-button" href="/project2">Project 2</a>
+            <div class="nav-container">
+            <a href="/about" class="nav-button">About</a>   
+            <a href="/" class="nav-button">Home</a>            
+            <a href="/project1" class="nav-button">Project 1</a>
+            <a href="/project2" class="nav-button">Project 2</a>
         </div>
-
+    </header>
         <section style="margin-top: 40px;">
             <h2>Contact Me</h2>
             <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contactForm">
