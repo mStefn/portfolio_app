@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/style.css" >
+    <link rel="stylesheet" href="/static/subpage.css" >
+</head>
+<body>
+    <header>
+        <h1>{{.Title}}</h1>
+            <div class="nav-container">
+            <a href="/" class="nav-button">Home</a>
+            <a href="/about" class="nav-button">About</a>                           
+            <a href="/project1" class="nav-button">Project 1</a>
+            <a href="/project2" class="nav-button">Project 2</a>
+        </div>
+    </header>
+        <section style="margin-top: 40px;">
+            <h2>Contact Me</h2>
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contactForm">
+                <label>
+                    Name:<br>
+                    <input type="text" name="name" required>
+                </label><br><br>
+                <label>
+                    Email:<br>
+                    <input type="email" name="email" required>
+                </label><br><br>
+                <label>
+                    Message:<br>
+                    <textarea name="message" rows="6" required></textarea>
+                </label><br><br>
+                <button type="submit" class="nav-button">Send Message</button>
+            </form>
+
+            <div id="thanksMessage" style="display:none; margin-top:30px;">
+                <h3>Thank you for your message!</h3>
+                <img src="/static/videos/gif.gif" alt="Thanks!" class="looping-gif">
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            fetch(form.action, {
+                method: "POST",
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    form.style.display = "none";
+                    document.getElementById("thanksMessage").style.display = "block";
+                } else {
+                    alert("There was a problem sending the message. Please try again.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

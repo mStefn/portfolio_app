@@ -77,11 +77,11 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Obsługuje stronę 'about'
+
 func serveAbout(w http.ResponseWriter, r *http.Request) {
 	data := PageData{
 		Title:  "About Me",
-		Visits: 0, // Możesz ustawić odpowiednią liczbę wizyt lub zaktualizować bazę danych, jeśli chcesz
+		Visits: 0, 
 	}
 
 	tmplPath := "templates/about.html"
@@ -125,12 +125,29 @@ func serveProject2(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func serveContact(w http.ResponseWriter, r *http.Request) {
+	data := PageData{
+		Title: "Contact",
+		Visits: 0,
+	}
+
+	tmplPath := "templates/contact.html"
+	tmpl := template.Must(template.ParseFiles(tmplPath))
+
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+
 func main() {
 	// Ustawienie routingu
 	http.HandleFunc("/", serveHome)       // Strona główna
 	http.HandleFunc("/about", serveAbout) // Strona "About"
 	http.HandleFunc("/project1", serveProject1) // Strona "Project 1"
 	http.HandleFunc("/project2", serveProject2) // Strona "Project 2"
+	http.HandleFunc("/contact", serveContact)
 
 	// Obsługa plików statycznych
 	fs := http.FileServer(http.Dir("static"))

@@ -5,17 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Title}}</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/subpage.css">
 </head>
 <body>
     <header>
         <h1>{{.Title}}</h1>
-        <nav>
-            <a href="/">Home</a> | <a href="/about">About</a> | <a href="/project2">Project 2</a>
-        </nav>
+        <div class="nav-container">
+            <a href="/" class="nav-button">Home</a>            
+            <a href="/about" class="nav-button">About</a>
+            <a href="/project2" class="nav-button">Project 2</a>
+            <a href="/contact" class="nav-button">Contact</a>
+        </div>
     </header>
     <main>
-        <h2>Project 1</h2>
-        <p>This is a simple portfolio app built with Go and HTML/CSS.</p>
+        <div class="content-container">
+            <h2></h2>
+            <p>This is a simple portfolio app built with Go and HTML/CSS.</p>
+        </div>
     </main>
 </body>
 </html>
