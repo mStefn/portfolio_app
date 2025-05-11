@@ -24,7 +24,8 @@ body {
 }
 
 header {
-    background-color: var(--primary-bg);
+    background: url("/static/header-bg.png") no-repeat center center;
+    background-size: cover;
     color: var(--text-light);
     padding: 40px 20px;
     text-align: center;
