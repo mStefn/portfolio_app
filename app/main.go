@@ -10,12 +10,13 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// Struktura do przechowywania danych strony
+// Struktura danych dla strony
 type PageData struct {
 	Title  string
 	Visits int
 }
 
+// Funkcja do pobierania liczby wizyt
 func getVisitCount() (int, error) {
 	dbURL := os.Getenv("DATABASE_URL")
 	db, err := sql.Open("postgres", dbURL)
@@ -33,6 +34,7 @@ func getVisitCount() (int, error) {
 	return count, nil
 }
 
+// Funkcja do inkrementacji liczby wizyt
 func incrementVisitCount() error {
 	dbURL := os.Getenv("DATABASE_URL")
 	db, err := sql.Open("postgres", dbURL)
@@ -49,7 +51,12 @@ func incrementVisitCount() error {
 	return nil
 }
 
-// Obsługuje stronę główną
+// Funkcja do ustawiania nagłówka CSP
+func setCSP(w http.ResponseWriter) {
+	w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self' https://formspree.io; style-src 'self';")
+}
+
+// Funkcja obsługująca stronę główną
 func serveHome(w http.ResponseWriter, r *http.Request) {
 	err := incrementVisitCount()
 	if err != nil {
@@ -77,7 +84,7 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-
+// Funkcja obsługująca stronę "About"
 func serveAbout(w http.ResponseWriter, r *http.Request) {
 	data := PageData{
 		Title:  "About Me",
@@ -93,7 +100,7 @@ func serveAbout(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Obsługuje stronę 'project1'
+// Funkcja obsługująca projekt 1
 func serveProject1(w http.ResponseWriter, r *http.Request) {
 	data := PageData{
 		Title:  "Project 1",
@@ -109,7 +116,7 @@ func serveProject1(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Obsługuje stronę 'project2'
+// Funkcja obsługująca projekt 2
 func serveProject2(w http.ResponseWriter, r *http.Request) {
 	data := PageData{
 		Title:  "Project 2",
@@ -125,9 +132,12 @@ func serveProject2(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Funkcja obsługująca stronę kontaktową
 func serveContact(w http.ResponseWriter, r *http.Request) {
+	setCSP(w) // Dodanie nagłówka CSP
+
 	data := PageData{
-		Title: "Contact",
+		Title:  "Contact",
 		Visits: 0,
 	}
 
@@ -140,16 +150,16 @@ func serveContact(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-
+// Główna funkcja
 func main() {
-	// Ustawienie routingu
-	http.HandleFunc("/", serveHome)       // Strona główna
-	http.HandleFunc("/about", serveAbout) // Strona "About"
-	http.HandleFunc("/project1", serveProject1) // Strona "Project 1"
-	http.HandleFunc("/project2", serveProject2) // Strona "Project 2"
+	// Obsługa tras
+	http.HandleFunc("/", serveHome)
+	http.HandleFunc("/about", serveAbout)
+	http.HandleFunc("/project1", serveProject1)
+	http.HandleFunc("/project2", serveProject2)
 	http.HandleFunc("/contact", serveContact)
 
-	// Obsługa plików statycznych
+	// Serwowanie plików statycznych (np. CSS, JS)
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
