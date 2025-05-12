@@ -1,7 +1,6 @@
-/* Specyficzny CSS dla strony "About" */
 .nav-container {
     display: flex;
-    justify-content: center; /* Wyśrodkowanie przycisków */
+    justify-content: center; 
     gap: 15px;
     margin-top: 20px;
 }
@@ -22,8 +21,7 @@
     box-shadow: 0 5px 15px rgba(90, 75, 124, 0.4);
 }
 
-/* Wyróżnienie aktywnej strony */
 .nav-button.active {
-    background-color: var(--highlight-green); /* Aktywny link */
+    background-color: var(--highlight-green); 
 }
 
