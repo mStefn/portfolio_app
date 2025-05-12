@@ -25,7 +25,7 @@ body {
 
 header {
     height: 300px; /* stała wysokość nagłówka */
-    background: url("/static/header-bg.png") center center no-repeat;
+    background: url("/static/header-bg-2.png") center center no-repeat;
     background-size: 100% 100%; /* pokazuje cały obraz, nawet jeśli zniekształcony */
     color: var(--text-light);
     text-align: center;
