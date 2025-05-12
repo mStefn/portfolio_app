@@ -59,10 +59,10 @@ header p {
     font-size: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
-    position: fixed; /* Ustawienie elementu w prawym górnym rogu */
-    top: 20px; /* Odstęp od górnej krawędzi */
-    right: 20px; /* Odstęp od prawej krawędzi */
-    z-index: 1000; /* Zapewnia, że element będzie widoczny na wierzchu */
+    position: fixed; 
+    top: 20px; 
+    right: 40px; 
+    z-index: 1000; 
 }
 
 main {

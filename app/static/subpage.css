@@ -62,3 +62,14 @@
     outline: none;
     box-shadow: 0 0 5px rgba(68, 60, 104, 0.3);
 }
+
+
+#thanksMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+    margin-top: 30px;
+    font-size: 1.5rem;
+    color: var(--accent-purple); 
+}
