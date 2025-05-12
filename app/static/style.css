@@ -24,15 +24,10 @@ body {
 }
 
 header {
-    height: 300px; /* stała wysokość nagłówka */
-    background: url("/static/header-bg-2.png") center center no-repeat;
-    background-size: 100% 100%; /* pokazuje cały obraz, nawet jeśli zniekształcony */
+    background-color: var(--primary-bg);
     color: var(--text-light);
+    padding: 40px 20px;
     text-align: center;
-    padding: 0 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .centered-header {
