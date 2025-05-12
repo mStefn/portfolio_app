@@ -57,8 +57,12 @@ header p {
     border-radius: 30px;
     font-weight: bold;
     font-size: 1rem;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
+    position: fixed; 
+    top: 20px; 
+    right: 40px; 
+    z-index: 1000; 
 }
 
 main {
@@ -75,7 +79,7 @@ main {
     background: #ffffff;
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .nav-left {
@@ -136,7 +140,7 @@ footer {
     color: #666;
     margin-top: 60px;
     border-radius: 10px;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
 }
 
 @media (max-width: 768px) {
