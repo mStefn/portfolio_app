@@ -13,12 +13,11 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('/static/7076118.jpg');  /* lub 'background.png' jeśli plik leży obok */
-    background-size: cover;         /* Cały obraz widoczny */
-    background-repeat: no-repeat;     /* Nie powtarzaj */
-    background-position: center;      /* Wyśrodkuj */
-    background-attachment: fixed;     /* Obraz nie przesuwa się przy scrollowaniu */
-    background-color: rgba(245, 243, 247, 0.6);  /* Półprzezroczyste tło bazowe */
+
+    /* background-image: url('/static/7076118.jpg'); */  /* ZDJĘCIE TŁA – ZAKOMENTOWANE */
+    /* Obraz został wyłączony. Używamy teraz gradientu. */
+
+    background: linear-gradient(to right, #000000, #444444);  /* Czarny do szarego */
     color: var(--text-dark);
     line-height: 1.6;
     padding: 20px;
