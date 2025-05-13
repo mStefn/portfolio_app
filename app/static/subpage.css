@@ -1,6 +1,6 @@
 .nav-container {
     display: flex;
-    justify-content: center;
+    justify-content: center; 
     gap: 15px;
     margin-top: 20px;
 }
@@ -25,7 +25,6 @@
     background-color: var(--highlight-green); 
 }
 
-
 .contact-card {
     background-color: #fff;
     border-radius: 20px;
@@ -34,7 +33,6 @@
     max-width: 600px;
     margin: 0 auto;
 }
-
 
 .form-group {
     margin-bottom: 25px;
@@ -58,21 +56,9 @@
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: var(--accent-purple);
     outline: none;
     box-shadow: 0 0 5px rgba(68, 60, 104, 0.3);
-}
-
-
-#thanksMessage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-top: 30px;
-    font-size: 1.5rem;
-    color: var(--accent-purple); 
 }
