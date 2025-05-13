@@ -7,42 +7,20 @@
     <link rel="stylesheet" href="/static/style.css" >
 </head>
 <body>
-    <header>
-        <div class="header-container centered-header">
-            <div class="header-text">
-                <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio.</h1>
-                <p></p>
-            </div>
-            <div class="visit-counter">
-                Visits: {{ .Visits }}
-            </div>
-        </div>
-    </header>
+    <div class="visit-counter">
+        Visits: {{ .Visits }}
+    </div>
 
-    <main>
-        <div class="content-container">
-            <nav class="nav-left">
-                <ul>
-                    <li class="nav-item">
-                        <a href="/about">About me</a>
-                        <p></p>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/project1">Project 1</a>
-                        <p></p>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/project2">Project 2</a>
-                        <p></p>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/contact">Contact Me</a>
-                        <p></p>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </main>
+    <h1 style="color: white; text-align: center; margin-bottom: 40px;">
+        Hi! I'm Maciej Stefanowicz – welcome to my portfolio.
+    </h1>
+
+    <nav class="nav-container">
+        <a href="/about" class="nav-button">About Me</a>
+        <a href="/project1" class="nav-button">Project 1</a>
+        <a href="/project2" class="nav-button">Project 2</a>
+        <a href="/contact" class="nav-button">Contact Me</a>
+    </nav>
 
     <footer>
         <p>&copy; 2025 Maciej Stefanowicz. All rights reserved.</p>

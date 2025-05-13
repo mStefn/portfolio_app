@@ -43,6 +43,13 @@ body {
     z-index: 1000; /* Zapewnia, że element będzie widoczny na wierzchu */
 }
 
+.nav-container {
+    display: flex;
+    justify-content: center; 
+    gap: 15px;
+    margin-top: 20px;
+}
+
 .nav-button {
     text-decoration: none;
     color: var(--text-light);
