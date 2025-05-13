@@ -3,6 +3,9 @@
     --text-light: #fff;
     --accent: #443C68;
     --accent-hover: #5a4b7c;
+    --accent-purple: #443C68;
+    --nav-hover: #5a4b7c;
+    --highlight-green: #4caf50;
 }
 
 * {
@@ -13,11 +16,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-    /* background-image: url('/static/7076118.jpg'); */  /* ZDJĘCIE TŁA – ZAKOMENTOWANE */
-    /* Obraz został wyłączony. Używamy teraz gradientu. */
-
-    background: linear-gradient(to right, #000000, #444444);  /* Czarny do szarego */
+    background: linear-gradient(to right, #000000, #444444);  /* Gradient tła */
     color: var(--text-dark);
     line-height: 1.6;
     padding: 20px;
@@ -37,17 +36,18 @@ body {
     font-size: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
-    position: fixed; /* Ustawienie elementu w prawym górnym rogu */
-    top: 20px; /* Odstęp od górnej krawędzi */
-    right: 20px; /* Odstęp od prawej krawędzi */
-    z-index: 1000; /* Zapewnia, że element będzie widoczny na wierzchu */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
 }
 
 .nav-container {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     gap: 15px;
-    margin-top: 20px;
+    margin: 40px 0;
+    flex-wrap: wrap;
 }
 
 .nav-button {
@@ -67,16 +67,17 @@ body {
 }
 
 .nav-button.active {
-    background-color: var(--highlight-green); 
+    background-color: var(--highlight-green);
 }
 
 footer {
+    width: 100%;
     text-align: center;
     padding: 20px;
-    background-color: #ece9f1;
+    background-color: rgba(236, 233, 241, 0.6); /* Półprzezroczysta stopka */
     font-size: 0.9rem;
     color: #666;
     margin-top: 60px;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
 }
