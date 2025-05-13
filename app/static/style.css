@@ -13,22 +13,27 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('/static/background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: rgba(245, 243, 247, 0.6);
+    background-image: url('/static/background.png');  /* lub 'background.png' jeśli plik leży obok */
+    background-size: contain;         /* Cały obraz widoczny */
+    background-repeat: no-repeat;     /* Nie powtarzaj */
+    background-position: center;      /* Wyśrodkuj */
+    background-attachment: fixed;     /* Obraz nie przesuwa się przy scrollowaniu */
+    background-color: rgba(245, 243, 247, 0.6);  /* Półprzezroczyste tło bazowe */
     color: var(--text-dark);
     line-height: 1.6;
     padding: 20px;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Stylowanie przycisków */
+/* Przyciski – jeśli są */
 button,
 .nav-button,
 input[type="submit"] {
-    background-color: rgba(68, 60, 104, 0.9); /* Półprzezroczysty fiolet */
+    background-color: rgba(68, 60, 104, 0.9);
     color: var(--text-light);
     border: none;
     padding: 12px 24px;
@@ -37,7 +42,7 @@ input[type="submit"] {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none; /* dla <a class="nav-button"> */
+    text-decoration: none;
     display: inline-block;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -49,27 +54,7 @@ input[type="submit"]:hover {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
-/* Stylowanie formularzy (jeśli są) */
-form {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 600px;
-    margin: 40px auto;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-input,
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 1rem;
-}
-
-/* Stopka (jeśli zostaje) */
+/* Stopka – opcjonalnie */
 footer {
     text-align: center;
     padding: 20px;
