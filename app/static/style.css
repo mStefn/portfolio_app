@@ -13,8 +13,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('/static/background.png');  /* lub 'background.png' jeśli plik leży obok */
-    background-size: contain;         /* Cały obraz widoczny */
+    background-image: url('/static/7076118.jpg');  /* lub 'background.png' jeśli plik leży obok */
+    background-size: cover;         /* Cały obraz widoczny */
     background-repeat: no-repeat;     /* Nie powtarzaj */
     background-position: center;      /* Wyśrodkuj */
     background-attachment: fixed;     /* Obraz nie przesuwa się przy scrollowaniu */
