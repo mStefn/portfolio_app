@@ -19,16 +19,16 @@
     </header>
 
     <section style="margin-top: 40px;">
-            <div class="contact-card">
+        <div class="contact-card">
             <form action="https://formspree.io/f/xpwdyrwk" method="POST" id="contactForm">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name" required>
+                    <input type="text" name="name" id="name" required autocomplete="name">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" required>
+                    <input type="email" name="email" id="email" required autocomplete="email">
                 </div>
 
                 <div class="form-group">
@@ -38,33 +38,7 @@
 
                 <button type="submit" class="nav-button">Send Message</button>
             </form>
-
-            <div id="thanksMessage" style="display:none; margin-top:30px;">
-                <h3>Thank you for your message!</h3>
-            </div>
         </div>
     </section>
-
-    <script>
-        document.getElementById("contactForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const form = e.target;
-            fetch(form.action, {
-                method: "POST",
-                body: new FormData(form),
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    form.style.display = "none";
-                    document.getElementById("thanksMessage").style.display = "block";
-                } else {
-                    alert("There was a problem sending the message. Please try again.");
-                }
-            });
-        });
-    </script>
 </body>
 </html>
