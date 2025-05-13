@@ -1,12 +1,8 @@
 :root {
-    --primary-bg: #1b1b2e;
-    --accent-purple: #443C68;
-    --accent-pink: #ff4f91;
-    --text-light: #ffffff;
     --text-dark: #333;
-    --nav-hover: #5a4b7c;
-    --highlight-green: #00ff88;
-    --background-light: #f5f3f7;
+    --text-light: #fff;
+    --accent: #443C68;
+    --accent-hover: #5a4b7c;
 }
 
 * {
@@ -17,134 +13,70 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('/static/background.png'); /* Tło obrazkowe */
-    background-size: cover; /* Dopasowanie obrazu do rozmiaru ekranu */
-    background-position: center; /* Wyśrodkowanie obrazu */
-    background-repeat: no-repeat; /* Zapobiega powtarzaniu obrazu */
-    background-color: rgba(245, 243, 247, 0.6); /* Przezroczyste tło */
+    background-image: url('/static/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(245, 243, 247, 0.6);
     color: var(--text-dark);
     line-height: 1.6;
-    padding: 0 20px;
+    padding: 20px;
+    min-height: 100vh;
 }
 
-header {
-    background-color: var(--primary-bg);
+/* Stylowanie przycisków */
+button,
+.nav-button,
+input[type="submit"] {
+    background-color: rgba(68, 60, 104, 0.9); /* Półprzezroczysty fiolet */
     color: var(--text-light);
-    padding: 40px 20px;
-    text-align: center;
-}
-
-.centered-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.header-text {
-    max-width: 900px;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-header p {
-    font-size: 1.2rem;
-}
-
-.visit-counter {
-    background: linear-gradient(135deg, #ff6a00, #ee0979);
-    color: #fff;
-    padding: 10px 20px;
+    border: none;
+    padding: 12px 24px;
     border-radius: 30px;
-    font-weight: bold;
     font-size: 1rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
-    position: fixed; /* Ustawienie elementu w prawym górnym rogu */
-    top: 20px; /* Odstęp od górnej krawędzi */
-    right: 20px; /* Odstęp od prawej krawędzi */
-    z-index: 1000; /* Zapewnia, że element będzie widoczny na wierzchu */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none; /* dla <a class="nav-button"> */
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-main {
-    margin: 40px auto;
-    max-width: 1000px;
+button:hover,
+.nav-button:hover,
+input[type="submit"]:hover {
+    background-color: rgba(90, 75, 124, 0.95);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
-.content-container {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    background: #ffffff;
-    border-radius: 20px;
+/* Stylowanie formularzy (jeśli są) */
+form {
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.nav-left {
-    width: 200px;
-}
-
-.nav-left ul {
-    list-style: none;
-    padding-left: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.nav-left .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-}
-
-.nav-left .nav-item a {
-    text-decoration: none;
-    color: var(--text-light);
-    background-color: var(--accent-purple);
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-weight: bold;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 3px 10px rgba(68, 60, 104, 0.2);
-}
-
-.nav-left .nav-item a:hover {
-    background-color: var(--nav-hover);
-    box-shadow: 0 5px 15px rgba(90, 75, 124, 0.4);
-}
-
-.nav-left .nav-item p {
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     font-size: 1rem;
-    color: var(--text-dark);
-    margin: 0;
 }
 
+/* Stopka (jeśli zostaje) */
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #ece9f1;
+    background-color: rgba(236, 233, 241, 0.6);
     font-size: 0.9rem;
     color: #666;
     margin-top: 60px;
     border-radius: 10px;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
-}
-
-@media (max-width: 768px) {
-    .content-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-left {
-        width: 100%;
-    }
 }
