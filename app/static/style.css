@@ -28,36 +28,45 @@ body {
     justify-content: center;
 }
 
-/* Przyciski – jeśli są */
-button,
-.nav-button,
-input[type="submit"] {
-    background-color: rgba(68, 60, 104, 0.9);
-    color: var(--text-light);
-    border: none;
-    padding: 12px 24px;
+.visit-counter {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    color: #fff;
+    padding: 10px 20px;
     border-radius: 30px;
-    font-size: 1rem;
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    position: fixed; /* Ustawienie elementu w prawym górnym rogu */
+    top: 20px; /* Odstęp od górnej krawędzi */
+    right: 20px; /* Odstęp od prawej krawędzi */
+    z-index: 1000; /* Zapewnia, że element będzie widoczny na wierzchu */
+}
+
+.nav-button {
     text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    color: var(--text-light);
+    background-color: var(--accent-purple);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 3px 10px rgba(68, 60, 104, 0.2);
 }
 
-button:hover,
-.nav-button:hover,
-input[type="submit"]:hover {
-    background-color: rgba(90, 75, 124, 0.95);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+.nav-button:hover {
+    background-color: var(--nav-hover);
+    box-shadow: 0 5px 15px rgba(90, 75, 124, 0.4);
 }
 
-/* Stopka – opcjonalnie */
+.nav-button.active {
+    background-color: var(--highlight-green); 
+}
+
 footer {
     text-align: center;
     padding: 20px;
-    background-color: rgba(236, 233, 241, 0.6);
+    background-color: #ece9f1;
     font-size: 0.9rem;
     color: #666;
     margin-top: 60px;
