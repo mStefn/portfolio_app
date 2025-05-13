@@ -3,12 +3,11 @@
     --text-light: #fff;
     --accent: #443C68;
     --accent-hover: #5a4b7c;
-    --accent-purple: #443C68;
-    --nav-hover: #5a4b7c;
-    --highlight-green: #4caf50;
+    --text-color: #ffffff; /* ← Możliwość zmiany koloru tekstów nagłówków itp. */
 }
 
-* {
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -16,17 +15,15 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to right, #000000, #444444);  /* Gradient tła */
+    background: linear-gradient(to right, #000000, #444444);  /* Czarny do szarego */
     color: var(--text-dark);
-    line-height: 1.6;
-    padding: 20px;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 20px;
 }
 
+/* Visit counter – lewy górny róg */
 .visit-counter {
     background: linear-gradient(135deg, #ff6a00, #ee0979);
     color: #fff;
@@ -35,25 +32,26 @@ body {
     font-weight: bold;
     font-size: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
     position: fixed;
     top: 20px;
-    right: 20px;
+    left: 20px;
     z-index: 1000;
 }
 
+/* Przyciski – prawy górny róg */
 .nav-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 40px 0;
-    flex-wrap: wrap;
+    gap: 10px;
+    z-index: 999;
 }
 
 .nav-button {
     text-decoration: none;
     color: var(--text-light);
-    background-color: var(--accent-purple);
+    background-color: var(--accent);
     padding: 10px 20px;
     border-radius: 25px;
     font-weight: bold;
@@ -62,22 +60,30 @@ body {
 }
 
 .nav-button:hover {
-    background-color: var(--nav-hover);
+    background-color: var(--accent-hover);
     box-shadow: 0 5px 15px rgba(90, 75, 124, 0.4);
 }
 
 .nav-button.active {
-    background-color: var(--highlight-green);
+    background-color: #4caf50;
 }
 
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Stopka na dole, rozciągnięta */
 footer {
     width: 100%;
     text-align: center;
     padding: 20px;
-    background-color: rgba(236, 233, 241, 0.6); /* Półprzezroczysta stopka */
+    background-color: rgba(236, 233, 241, 0.6);
     font-size: 0.9rem;
     color: #666;
-    margin-top: 60px;
     border-radius: 10px 10px 0 0;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
 }
