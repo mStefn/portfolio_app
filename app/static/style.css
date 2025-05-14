@@ -15,7 +15,8 @@ html, body {
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to right, #000000, #444444);  /* Czarny do szarego */
+    background: radial-gradient(circle at center, #c2f0f7 0%, #007b83 50%, #004d59 100%);
+    /*background: linear-gradient(to right, #000000, #444444);  /* Czarny do szarego */
     color: var(--text-dark);
     display: flex;
     flex-direction: column;
