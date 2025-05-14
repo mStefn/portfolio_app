@@ -79,12 +79,34 @@ body {
 
 /* Stopka na dole, rozciągnięta */
 footer {
-    width: 100%;
     text-align: center;
     padding: 20px;
-    background-color: rgba(236, 233, 241, 0.6);
+    background: none;         /* Brak tła */
     font-size: 0.9rem;
-    color: #666;
-    border-radius: 10px 10px 0 0;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+    color: #ccc;              /* Jasny szary, dobrze widoczny na ciemnym tle */
+    margin-top: 60px;
+    border-radius: 0;         /* Brak zaokrągleń */
+    box-shadow: none;         /* Brak cienia */
+}
+
+
+.social-links {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 15px;
+  z-index: 1000;
+}
+
+.social-button img {
+  width: 32px;
+  height: 32px;
+  filter: brightness(0) invert(1); /* białe ikony na ciemnym tle */
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.social-button img:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
 }
