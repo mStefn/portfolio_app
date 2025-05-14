@@ -3,7 +3,7 @@
     --text-light: #fff;
     --accent: #443C68;
     --accent-hover: #5a4b7c;
-    --text-color: #ffffff; /* ← Możliwość zmiany koloru tekstów nagłówków itp. */
+    --text-color: #ffffff;
 }
 
 html, body {
@@ -16,7 +16,6 @@ html, body {
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: radial-gradient(circle at center, #c2f0f7 0%, #007b83 50%, #004d59 100%);
-    /*background: linear-gradient(to right, #000000, #444444);  /* Czarny do szarego */
     color: var(--text-dark);
     display: flex;
     flex-direction: column;
@@ -24,31 +23,26 @@ body {
     padding: 20px;
 }
 
-/* Visit counter – lewy górny róg */
-.visit-counter {
-    background: linear-gradient(135deg, #ff6a00, #ee0979);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-weight: bold;
-    font-size: 1rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+/* Nowy nagłówek */
+.main-header {
+    width: 100%;
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0); /* przezroczysty */
+    border-bottom: 1px solid black;
+    padding: 20px 40px;
     z-index: 1000;
 }
 
-/* Przyciski – prawy górny róg */
+/* Nawigacja */
 .nav-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
     display: flex;
-    gap: 15px;
-    z-index: 999;
+    justify-content: flex-end;
+    gap: 20px;
 }
 
+/* Styl przycisków */
 .nav-button {
     background: none;
     border: none;
@@ -72,64 +66,68 @@ body {
     transform: none;
 }
 
-
-.main-content {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+/* Licznik odwiedzin */
+.visit-counter {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
 }
 
-/* Stopka na dole, rozciągnięta */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: none;         /* Brak tła */
-    font-size: 0.9rem;
-    color: #ccc;              /* Jasny szary, dobrze widoczny na ciemnym tle */
-    margin-top: 60px;
-    border-radius: 0;         /* Brak zaokrągleń */
-    box-shadow: none;         /* Brak cienia */
-}
-
-
+/* Ikony społecznościowe */
 .social-links {
-  position: fixed;
-  top: 60px;
-  right: 20px;
-  display: flex;
-  gap: 15px;
-  z-index: 1000;
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
 }
 
 .social-button img {
-  width: 32px;
-  height: 32px;
-  filter: brightness(0) invert(1); /* białe ikony na ciemnym tle */
-  transition: transform 0.3s, opacity 0.3s;
+    width: 32px;
+    height: 32px;
+    filter: brightness(0) invert(1);
+    transition: transform 0.3s, opacity 0.3s;
 }
 
 .social-button img:hover {
-  transform: scale(1.1);
-  opacity: 0.8;
+    transform: scale(1.1);
+    opacity: 0.8;
 }
 
+/* CV download */
 .cv-download {
-    background-color: #2e8b57; /* Zielony */
-    margin-top: 80px;
+    background-color: #2e8b57;
+    margin-top: 120px;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s;
 }
 
 .cv-download:hover {
     background-color: #246b45;
 }
 
+/* Główna treść */
 .home-layout {
     display: flex;
     justify-content: space-between;
     align-items: center;
     min-height: 80vh;
     gap: 40px;
+    margin-top: 100px;
 }
 
 .left-content {
@@ -152,4 +150,14 @@ footer {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-
+/* Stopka */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: none;
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 60px;
+    border-radius: 0;
+    box-shadow: none;
+}

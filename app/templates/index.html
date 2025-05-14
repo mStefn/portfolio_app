@@ -12,6 +12,7 @@
         Visits: {{ .Visits }}
     </div>
 
+    <!-- Ikony społecznościowe -->
     <div class="social-links">
         <a href="https://github.com/mStefn" target="_blank" class="social-button">
             <img src="/static/github-icon.svg" alt="GitHub">
@@ -21,33 +22,36 @@
         </a>
     </div>
 
+    <!-- Nagłówek z nawigacją -->
+    <header class="main-header">
+        <nav class="nav-container">
+            <a href="/" class="nav-button active">Home</a>
+            <a href="/about" class="nav-button">About me</a>
+            <a href="/project1" class="nav-button">Project 1</a>
+            <a href="/project2" class="nav-button">Project 2</a>
+            <a href="/contact" class="nav-button">Contact Me</a>
+        </nav>
+    </header>
+
+    <!-- CV download -->
     <a href="/static/Maciej Stefanowicz CV.pdf" download class="nav-button cv-download">Download CV</a>
 
-    <!-- Navigation buttons -->
-    <div class="nav-container">
-        <a href="/" class="nav-button">Home</a>
-        <a class="nav-button" href="/about">About me</a>
-        <a class="nav-button" href="/project1">Project 1</a>
-        <a class="nav-button" href="/project2">Project 2</a>
-        <a class="nav-button" href="/contact">Contact Me</a>
-    </div>
-
-<main class="home-layout">
-    <div class="left-content">
-        <div class="header-text">
-            <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio.</h1>
-            <p>
-                I'm an IT student currently expanding my skills in DevOps technologies like Docker, Ansible, and AWS.
-                I'm passionate about automation, cloud infrastructure, and eager to kickstart my career in this field.
-            </p>
+    <!-- Główna treść -->
+    <main class="home-layout">
+        <div class="left-content">
+            <div class="header-text">
+                <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio.</h1>
+                <p>
+                    I'm an IT student currently expanding my skills in DevOps technologies like Docker, Ansible, and AWS.
+                    I'm passionate about automation, cloud infrastructure, and eager to kickstart my career in this field.
+                </p>
+            </div>
         </div>
-    </div>
 
-    <div class="right-image">
-        <img src="/static/background.png" alt="Illustration" />
-    </div>
-</main>
-
+        <div class="right-image">
+            <img src="/static/background.png" alt="Illustration" />
+        </div>
+    </main>
 
     <footer>
         <p>&copy; 2025 Maciej Stefanowicz. All rights reserved.</p>
