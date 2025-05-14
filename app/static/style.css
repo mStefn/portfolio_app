@@ -120,4 +120,32 @@ footer {
     background-color: #246b45;
 }
 
+.home-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80vh;
+    gap: 40px;
+}
+
+.left-content {
+    flex: 1;
+    padding: 40px;
+}
+
+.right-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-image img {
+    max-width: 90%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
 
