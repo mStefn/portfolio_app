@@ -24,7 +24,6 @@ body {
     padding: 20px;
 }
 
-/* ✅ 1. Przywrócona niższa wysokość nagłówka */
 .main-header {
     width: 100%;
     background: rgba(0, 0, 0, 0);
@@ -66,7 +65,6 @@ body {
     transform: none;
 }
 
-/* ✅ 5. Licznik odwiedzin po lewej stronie headera */
 .visit-counter-header {
     position: absolute;
     left: 40px;
@@ -81,28 +79,28 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* ✅ 2. Przezroczyste, równe kontenery na treść */
 .home-layout {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     margin-top: 80px;
-    gap: 40px;
+    gap: 20px;
 }
 
 .invisible-box {
-    flex: 0.7;
+    flex: 0.5;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
 
-/* ✅ 3. Lewy kontener – większa czcionka */
 .left-content {
     padding: 20px;
     font-size: 1.15rem;
     max-width: 100%;
     color: var(--text-light);
+    background-color: rgba(255, 255, 255, 0.05); /* przezroczyste tło */
+    border-radius: 12px;
 }
 
 .right-image img {
@@ -113,12 +111,11 @@ body {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* ✅ CV + social w jednej sekcji */
 .cv-section {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: row; /* obok siebie */
+    align-items: center;
+    gap: 20px;
     margin-top: 20px;
 }
 
@@ -162,7 +159,6 @@ footer {
     margin-top: 60px;
 }
 
-/* Ukrycie starych stałych pozycji */
 .social-links,
 .visit-counter {
     display: none;
@@ -185,7 +181,7 @@ footer {
 }
 
 .highlight-name {
-    color: #1e90ff; /* ciekawy niebieski (dodaje energii) */
+    color: #1e90ff;
     font-size: 3rem;
 }
 
