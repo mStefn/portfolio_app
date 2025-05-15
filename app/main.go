@@ -94,7 +94,7 @@ func serveAbout(w http.ResponseWriter, r *http.Request) {
 }
 
 // Obsługuje stronę 'projects'
-func serveProject1(w http.ResponseWriter, r *http.Request) {
+func serveProjects(w http.ResponseWriter, r *http.Request) {
 	data := PageData{
 		Title:  "Projects",
 		Visits: 0,
