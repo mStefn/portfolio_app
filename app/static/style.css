@@ -167,3 +167,31 @@ footer {
 .visit-counter {
     display: none;
 }
+
+.square-box {
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.intro-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.highlight-name {
+    color: #1e90ff; /* ciekawy niebieski (dodaje energii) */
+    font-size: 3rem;
+}
+
+.intro-paragraph {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-top: 1rem;
+}
