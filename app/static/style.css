@@ -103,15 +103,16 @@ body {
 
 /* CV download */
 .cv-download {
-    background-color: #2e8b57;
-    margin-top: 120px;
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 25px;
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s;
+    background-color: #2e8b57;           
+    display: inline-block;               
+    padding: 10px 20px;                  
+    border-radius: 25px;                 
+    color: white;                        
+    font-weight: bold;                   
+    text-decoration: none;               
+    transition: background-color 0.3s;   
+    width: auto;                         
+    margin-top: 20px;                   
 }
 
 .cv-download:hover {
