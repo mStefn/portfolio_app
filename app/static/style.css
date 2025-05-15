@@ -165,12 +165,13 @@ footer {
 }
 
 .square-box {
-    border: 2px solid #ccc;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 2rem;
-    max-width: 600px;
-    background-color: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
 .intro-heading {
