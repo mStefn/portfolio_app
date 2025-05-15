@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="/static/style.css" >
 </head>
 <body>
-    <!-- Główny nagłówek -->
+    <!-- Nagłówek -->
     <header class="main-header">
-        <!-- ✅ ZMIANA 5: Licznik w headerze po lewej -->
         <div class="visit-counter-header">
             Visits: {{ .Visits }}
         </div>
-
         <nav class="nav-container">
             <a href="/" class="nav-button active">Home</a>
             <a href="/about" class="nav-button">About me</a>
@@ -23,34 +21,37 @@
         </nav>
     </header>
 
-    <!-- Główna treść -->
+    <!-- Główna treść w przezroczystych kontenerach -->
     <main class="home-layout">
-        <div class="left-content">
-            <div class="header-text">
-                <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio.</h1>
-                <p>
-                    I'm an IT student currently expanding my skills in DevOps technologies like Docker, Ansible, and AWS.
-                    I'm passionate about automation, cloud infrastructure, and eager to kickstart my career in this field.
-                </p>
+        <div class="invisible-box">
+            <div class="left-content">
+                <div class="header-text">
+                    <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio.</h1>
+                    <p>
+                        I'm an IT student currently expanding my skills in DevOps technologies like Docker, Ansible, and AWS.
+                        I'm passionate about automation, cloud infrastructure, and eager to kickstart my career in this field.
+                    </p>
 
-                <!-- CV + Social + Visits -->
-                <div class="cv-section">
-                    <a href="/static/Maciej Stefanowicz CV.pdf" download class="nav-button cv-download">Download CV</a>
+                    <div class="cv-section">
+                        <a href="/static/Maciej Stefanowicz CV.pdf" download class="nav-button cv-download">Download CV</a>
 
-                    <div class="social-links-inline">
-                        <a href="https://github.com/mStefn" target="_blank" class="social-button">
-                            <img src="/static/github-icon.svg" alt="GitHub">
-                        </a>
-                        <a href="https://www.linkedin.com/in/maciej-stefanowicz/" target="_blank" class="social-button">
-                            <img src="/static/linkedin-icon.svg" alt="LinkedIn">
-                        </a>
+                        <div class="social-links-inline">
+                            <a href="https://github.com/mStefn" target="_blank" class="social-button">
+                                <img src="/static/github-icon.svg" alt="GitHub">
+                            </a>
+                            <a href="https://www.linkedin.com/in/maciej-stefanowicz/" target="_blank" class="social-button">
+                                <img src="/static/linkedin-icon.svg" alt="LinkedIn">
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="right-image">
-            <img src="/static/background.png" alt="Illustration" />
+        <div class="invisible-box">
+            <div class="right-image">
+                <img src="/static/background.png" alt="Illustration" />
+            </div>
         </div>
     </main>
 
