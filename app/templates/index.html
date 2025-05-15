@@ -7,21 +7,6 @@
     <link rel="stylesheet" href="/static/style.css" >
 </head>
 <body>
-    <!-- Visit counter -->
-    <div class="visit-counter">
-        Visits: {{ .Visits }}
-    </div>
-
-    <!-- Ikony społecznościowe -->
-    <div class="social-links">
-        <a href="https://github.com/mStefn" target="_blank" class="social-button">
-            <img src="/static/github-icon.svg" alt="GitHub">
-        </a>
-        <a href="https://www.linkedin.com/in/maciej-stefanowicz/" target="_blank" class="social-button">
-            <img src="/static/linkedin-icon.svg" alt="LinkedIn">
-        </a>
-    </div>
-
     <!-- Nagłówek z nawigacją -->
     <header class="main-header">
         <nav class="nav-container">
@@ -33,7 +18,6 @@
         </nav>
     </header>
 
-   
     <!-- Główna treść -->
     <main class="home-layout">
         <div class="left-content">
@@ -43,8 +27,24 @@
                     I'm an IT student currently expanding my skills in DevOps technologies like Docker, Ansible, and AWS.
                     I'm passionate about automation, cloud infrastructure, and eager to kickstart my career in this field.
                 </p>
-                 <!-- CV download -->
-                <a href="/static/Maciej Stefanowicz CV.pdf" download class="nav-button cv-download">Download CV</a>
+
+                <!-- CV + Social + Visits -->
+                <div class="cv-section">
+                    <a href="/static/Maciej Stefanowicz CV.pdf" download class="nav-button cv-download">Download CV</a>
+
+                    <div class="social-links-inline">
+                        <a href="https://github.com/mStefn" target="_blank" class="social-button">
+                            <img src="/static/github-icon.svg" alt="GitHub">
+                        </a>
+                        <a href="https://www.linkedin.com/in/maciej-stefanowicz/" target="_blank" class="social-button">
+                            <img src="/static/linkedin-icon.svg" alt="LinkedIn">
+                        </a>
+                    </div>
+
+                    <div class="visit-counter-inline">
+                        Visits: {{ .Visits }}
+                    </div>
+                </div>
             </div>
         </div>
 
