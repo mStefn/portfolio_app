@@ -11,7 +11,7 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-x: hidden; /* zapobiega przewijaniu w bok */
+    overflow-x: hidden;
 }
 
 body {
@@ -24,21 +24,24 @@ body {
     padding: 20px;
 }
 
-/* Główny nagłówek */
+/* ✅ ZMIANA 4: Większy header */
 .main-header {
     width: 100%;
     background: rgba(0, 0, 0, 0);
     border-top: 3px solid #000;
     border-bottom: 3px solid #000;
-    padding: 20px 40px;
+    padding: 40px 40px; /* zwiększone z 20px */
     margin-bottom: 40px;
+    position: relative;
 }
 
+/* ✅ ZMIANA 1: Przesunięcie przycisków w lewo */
 .nav-container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
+    margin-right: 60px; /* dodano przesunięcie w lewo */
 }
 
 .nav-button {
@@ -64,7 +67,22 @@ body {
     transform: none;
 }
 
-/* Nowy układ dla CV, social i visits */
+/* ✅ ZMIANA 5: Licznik w headerze po lewej */
+.visit-counter-header {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ CV + Social inline */
 .cv-section {
     display: flex;
     flex-direction: column;
@@ -106,17 +124,13 @@ body {
     opacity: 0.8;
 }
 
-.visit-counter-inline {
-    background: linear-gradient(135deg, #ff6a00, #ee0979);
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 0.95rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+/* ✅ ZMIANA 3: Większa czcionka w lewej kolumnie */
+.left-content {
+    flex: 1;
+    padding: 40px;
+    font-size: 1.15rem; /* zwiększono z domyślnego */
 }
 
-/* Układ główny */
 .home-layout {
     display: flex;
     justify-content: space-between;
@@ -126,21 +140,17 @@ body {
     margin-top: 100px;
 }
 
-.left-content {
-    flex: 1;
-    padding: 40px;
-}
-
+/* ✅ ZMIANA 2: Obrazek zmniejszony o ~30% */
 .right-image {
-    flex: 1;
+    flex: 0.7; /* było 1.0 */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .right-image img {
-    max-width: 90%;
-    max-height: 70vh;
+    max-width: 100%;
+    max-height: 60vh; /* zmniejszono z 70vh */
     object-fit: contain;
     border-radius: 20px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
@@ -153,8 +163,6 @@ footer {
     font-size: 0.9rem;
     color: #ccc;
     margin-top: 60px;
-    border-radius: 0;
-    box-shadow: none;
 }
 
 /* Ukryj stare fixed elementy */
