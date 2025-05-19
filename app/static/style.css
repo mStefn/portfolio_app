@@ -1,5 +1,5 @@
 :root {
-    --text-dark: #dcdcdc;
+    --text-dark: #fffefe;
     --text-light: #ffffff;
     --accent: #f2a340;
     --accent-hover: #ffc56a;
@@ -183,6 +183,6 @@ footer {
 .intro-paragraph {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #333;
+    color: #ffffff;
     margin-top: 1rem;
 }
