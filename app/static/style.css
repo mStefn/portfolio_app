@@ -94,7 +94,6 @@ html, body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center; /* centrowanie w poziomie */
     padding: 20px;
     font-size: 1.15rem;
     color: var(--text-light);
