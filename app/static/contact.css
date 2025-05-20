@@ -1,10 +1,11 @@
 .contact-card {
-    background-color: #fff;
+    background-color: rgba(30, 45, 66, 0.85);
     border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     padding: 40px;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 40px auto;
+    color: var(--color-text-primary);
 }
 
 .form-group {
@@ -16,54 +17,50 @@
 .form-group label {
     margin-bottom: 8px;
     font-weight: bold;
-    color: var(--text-dark);
+    color: var(--color-text-primary);
+    font-size: 1.1rem;
 }
 
 .form-group input,
 .form-group textarea {
     padding: 12px 15px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    background-color: #fdfcff;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    border-radius: 12px;
+    border: 1.5px solid transparent;
+    font-size: 1.1rem;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-primary);
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+    font-family: inherit;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: var(--accent-purple);
+    border-color: var(--color-accent);
     outline: none;
-    box-shadow: 0 0 5px rgba(68, 60, 104, 0.3);
+    background-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 8px var(--color-accent);
 }
 
-.nav-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    gap: 15px;
-    z-index: 999;
-}
-
-.nav-button {
-    background: none;
-    border: none;
-    color: var(--text-light);
+button.nav-button {
+    background-color: var(--color-accent);
+    color: #000;
+    padding: 12px 25px;
+    border-radius: 25px;
     font-weight: bold;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: transform 0.3s, opacity 0.3s;
+    font-size: 1.15rem;
+    border: none;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px;
+    align-self: flex-start;
 }
 
-.nav-button:hover {
-    transform: scale(1.1);
-    opacity: 0.8;
-}
-
-.nav-button.active {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    opacity: 1;
-    transform: none;
+button.nav-button:hover {
+    background-color: var(--color-accent-hover);
+    transform: scale(1.05);
 }

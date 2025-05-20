@@ -150,7 +150,7 @@ html, body {
 
 .cv-social-wrapper {
     display: flex;
-    align-items: justify;
+    align-items: flex-start;
     gap: 20px;
     margin-top: 20px;
 }
@@ -166,7 +166,7 @@ footer {
 .intro-heading {
     line-height: 0.8;
     margin-bottom: 0.5rem;
-    text-align: justify;    
+    text-align: left;    
 
 }
 
@@ -174,7 +174,6 @@ footer {
     font-size: 5rem;
     font-weight: bold;
     display: block;
-    text-align: justify;
 }
 
 .highlight-name {
