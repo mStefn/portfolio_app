@@ -7,43 +7,56 @@
     <link rel="stylesheet" href="/static/style.css" >
 </head>
 <body>
-    <header>
-        <div class="header-container centered-header">
-            <div class="header-text">
-                <h1>Hi! I'm Maciej Stefanowicz – welcome to my portfolio.</h1>
-                <p></p>
-            </div>
-            <div class="visit-counter">
-                Visits: {{ .Visits }}
-            </div>
+    <!-- Nagłówek -->
+    <header class="main-header">
+        <div class="visit-counter-header">
+            Visits: {{ .Visits }}
         </div>
+        <nav class="nav-container">
+            <a href="/" class="nav-button active">Home</a>
+            <a href="/about" class="nav-button">About me</a>
+            <a href="/projects" class="nav-button">Projects</a>
+            <a href="/contact" class="nav-button">Contact Me</a>
+        </nav>
     </header>
 
-    <main>
-        <div class="content-container">
-            <nav class="nav-left">
-                <ul>
-                    <li class="nav-item">
-                        <a href="/about">About me</a>
-                        <p></p>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/project1">Project 1</a>
-                        <p></p>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/project2">Project 2</a>
-                        <p></p>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/contact">Contact Me</a>
-                        <p></p>
-                    </li>
-                </ul>
-            </nav>
+    <!-- Główna treść -->
+    <main class="home-layout">
+        <section class="left-content square-box">
+            <h1 class="intro-heading">
+                <span class="intro-hi">HI, I AM</span><br>
+                <span class="highlight-name">Maciej Stefanowicz</span>
+            </h1>
 
-            <img src="/static/videos/gif.gif" alt="Looping animation" class="looping-gif" >
-        </div>
+            <p class="intro-paragraph">
+                I'm an IT student passionate about DevOps,<br>
+                Cloud Engineering, and Infrastructure as Code.<br>
+                I specialize in Linux system administration.<br><br>
+
+                My goal is to start a career in these fields<br>
+                and gain experience through real-world projects.<br><br>
+
+                I build, automate, and optimize systems daily.
+            </p>
+
+            <!-- Wrapper dla CV i social links -->
+            <div class="cv-social-wrapper">
+                <a href="/static/Maciej Stefanowicz CV.pdf" download class="nav-button cv-download">Download CV</a>
+
+                <div class="social-links-inline">
+                    <a href="https://github.com/mStefn" target="_blank" class="social-button">
+                        <img src="/static/github-icon.svg" alt="GitHub">
+                    </a>
+                    <a href="https://www.linkedin.com/in/maciej-stefanowicz/" target="_blank" class="social-button">
+                        <img src="/static/linkedin-icon.svg" alt="LinkedIn">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="right-image">
+            <img src="/static/background.png" alt="Illustration" />
+        </section>
     </main>
 
     <footer>

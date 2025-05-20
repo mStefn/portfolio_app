@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Title}}</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="stylesheet" href="/static/subpage.css"> 
 </head>
 <body>
-    <header>
-        <h1>{{.Title}}</h1>        
-        <div class="nav-container">
-            <a href="/" class="nav-button">Home</a>            
-            <a href="/project1" class="nav-button">Project 1</a>
-            <a href="/project2" class="nav-button">Project 2</a>
-            <a href="/contact" class="nav-button">Contact</a>
-        </div>
+    <header class="main-header">
+        <nav class="nav-container">
+            <a href="/" class="nav-button">Home</a>
+            <a href="/about" class="nav-button active">About me</a>
+            <a href="/projects" class="nav-button">Projects</a>
+            <a href="/contact" class="nav-button">Contact Me</a>
+        </nav>
     </header>
     <main>
         <div class="content-container">
