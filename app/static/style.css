@@ -84,21 +84,23 @@ html, body {
 
 .home-layout {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 80px;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
 }
 
 .left-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    font-size: 1.15rem;
-    color: var(--text-light);
-    background-color: transparent;
-    border-radius: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;        /* WYŚRODKUJE CAŁY BLOK LEFT-CONTENT w jego połowie */
+  justify-content: center;    /* W pionie – opcjonalnie */
+  text-align: left;           /* Zawartość będzie wyrównana do lewej */
+  padding: 20px;
+  font-size: 1.15rem;
+  color: var(--text-light);
+  background-color: transparent;
+  border-radius: 12px;
 }
 
 .right-image img {
