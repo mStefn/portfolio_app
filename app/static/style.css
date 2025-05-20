@@ -84,17 +84,21 @@ html, body {
 
 .home-layout {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
     margin-top: 80px;
     gap: 20px;
 }
 
 .left-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centrowanie w poziomie */
     padding: 20px;
     font-size: 1.15rem;
-    max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+    background-color: transparent;
     border-radius: 12px;
 }
 
@@ -104,6 +108,12 @@ html, body {
     object-fit: contain;
     border-radius: 20px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.right-image {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* wyśrodkowanie poziome */
 }
 
 .cv-download {
@@ -153,7 +163,7 @@ footer {
 }
 
 .intro-heading {
-    line-height: 1;
+    line-height: 0.8;
     margin-bottom: 0.5rem;
 }
 
