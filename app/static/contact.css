@@ -1,10 +1,46 @@
+.contact-section {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.contact-text {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    color: var(--color-text-primary);
+    text-align: left;
+}
+
+.contact-text h2 {
+    font-size: 2.5rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+}
+
+.contact-text p {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.phone-number {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--color-accent);
+}
+
 .contact-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     padding: 40px;
     max-width: 600px;
-    margin: 0 auto;
+    flex: 1;
+    min-width: 300px;
     color: var(--color-text-primary);
 }
 
@@ -39,19 +75,50 @@
     box-shadow: 0 0 5px rgba(242, 163, 64, 0.5);
 }
 
+/* Przycisk w stylu download CV */
+.btn-accent {
+    background-color: var(--color-accent);
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-accent:hover {
+    background-color: var(--color-accent-hover);
+}
+
 @media (max-width: 768px) {
+    .contact-section {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .contact-text,
     .contact-card {
-        padding: 20px;
-        width: 90%;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .contact-text {
+        margin-bottom: 30px;
     }
 
     .form-group input,
     .form-group textarea {
         width: 100%;
     }
+}
 
-    button.nav-button {
-        width: 100%;
-        text-align: center;
-    }
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #cccccc;
+    margin-top: 60px;
 }
