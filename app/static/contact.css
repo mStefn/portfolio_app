@@ -1,69 +1,124 @@
+.contact-section {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.contact-text {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    color: var(--color-text-primary);
+    text-align: left;
+}
+
+.contact-text h2 {
+    font-size: 2.5rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+}
+
+.contact-text p {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.phone-number {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--color-accent);
+}
+
 .contact-card {
-    background-color: #fff;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     padding: 40px;
     max-width: 600px;
-    margin: 0 auto;
+    flex: 1;
+    min-width: 300px;
+    color: var(--color-text-primary);
 }
 
 .form-group {
     margin-bottom: 25px;
     display: flex;
     flex-direction: column;
+    text-align: left;
 }
 
 .form-group label {
     margin-bottom: 8px;
     font-weight: bold;
-    color: var(--text-dark);
+    color: var(--color-text-primary);
 }
 
 .form-group input,
 .form-group textarea {
     padding: 12px 15px;
     border-radius: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #888;
     font-size: 1rem;
-    background-color: #fdfcff;
+    background-color: #1e2d42;
+    color: #fff;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: var(--accent-purple);
+    border-color: var(--color-accent);
     outline: none;
-    box-shadow: 0 0 5px rgba(68, 60, 104, 0.3);
+    box-shadow: 0 0 5px rgba(242, 163, 64, 0.5);
 }
 
-.nav-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    gap: 15px;
-    z-index: 999;
-}
-
-.nav-button {
-    background: none;
-    border: none;
-    color: var(--text-light);
+/* Przycisk w stylu download CV */
+.btn-accent {
+    background-color: var(--color-accent);
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: #000;
     font-weight: bold;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: transform 0.3s, opacity 0.3s;
+    border: none;
     cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    display: inline-block;
 }
 
-.nav-button:hover {
-    transform: scale(1.1);
-    opacity: 0.8;
+.btn-accent:hover {
+    background-color: var(--color-accent-hover);
 }
 
-.nav-button.active {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    opacity: 1;
-    transform: none;
+@media (max-width: 768px) {
+    .contact-section {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .contact-text,
+    .contact-card {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .contact-text {
+        margin-bottom: 30px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #cccccc;
+    margin-top: 60px;
 }
