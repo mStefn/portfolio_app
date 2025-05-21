@@ -12,12 +12,21 @@
         <div class="visit-counter-header">
             Visits: {{ .Visits }}
         </div>
-        <nav class="nav-container">
-            <a href="/" class="nav-button active">Home</a>
-            <a href="/about" class="nav-button">About me</a>
-            <a href="/projects" class="nav-button">Projects</a>
-            <a href="/contact" class="nav-button">Contact Me</a>
-        </nav>
+<nav class="nav-container">
+    <a href="/" class="nav-button active">Home</a>
+    <a href="/about" class="nav-button">About me</a>
+
+    <div class="nav-dropdown">
+        <button class="nav-button dropdown-toggle">Projects</button>
+        <div class="dropdown-menu">
+            <a href="/projects/devops" class="dropdown-item">DevOps Projects</a>
+            <a href="/projects/cloud" class="dropdown-item">Cloud Projects</a>
+            <a href="/projects/linux" class="dropdown-item">Linux Projects</a>
+        </div>
+    </div>
+
+    <a href="/contact" class="nav-button">Contact Me</a>
+</nav>
     </header>
 
     <!-- Główna treść -->
