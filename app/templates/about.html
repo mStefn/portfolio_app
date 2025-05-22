@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Title}}</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <link rel="stylesheet" href="/static/about.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About Me - Maciej Stefanowicz</title>
+    <link rel="stylesheet" href="/static/about.css" />
 </head>
 <body>
     <header class="main-header">
@@ -18,37 +17,51 @@
     </header>
 
     <main class="about-layout">
-        <!-- Lewa kolumna z tekstem -->
         <section class="about-text">
             <h1 class="section-title">Who am I</h1>
-            <p>
-                From the very beginning of my journey in IT, I've been drawn to automation, infrastructure as code, and cloud technologies. My focus areas include DevOps, Linux system administration, and managing cloud infrastructure—primarily using AWS. I learn independently through hands-on projects, building CI/CD pipelines and deploying infrastructure with tools like Docker, GitHub Actions, Ansible, and GitBash.
-            </p>
-            <p>
-                Right now, I’m working on this very portfolio to showcase my skills and projects. I also have a few new ideas in mind that I’m eager to bring to life in the near future. One of my short-term goals is to earn the RHCSA and AWS Cloud Practitioner certifications, as a natural continuation of the path I’m already on.
-            </p>
-            <p>
-                I’m a task-oriented person who works equally well on solo projects and in team environments. My ability to collaborate effectively stems from both professional and personal experiences, where clear communication and shared ownership were essential to success.
-            </p>
-            <p>
-                Outside of tech, I’m deeply passionate about progressive metal music and regularly travel to concerts across Poland and abroad. I’m also into sports — I’ve completed several half-marathons and enjoy working out at the gym, which reinforces my discipline, determination, and consistency.
-            </p>
-            <p>
-                In my free time, when I’m not coding, training, or learning, I like to unwind by playing video games — it’s my go-to way to relax and recharge.
-            </p>
+            <div class="text-box">
+                <p>
+                    From the very beginning of my journey in IT, I've been drawn to automation, infrastructure as code, and cloud technologies.
+                    My focus areas include DevOps, Linux system administration, and managing cloud infrastructure—primarily using AWS. I learn independently
+                    through hands-on projects, building CI/CD pipelines and deploying infrastructure with tools like Docker, GitHub Actions, Ansible, and GitBash.
+                </p>
+                <p>
+                    Right now, I’m working on this very portfolio to showcase my skills and projects. I also have a few new ideas in mind that I’m eager to bring
+                    to life in the near future. One of my short-term goals is to earn the RHCSA and AWS Cloud Practitioner certifications, as a natural continuation
+                    of the path I’m already on.
+                </p>
+                <p>
+                    I’m a task-oriented person who works equally well on solo projects and in team environments. My ability to collaborate effectively stems from both
+                    professional and personal experiences, where clear communication and shared ownership were essential to success.
+                </p>
+                <p>
+                    Outside of tech, I’m deeply passionate about progressive metal music and regularly travel to concerts across Poland and abroad. I’m also into sports —
+                    I’ve completed several half-marathons and enjoy working out at the gym, which reinforces my discipline, determination, and consistency.
+                </p>
+                <p>
+                    In my free time, when I’m not coding, training, or learning, I like to unwind by playing video games — it’s my go-to way to relax and recharge.
+                </p>
+            </div>
         </section>
 
-        <!-- Prawa kolumna ze zdjęciami -->
         <section class="about-images">
-            <img src="/static/avatar.png" alt="Maciej Avatar" class="profile-avatar">
-            <img src="/static/about1.jpg" alt="Gallery Image 1" class="about-image">
-            <img src="/static/about2.jpg" alt="Gallery Image 2" class="about-image">
-            <img src="/static/about3.jpg" alt="Gallery Image 3" class="about-image">
+            <img src="/static/avatar.jpg" alt="Maciej Avatar" class="profile-avatar lightbox-trigger" />
+            <img src="/static/about1.jpg" alt="Gallery Image 1" class="about-image lightbox-trigger" />
+            <img src="/static/about2.jpg" alt="Gallery Image 2" class="about-image lightbox-trigger" />
+            <img src="/static/about3.jpg" alt="Gallery Image 3" class="about-image lightbox-trigger" />
         </section>
     </main>
+
+    <!-- Lightbox overlay -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-img" src="" alt="Expanded image" />
+    </div>
 
     <footer>
         <p>&copy; 2025 Maciej Stefanowicz. All rights reserved.</p>
     </footer>
+
+    <script src="/static/lightbox.js"></script>
 </body>
 </html>
