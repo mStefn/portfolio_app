@@ -2,7 +2,7 @@ name: Weekday Morning App Start & Deploy
 
 on:  
   schedule:
-    - cron: '20 10 * * 1-5'  # 12:20 Europe/Warsaw (10:20 UTC)
+    - cron: '45 6 * * 1-5'  # 08:45 Europe/Warsaw (06:45 UTC)
 
 jobs:
   start-and-deploy:
