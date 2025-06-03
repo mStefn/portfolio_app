@@ -1,0 +1,48 @@
+name: Stop EC2 Instance and Update DNS to S3 Backup
+
+on:
+  schedule:
+    - cron: '0 10 * * 1-5'  # 12:00 Europe/Warsaw (10:00 UTC)
+
+jobs:
+  stop-and-redirect:
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+
+    steps:
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Stop EC2 instance
+        run: |
+          aws ec2 stop-instances --instance-ids ${{ secrets.EC2_INSTANCE_ID }}
+
+      - name: Update Route 53 DNS record to CloudFront (S3 backup)
+        run: |
+          cat > change-batch.json <<EOF
+          {
+            "Comment": "Redirect m-stefn.pl to CloudFront backup while EC2 is off",
+            "Changes": [{
+              "Action": "UPSERT",
+              "ResourceRecordSet": {
+                "Name": "m-stefn.pl",
+                "Type": "A",
+                "AliasTarget": {
+                  "HostedZoneId": "Z2FDTNDATAQYW2",
+                  "DNSName": "${{ secrets.CLOUDFRONT_DISTRIBUTION_ALIAS_TARGET }}",
+                  "EvaluateTargetHealth": false
+                }
+              }
+            }]
+          }
+          EOF
+
+          aws route53 change-resource-record-sets \
+            --hosted-zone-id Z0073682HDCNOR680OYQ \
+            --change-batch file://change-batch.json
