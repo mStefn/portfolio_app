@@ -2,7 +2,7 @@ name: Stop EC2 Instance and Update DNS to S3 Backup
 
 on:
   schedule:
-    - cron: '0 10 * * 1-5'  # 12:00 Europe/Warsaw (10:00 UTC)
+    - cron: '0 15 * * 1-5'  # 17:00 Europe/Warsaw (15:00 UTC)
 
 jobs:
   stop-and-redirect:
