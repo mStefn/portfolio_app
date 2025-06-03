@@ -1,7 +1,6 @@
 name: Weekday Morning App Start & Deploy
 
-on:
-  workflow_dispatch:
+on:  
   schedule:
     - cron: '10 10 * * 1-5'  # 12:10 Europe/Warsaw (10:10 UTC)
 
