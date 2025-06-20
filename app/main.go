@@ -10,7 +10,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// Struktura do przechowywania danych strony
 type PageData struct {
 	Title  string
 	Visits int
@@ -42,14 +41,11 @@ func incrementVisitCount() error {
 	defer db.Close()
 
 	_, err = db.Exec("UPDATE visit_counter SET visits = visits + 1 WHERE id = 1")
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
-// Obsługuje stronę główną
+// ---------- Strony główne ----------
+
 func serveHome(w http.ResponseWriter, r *http.Request) {
 	err := incrementVisitCount()
 	if err != nil {
@@ -63,81 +59,68 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := PageData{
-		Title:  "Moje Portfolio",
-		Visits: visits,
-	}
-
-	tmplPath := "templates/index.html"
-	tmpl := template.Must(template.ParseFiles(tmplPath))
-
-	err = tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	data := PageData{Title: "Moje Portfolio", Visits: visits}
+	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+	tmpl.Execute(w, data)
 }
-
 
 func serveAbout(w http.ResponseWriter, r *http.Request) {
-	data := PageData{
-		Title:  "About Me",
-		Visits: 0, 
-	}
-
-	tmplPath := "templates/about.html"
-	tmpl := template.Must(template.ParseFiles(tmplPath))
-
-	err := tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	data := PageData{Title: "About Me"}
+	tmpl := template.Must(template.ParseFiles("templates/about.html"))
+	tmpl.Execute(w, data)
 }
 
-// Obsługuje stronę 'projects'
 func serveProjects(w http.ResponseWriter, r *http.Request) {
-	data := PageData{
-		Title:  "Projects",
-		Visits: 0,
-	}
-
-	tmplPath := "templates/projects.html"
-	tmpl := template.Must(template.ParseFiles(tmplPath))
-
-	err := tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	data := PageData{Title: "Projects"}
+	tmpl := template.Must(template.ParseFiles("templates/projects.html"))
+	tmpl.Execute(w, data)
 }
 
-// Obsługuje stronę 'Contact'
 func serveContact(w http.ResponseWriter, r *http.Request) {
-	data := PageData{
-		Title: "Contact",
-		Visits: 0,
-	}
-
-	tmplPath := "templates/contact.html"
-	tmpl := template.Must(template.ParseFiles(tmplPath))
-
-	err := tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	data := PageData{Title: "Contact"}
+	tmpl := template.Must(template.ParseFiles("templates/contact.html"))
+	tmpl.Execute(w, data)
 }
 
+// ---------- Strony projektów ----------
+
+func serveProject1(w http.ResponseWriter, r *http.Request) {
+	data := PageData{Title: "Project 1 - Portfolio"}
+	tmpl := template.Must(template.ParseFiles("templates/projects/project1.html"))
+	tmpl.Execute(w, data)
+}
+
+func serveProject2(w http.ResponseWriter, r *http.Request) {
+	data := PageData{Title: "Project 2"}
+	tmpl := template.Must(template.ParseFiles("templates/projects/project2.html"))
+	tmpl.Execute(w, data)
+}
+
+func serveProject3(w http.ResponseWriter, r *http.Request) {
+	data := PageData{Title: "Project 3"}
+	tmpl := template.Must(template.ParseFiles("templates/projects/project3.html"))
+	tmpl.Execute(w, data)
+}
+
+// ---------- Main ----------
 
 func main() {
-	// Ustawienie routingu
-	http.HandleFunc("/", serveHome)       // Strona główna
-	http.HandleFunc("/about", serveAbout) // Strona "About"
-	http.HandleFunc("/projects", serveProjects) // Strona "Projecs"
+	// Routing
+	http.HandleFunc("/", serveHome)
+	http.HandleFunc("/about", serveAbout)
+	http.HandleFunc("/projects", serveProjects)
 	http.HandleFunc("/contact", serveContact)
 
-	// Obsługa plików statycznych
+	// Nowe podstrony projektów
+	http.HandleFunc("/project1", serveProject1)
+	http.HandleFunc("/project2", serveProject2)
+	http.HandleFunc("/project3", serveProject3)
+
+	// Statyczne pliki
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	// Uruchomienie serwera
+	// Start serwera
 	log.Println("Serwer działa na http://localhost:8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {

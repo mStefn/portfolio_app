@@ -4,10 +4,9 @@
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <title>Portfolio</title>
-    <link rel="stylesheet" href="/static/style.css" >
+    <link rel="stylesheet" href="/static/styles/style.css" >
 </head>
 <body>
-    <!-- Nagłówek -->
     <header class="main-header">
         <div class="visit-counter-header">
             Visits: {{ .Visits }}
@@ -20,7 +19,7 @@
         </nav>
     </header>
 
-    <!-- Główna treść -->
+
     <main class="home-layout">
         <section class="left-content square-box">
             <h1 class="intro-heading">
@@ -39,23 +38,23 @@
                 I build, automate, and optimize systems daily.
             </p>
 
-            <!-- Wrapper dla CV i social links -->
+
             <div class="cv-social-wrapper">
                 <a href="/static/maciej-stefanowicz-cv.pdf" download class="nav-button cv-download">Download CV</a>
 
                 <div class="social-links-inline">
                     <a href="https://github.com/mStefn" target="_blank" class="social-button">
-                        <img src="/static/github-icon.svg" alt="GitHub">
+                        <img src="/static/icons/github-icon.svg" alt="GitHub">
                     </a>
                     <a href="https://www.linkedin.com/in/maciej-stefanowicz/" target="_blank" class="social-button">
-                        <img src="/static/linkedin-icon.svg" alt="LinkedIn">
+                        <img src="/static/icons/linkedin-icon.svg" alt="LinkedIn">
                     </a>
                 </div>
             </div>
         </section>
 
         <section class="right-image">
-            <img src="/static/background.png" alt="Illustration" />
+            <img src="/static/images/background.png" alt="Illustration" />
         </section>
     </main>
 

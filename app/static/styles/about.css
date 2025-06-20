@@ -25,7 +25,7 @@ html, body {
     padding: 20px;
 }
 
-/* Nagłówek */
+
 .main-header {
     width: 100%;
     border-top: 3px solid var(--color-accent);
@@ -110,7 +110,6 @@ html, body {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* Zdjęcia */
 .about-images {
     flex: 1;
     display: flex;
@@ -129,7 +128,6 @@ html, body {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* Stopka */
 footer {
     text-align: center;
     padding: 20px;
@@ -138,7 +136,6 @@ footer {
     margin-top: 60px;
 }
 
-/* RWD */
 @media (max-width: 768px) {
     .about-layout {
         flex-direction: column;

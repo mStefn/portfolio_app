@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Title}}</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Projekty | Maciej Stefanowicz</title>
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/projects/projects.css">
 </head>
 <body>
     <header class="main-header">
@@ -15,11 +16,33 @@
             <a href="/contact" class="nav-button">Contact Me</a>
         </nav>
     </header>
+
     <main>
-        <div class="content-container">
-            <h2></h2>
-            <p>This is a simple portfolio app built with Go and HTML/CSS.</p>
-        </div>
+        <section class="project-gallery">
+            <div class="project-card">
+                <a href="/project1">
+                    <img src="/static/images/Portfolio-Image.png" alt="Portfolio preview">
+                </a>
+                <h3>Portfolio</h3>
+                <p>Portfolio app with GitHub Actions.</p>
+            </div>
+
+            <div class="project-card">
+                <a href="/project2">
+                    <img src="/static/cat2.jpg" alt="Project 2 preview">
+                </a>
+                <h3>Project 2</h3>
+                <p>Coming soon.</p>
+            </div>
+
+            <div class="project-card">
+                <a href="/project3">
+                    <img src="/static/cat3.jpg" alt="Project 3 preview">
+                </a>
+                <h3>Project 3</h3>
+                <p>Coming soon.</p>
+            </div>
+        </section>
     </main>
 
     <footer>
