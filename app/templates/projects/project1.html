@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps & CI/CD Project</title>
+    <title>{{ .Title }}</title>
     <link rel="stylesheet" href="/static/styles/style.css">
     <link rel="stylesheet" href="/static/styles/projects/project1.css">
 </head>
@@ -38,28 +38,32 @@
             <h2>Key Code Fragments & Explanations</h2>
 
             <h3>1. Dynamic Security Group Updates Based on Current IP</h3>
-<pre><code class="code-block language-yaml">- name: Get public IP
+            <pre><code class="code-block language-yaml">- name: Get public IP
   id: get_ip
   run: echo "::set-output name=MY_IP::$(curl -s https://checkip.amazonaws.com)"
 
 - name: Update Security Group inbound rule
   run: |
-    aws ec2 revoke-security-group-ingress --group-id ${{ secrets.SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr 0.0.0.0/0 || true
-    aws ec2 authorize-security-group-ingress --group-id ${{ secrets.SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.get_ip.outputs.MY_IP }}/32
+    aws ec2 revoke-security-group-ingress --group-id ${{ "{{" }} secrets.SECURITY_GROUP_ID {{ "}}" }} --protocol tcp --port 22 --cidr 0.0.0.0/0 || true
+    aws ec2 authorize-security-group-ingress --group-id ${{ "{{" }} secrets.SECURITY_GROUP_ID {{ "}}" }} --protocol tcp --port 22 --cidr ${{ "{{" }} steps.get_ip.outputs.MY_IP {{ "}}" }}/32
 </code></pre>
-            <p><strong>Why it matters:</strong> This restricts SSH access dynamically and automatically, boosting security without manual intervention.</p>
+            <p>
+                <strong>Why it matters:</strong> This restricts SSH access dynamically and automatically, boosting security without manual intervention.
+            </p>
 
             <h3>2. Automated DNS Updates via AWS Route 53</h3>
-<pre><code class="code-block language-yaml">- name: Update Route 53 DNS record to CloudFront (S3 backup)
+            <pre><code class="code-block language-yaml">- name: Update Route 53 DNS record to CloudFront (S3 backup)
   run: |
     aws route53 change-resource-record-sets \
-      --hosted-zone-id ${{ secrets.ROUTE53_ZONE_ID }} \
+      --hosted-zone-id ${{ "{{" }} secrets.ROUTE53_ZONE_ID {{ "}}" }} \
       --change-batch file://change-batch.json
 </code></pre>
-            <p><strong>Why it matters:</strong> Ensures zero downtime by redirecting to a CloudFront + S3 backup during deployment or outages.</p>
+            <p>
+                <strong>Why it matters:</strong> Ensures zero downtime by redirecting to a CloudFront + S3 backup during deployment or outages.
+            </p>
 
             <h3>3. Ansible Role for Docker Installation</h3>
-<pre><code class="code-block language-yaml">- name: Install required dependencies
+            <pre><code class="code-block language-yaml">- name: Install required dependencies
   yum:
     name:
       - yum-utils
@@ -82,10 +86,12 @@
     state: started
     enabled: yes
 </code></pre>
-            <p><strong>Why it matters:</strong> Standardizes and automates Docker installation for CentOS systems using Ansible roles.</p>
+            <p>
+                <strong>Why it matters:</strong> Standardizes and automates Docker installation for CentOS systems using Ansible roles.
+            </p>
 
             <h3>4. GitHub Actions Workflow Triggering CI/CD</h3>
-<pre><code class="code-block language-yaml">on:
+            <pre><code class="code-block language-yaml">on:
   push:
     branches:
       - main
@@ -102,7 +108,9 @@ jobs:
 
       # Additional build, test, and deploy steps
 </code></pre>
-            <p><strong>Why it matters:</strong> This pipeline triggers on every change to the main branch or merged pull request, ensuring automated, reliable deployments.</p>
+            <p>
+                <strong>Why it matters:</strong> This pipeline triggers on every change to the main branch or merged pull request, ensuring automated, reliable deployments.
+            </p>
 
             <h2>Infrastructure and Workflow Summary</h2>
             <ul>
@@ -115,13 +123,6 @@ jobs:
             <p>
                 This project highlights cloud infrastructure automation, Ansible expertise, secure AWS practices, and CI/CD fluency with GitHub Actions.
             </p>
-
-            <div class="repo-info">
-                <p>The full source code for this project is available on GitHub.</p>
-                <a href="https://github.com/mStefn/portfolio_app" target="_blank" class="repo-link">
-                    <img src="/static/icons/github-icon.svg" alt="GitHub Repository">
-                </a>
-            </div>
         </section>
     </main>
 
