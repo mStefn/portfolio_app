@@ -44,8 +44,8 @@
 
 - name: Update Security Group inbound rule
   run: |
-    aws ec2 revoke-security-group-ingress --group-id ${{ secrets.SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr 0.0.0.0/0 || true
-    aws ec2 authorize-security-group-ingress --group-id ${{ secrets.SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.get_ip.outputs.MY_IP }}/32
+    aws ec2 revoke-security-group-ingress --group-id ${{ "{{" }} secrets.SECURITY_GROUP_ID {{ "}}" }} --protocol tcp --port 22 --cidr 0.0.0.0/0 || true
+    aws ec2 authorize-security-group-ingress --group-id ${{ "{{" }} secrets.SECURITY_GROUP_ID {{ "}}" }} --protocol tcp --port 22 --cidr ${{ "{{" }} steps.get_ip.outputs.MY_IP {{ "}}" }}/32
 </code></pre>
             <p>
                 <strong>Why it matters:</strong> This restricts SSH access dynamically and automatically, boosting security without manual intervention.
@@ -55,7 +55,7 @@
             <pre><code class="code-block language-yaml">- name: Update Route 53 DNS record to CloudFront (S3 backup)
   run: |
     aws route53 change-resource-record-sets \
-      --hosted-zone-id ${{ secrets.ROUTE53_ZONE_ID }} \
+      --hosted-zone-id ${{ "{{" }} secrets.ROUTE53_ZONE_ID {{ "}}" }} \
       --change-batch file://change-batch.json
 </code></pre>
             <p>
