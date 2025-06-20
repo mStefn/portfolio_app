@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strings"
 
 	_ "github.com/lib/pq"
 )
@@ -83,33 +82,45 @@ func serveContact(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data)
 }
 
-// ---------- Dynamiczna obsługa projektów ----------
+// ---------- Strony projektów ----------
 
-func serveDynamicProject(w http.ResponseWriter, r *http.Request) {
-	project := strings.TrimPrefix(r.URL.Path, "/projects/")
-	templatePath := "templates/projects/" + project + ".html"
+func serveProject1(w http.ResponseWriter, r *http.Request) {
+	data := PageData{Title: "Project 1 - Portfolio"}
+	tmpl := template.Must(template.ParseFiles("templates/projects/project1.html"))
+	tmpl.Execute(w, data)
+}
 
-	data := PageData{Title: "Project - " + project}
-	tmpl, err := template.ParseFiles(templatePath)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
+func serveProject2(w http.ResponseWriter, r *http.Request) {
+	data := PageData{Title: "Project 2"}
+	tmpl := template.Must(template.ParseFiles("templates/projects/project2.html"))
+	tmpl.Execute(w, data)
+}
+
+func serveProject3(w http.ResponseWriter, r *http.Request) {
+	data := PageData{Title: "Project 3"}
+	tmpl := template.Must(template.ParseFiles("templates/projects/project3.html"))
 	tmpl.Execute(w, data)
 }
 
 // ---------- Main ----------
 
 func main() {
+	// Routing
 	http.HandleFunc("/", serveHome)
 	http.HandleFunc("/about", serveAbout)
 	http.HandleFunc("/projects", serveProjects)
 	http.HandleFunc("/contact", serveContact)
-	http.HandleFunc("/projects/", serveDynamicProject)
 
+	// Nowe podstrony projektów
+	http.HandleFunc("/project1", serveProject1)
+	http.HandleFunc("/project2", serveProject2)
+	http.HandleFunc("/project3", serveProject3)
+
+	// Statyczne pliki
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
+	// Start serwera
 	log.Println("Serwer działa na http://localhost:8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
