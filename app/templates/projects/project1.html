@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }}</title>
     <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/projects/project1.css>
 </head>
 <body>
     <header class="main-header">
@@ -18,10 +19,110 @@
 
     <main>
         <section class="project-detail">
-            <h1>Portfolio Project</h1>
-            <img src="/static/images/Portfolio-Image.png" alt="Portfolio Preview" style="max-width:100%; border-radius: 12px;">
-            <p>To jest moja aplikacja portfolio zautomatyzowana za pomocą GitHub Actions. Zawiera routing, licznik odwiedzin i proste komponenty front-endowe.</p>
-            <p><strong>Technologie:</strong> Go, HTML, CSS, GitHub Actions, PostgreSQL</p>
+            <h1>DevOps & CI/CD Project: Automated AWS Infrastructure with Ansible & GitHub Actions</h1>
+            <p>
+                This project showcases a robust AWS-based infrastructure designed to support a modern web application with a focus on DevOps practices and CI/CD automation.
+            </p>
+            <p>
+                The infrastructure is built on three Linux servers:
+            </p>
+            <ul>
+                <li><strong>Web Server:</strong> Hosts the main web application and serves HTTPS traffic with proper SSL certificates.</li>
+                <li><strong>Dev Server:</strong> A development and testing environment for feature development.</li>
+                <li><strong>Control Server:</strong> Ansible control node that orchestrates the configuration across all servers.</li>
+            </ul>
+            <p>
+                All servers are managed with Ansible. CI/CD pipelines are triggered via GitHub Actions when changes are pushed to <code>main</code> or merged from <code>test</code>.
+            </p>
+
+            <h2>Key Code Fragments & Explanations</h2>
+
+            <h3>1. Dynamic Security Group Updates Based on Current IP</h3>
+            <pre><code class="code-block language-yaml">- name: Get public IP
+  id: get_ip
+  run: echo "::set-output name=MY_IP::$(curl -s https://checkip.amazonaws.com)"
+
+- name: Update Security Group inbound rule
+  run: |
+    aws ec2 revoke-security-group-ingress --group-id ${{ secrets.SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr 0.0.0.0/0 || true
+    aws ec2 authorize-security-group-ingress --group-id ${{ secrets.SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.get_ip.outputs.MY_IP }}/32
+</code></pre>
+            <p>
+                <strong>Why it matters:</strong> This restricts SSH access dynamically and automatically, boosting security without manual intervention.
+            </p>
+
+            <h3>2. Automated DNS Updates via AWS Route 53</h3>
+            <pre><code class="code-block language-yaml">- name: Update Route 53 DNS record to CloudFront (S3 backup)
+  run: |
+    aws route53 change-resource-record-sets \
+      --hosted-zone-id ${{ secrets.ROUTE53_ZONE_ID }} \
+      --change-batch file://change-batch.json
+</code></pre>
+            <p>
+                <strong>Why it matters:</strong> Ensures zero downtime by redirecting to a CloudFront + S3 backup during deployment or outages.
+            </p>
+
+            <h3>3. Ansible Role for Docker Installation</h3>
+            <pre><code class="code-block language-yaml">- name: Install required dependencies
+  yum:
+    name:
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+    state: present
+
+- name: Add Docker CE repository
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  when: ansible_facts['distribution_version'] is version('8', '>=')
+
+- name: Install Docker CE
+  yum:
+    name: docker-ce
+    state: present
+
+- name: Enable and start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+</code></pre>
+            <p>
+                <strong>Why it matters:</strong> Standardizes and automates Docker installation for CentOS systems using Ansible roles.
+            </p>
+
+            <h3>4. GitHub Actions Workflow Triggering CI/CD</h3>
+            <pre><code class="code-block language-yaml">on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Additional build, test, and deploy steps
+</code></pre>
+            <p>
+                <strong>Why it matters:</strong> This pipeline triggers on every change to the main branch or merged pull request, ensuring automated, reliable deployments.
+            </p>
+
+            <h2>Infrastructure and Workflow Summary</h2>
+            <ul>
+                <li>Three Linux AWS EC2 instances: web, dev, and control</li>
+                <li>Managed with Ansible and version-controlled as infrastructure-as-code</li>
+                <li>Dynamic SSH security via CI workflows</li>
+                <li>DNS failover automation with Route 53</li>
+                <li>CI/CD pipeline fully managed by GitHub Actions</li>
+            </ul>
+            <p>
+                This project highlights cloud infrastructure automation, Ansible expertise, secure AWS practices, and CI/CD fluency with GitHub Actions.
+            </p>
         </section>
     </main>
 
