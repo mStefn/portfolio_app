@@ -123,7 +123,7 @@ jobs:
 
       - name: Stop running containers
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml down'
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker-compose -f /home/ubuntu/portfolio-deploy/docker-compose.yml down'
 
       - name: Pull Docker image
         run: |
@@ -131,7 +131,7 @@ jobs:
 
       - name: Deploy the app
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker-compose -f /home/ec2-user/portfolio-deploy/docker-compose.yml up -d'
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker-compose -f /home/ubuntu/portfolio-deploy/docker-compose.yml up -d'
 
       - name: Remove GitHub Actions IP from Security Group
         run: |
