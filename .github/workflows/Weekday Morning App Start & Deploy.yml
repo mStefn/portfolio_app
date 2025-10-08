@@ -2,7 +2,7 @@ name: Weekday Morning App Start & Deploy
 
 on:
   schedule:
-    - cron: '45 6 * * 1-5'  # 08:45 Europe/Warsaw (06:45 UTC)
+    - cron: '45 6 * * 1-5'  # 06:45 UTC = 08:45 Europe/Warsaw
   workflow_dispatch:
 
 jobs:
@@ -58,6 +58,7 @@ jobs:
   }]
 }
 EOF
+
           aws route53 change-resource-record-sets \
             --hosted-zone-id Z0073682HDCNOR680OYQ \
             --change-batch file://change-batch.json
@@ -83,6 +84,24 @@ EOF
         run: |
           docker push ghcr.io/mstefn/portfolio_app:latest
 
+      - name: Set up AWS credentials (again for next steps)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Get EC2 public IP (again)
+        id: get_ec2_ip
+        run: |
+          INSTANCE_ID=${{ secrets.EC2_INSTANCE_ID }}
+          PUBLIC_IP=$(aws ec2 describe-instances \
+            --instance-ids "$INSTANCE_ID" \
+            --query "Reservations[0].Instances[0].PublicIpAddress" \
+            --output text)
+          echo "EC2 Instance IP: $PUBLIC_IP"
+          echo "ec2_ip=$PUBLIC_IP" >> $GITHUB_ENV
+
       - name: Get public IP of GitHub runner
         id: ip
         run: echo "ipv4=$(curl -s https://api.ipify.org)" >> $GITHUB_OUTPUT
@@ -95,25 +114,26 @@ EOF
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-      - name: Set up SSH key
+      - name: Set up SSH key and connect to EC2
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ env.ec2_ip }} >> ~/.ssh/known_hosts
+          echo "Attempting SSH connection to: ${{ env.ec2_ip }}"
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'echo "SSH connection established"'
 
-      - name: Deploy app on EC2
+      - name: Stop running containers
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} <<EOF
-echo "Stopping running containers..."
-docker-compose -f /home/ubuntu/portfolio-deploy/docker-compose.yml down
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker-compose -f /home/ubuntu/portfolio-deploy/docker-compose.yml down'
 
-echo "Pulling latest Docker image..."
-docker pull ghcr.io/mstefn/portfolio_app:latest
+      - name: Pull Docker image
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker pull ghcr.io/mstefn/portfolio_app:latest'
 
-echo "Starting containers..."
-docker-compose -f /home/ubuntu/portfolio-deploy/docker-compose.yml up -d
-EOF
+      - name: Deploy the app
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker-compose -f /home/ubuntu/portfolio-deploy/docker-compose.yml up -d'
 
       - name: Remove GitHub Actions IP from Security Group
         run: |
