@@ -1,14 +1,13 @@
 name: Weekday Morning App Start & Deploy
 
-on:  
+on:
   schedule:
-    - cron: '45 6 * * 1-5'  # 06:45 UTC (08:45 Warsaw)
+    - cron: '45 6 * * 1-5'  # 08:45 Europe/Warsaw (06:45 UTC)
   workflow_dispatch:
 
 jobs:
   start-and-deploy:
     runs-on: ubuntu-latest
-
     env:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
       AWS_SG_NAME: ${{ secrets.AWS_SECURITY_GROUP_NAME }}
@@ -43,22 +42,21 @@ jobs:
       - name: Update Route 53 DNS record to EC2 IP (A record)
         run: |
           cat > change-batch.json <<EOF
-{
-  "Comment": "Update record to EC2 IP on start",
-  "Changes": [{
-    "Action": "UPSERT",
-    "ResourceRecordSet": {
-      "Name": "m-stefn.pl",
-      "Type": "A",
-      "TTL": 300,
-      "ResourceRecords": [{
-        "Value": "${{ env.ec2_ip }}"
-      }]
-    }
-  }]
-}
-EOF
-
+          {
+            "Comment": "Update record to EC2 IP on start",
+            "Changes": [{
+              "Action": "UPSERT",
+              "ResourceRecordSet": {
+                "Name": "m-stefn.pl",
+                "Type": "A",
+                "TTL": 300,
+                "ResourceRecords": [{
+                  "Value": "${{ env.ec2_ip }}"
+                }]
+              }
+            }]
+          }
+          EOF
           aws route53 change-resource-record-sets \
             --hosted-zone-id Z0073682HDCNOR680OYQ \
             --change-batch file://change-batch.json
@@ -84,9 +82,28 @@ EOF
         run: |
           docker push ghcr.io/mstefn/portfolio_app:latest
 
+      - name: Set up AWS credentials (again for next steps)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Get EC2 public IP (again)
+        id: get_ec2_ip
+        run: |
+          INSTANCE_ID=${{ secrets.EC2_INSTANCE_ID }}
+          PUBLIC_IP=$(aws ec2 describe-instances \
+            --instance-ids "$INSTANCE_ID" \
+            --query "Reservations[0].Instances[0].PublicIpAddress" \
+            --output text)
+          echo "EC2 Instance IP: $PUBLIC_IP"
+          echo "ec2_ip=$PUBLIC_IP" >> $GITHUB_ENV
+
       - name: Get public IP of GitHub runner
         id: ip
-        run: echo "ipv4=$(curl -s https://api.ipify.org)" >> $GITHUB_OUTPUT
+        run: |
+          echo "ipv4=$(curl -s https://api.ipify.org)" >> $GITHUB_OUTPUT
 
       - name: Add GitHub Actions IP to Security Group
         run: |
