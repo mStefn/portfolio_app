@@ -126,9 +126,13 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker-compose -f /home/ubuntu/portfolio-deploy/docker-compose.yml down'
 
+      # ZAKTUALIZOWANY KROK: Logowanie i pobieranie obrazu
       - name: Pull Docker image
+        env:
+          CR_PAT: ${{ secrets.GHCR_TOKEN }}
+          CR_USER: ${{ secrets.GHCR_USERNAME }}
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} 'docker pull ghcr.io/mstefn/portfolio_app:latest'
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.WEB_SERVER_USER }}@${{ env.ec2_ip }} "echo $CR_PAT | docker login ghcr.io -u $CR_USER --password-stdin && docker pull ghcr.io/mstefn/portfolio_app:latest"
 
       - name: Deploy the app
         run: |
