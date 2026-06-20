@@ -90,9 +90,10 @@ func serveProject1(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data)
 }
 
-func serveProject2(w http.ResponseWriter, r *http.Request) {
-	data := PageData{Title: "Project 2"}
-	tmpl := template.Must(template.ParseFiles("templates/projects/project2.html"))
+// Zmieniona funkcja obsługująca Gym Trackera
+func serveGymTracker(w http.ResponseWriter, r *http.Request) {
+	data := PageData{Title: "Gym Tracker"}
+	tmpl := template.Must(template.ParseFiles("templates/projects/gymtracker.html"))
 	tmpl.Execute(w, data)
 }
 
@@ -111,9 +112,9 @@ func main() {
 	http.HandleFunc("/projects", serveProjects)
 	http.HandleFunc("/contact", serveContact)
 
-	// Nowe podstrony projektów
+	// Podstrony projektów
 	http.HandleFunc("/project1", serveProject1)
-	http.HandleFunc("/project2", serveProject2)
+	http.HandleFunc("/gym-tracker", serveGymTracker) // Zmieniony adres URL i funkcja handlera
 	http.HandleFunc("/project3", serveProject3)
 
 	// Statyczne pliki

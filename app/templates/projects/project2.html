@@ -5,22 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }}</title>
     <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/projects/project1.css">
 </head>
 <body>
     <header class="main-header">
         <nav class="nav-container">
             <a href="/" class="nav-button">Home</a>
             <a href="/about" class="nav-button">About me</a>
-            <a href="/projects" class="nav-button">Projects</a>
+            <a href="/projects" class="nav-button active">Projects</a>
             <a href="/contact" class="nav-button">Contact Me</a>
         </nav>
     </header>
 
     <main>
         <section class="project-detail">
-            <h1>Project 2</h1>
-            <img src="/static/cat2.jpg" alt="Project 2 preview" style="max-width:100%; border-radius: 12px;">
-            <p>Ten projekt jest w trakcie przygotowywania. Więcej informacji wkrótce!</p>
+            <h1>🏋️‍♂️ Gym Tracker: Go, PostgreSQL & Docker</h1>
+            <p>
+                A comprehensive workout tracking application designed to monitor gym progress, manage exercise routines, and analyze performance over time. 
+            </p>
+            <p>
+                The project is self-hosted on an on-premise <strong>Ubuntu Home Lab</strong> and focuses on efficient containerization and a lightweight backend architecture:
+            </p>
+            <ul>
+                <li><strong>Backend:</strong> Built with Go (Golang) using standard libraries for high performance and low memory footprint.</li>
+                <li><strong>Database:</strong> PostgreSQL used for reliable and structured data storage of workout logs and user metrics.</li>
+                <li><strong>Infrastructure:</strong> Fully containerized using Docker and Docker Compose for seamless deployment on my home server.</li>
+            </ul>
+            <p>
+                This setup allows me to maintain full control over my data while experimenting with bare-metal server management and container orchestration.
+            </p>
+
+            <h2>Key Code Fragments & Explanations</h2>
+
+            <h3>1. Multi-Stage Dockerfile for Go Application</h3>
+            <pre><code class="code-block language-dockerfile">FROM golang:1.21 AS builder
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod tidy
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o gym_app ./main.go
+
+FROM debian:bookworm-slim
+WORKDIR /app
+COPY --from=builder /app/gym_app ./
+CMD ["./gym_app"]
+</code></pre>
+            <p>
+                <strong>Why it matters:</strong> Using a multi-stage build significantly reduces the final image size. The app is compiled in a heavy Go environment, but runs in a stripped-down Debian container, saving resources on the home lab.
+            </p>
+
+            <h3>2. Go HTTP Handler for Saving Workouts</h3>
+            <pre><code class="code-block language-go">func saveWorkout(w http.ResponseWriter, r *http.Request) {
+    if r.Method != http.MethodPost {
+        http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+        return
+    }
+    // Parse form and insert into PostgreSQL
+    err := insertWorkoutToDB(r.FormValue("exercise"), r.FormValue("reps"))
+    if err != nil {
+        http.Error(w, "Database error", http.StatusInternalServerError)
+        return
+    }
+    w.WriteHeader(http.StatusCreated)
+}
+</code></pre>
+            <p>
+                <strong>Why it matters:</strong> Demonstrates clean and straightforward routing using Go's standard <code>net/http</code> library without relying on heavy external frameworks.
+            </p>
+
+            <h2>Infrastructure and Workflow Summary</h2>
+            <ul>
+                <li>Self-hosted on a bare-metal Ubuntu server.</li>
+                <li>Environment managed via <code>docker-compose</code> for easy environment replication.</li>
+                <li>Persistent volume mapping for the PostgreSQL database to ensure no data loss during container restarts.</li>
+            </ul>
+            <p>
+                This project combines software engineering with home-lab system administration, creating a practical, daily-use application.
+            </p>
+
+            <div class="repo-info">
+                <p>The whole repo is available for viewing here:</p>
+                <a href="https://github.com/mStefn/gym_tracker" target="_blank" class="repo-link" aria-label="Link do repozytorium GitHub">
+                    <img src="/static/icons/github-icon.svg" alt="GitHub Repo Icon" />
+                </a>
+            </div>
         </section>
     </main>
 
