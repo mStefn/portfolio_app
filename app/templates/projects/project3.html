@@ -5,27 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }}</title>
     <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/projects/project1.css">
 </head>
 <body>
     <header class="main-header">
         <nav class="nav-container">
             <a href="/" class="nav-button">Home</a>
             <a href="/about" class="nav-button">About me</a>
-            <a href="/projects" class="nav-button">Projects</a>
+            <a href="/projects" class="nav-button active">Projects</a>
             <a href="/contact" class="nav-button">Contact Me</a>
         </nav>
     </header>
 
     <main>
         <section class="project-detail">
-            <h1>Project 3</h1>
-            <img src="/static/cat3.jpg" alt="Project 3 preview" style="max-width:100%; border-radius: 12px;">
-            <p>Ten projekt również jest w fazie planowania. Bądź na bieżąco!</p>
+            <h1>🧠 Local AI Home Server: Arch Linux, Nvidia & Qwen</h1>
+            
+            <p>
+                <strong>Status: Work in Progress 🚧</strong>
+            </p>
+            <p>
+                This upcoming project focuses on repurposing a personal PC equipped with an Nvidia GPU into a dedicated, self-hosted Artificial Intelligence server. The primary goal is to run a Small Language Model (SLM) locally, ensuring 100% data privacy and offline capabilities.
+            </p>
+
+            <h2>Why Arch Linux?</h2>
+            <p>
+                Instead of standard server distributions like Ubuntu or AlmaLinux, this project utilizes <strong>Arch Linux</strong> (CLI-only). While configuring Arch requires more hands-on Linux administration, its rolling-release model is a massive advantage for AI workloads. It provides immediate access to the bleeding-edge Nvidia drivers, CUDA toolkits, and Python packages via the Arch User Repository (AUR), avoiding the dependency hell often found in older, stable distributions.
+            </p>
+
+            <h2>Architecture & Technology Stack</h2>
+            <ul>
+                <li><strong>Hardware:</strong> Personal PC repurposed as a bare-metal server, leveraging an Nvidia GPU for hardware acceleration.</li>
+                <li><strong>OS:</strong> Arch Linux (CLI) for absolute control over the system footprint and package management.</li>
+                <li><strong>AI Model:</strong> <strong>Qwen</strong> (Small Language Model) - chosen for its excellent balance between hardware requirements and reasoning capabilities.</li>
+                <li><strong>Inference Engine:</strong> Utilizing tools like Ollama or vLLM to serve the model efficiently over a local network.</li>
+            </ul>
+
+            <h2>Project Goals</h2>
+            <p>
+                Once completed, this server will act as a completely private, personal AI assistant. It will be capable of processing documents, assisting with coding tasks, and integrating with other self-hosted home lab services, all without sending a single byte of data to external corporate APIs.
+            </p>
+
+            <h2>Expected Challenges</h2>
+            <ul>
+                <li>Headless Nvidia driver and CUDA toolkit configuration on Arch Linux.</li>
+                <li>Optimizing GPU VRAM usage to fit the Qwen SLM comfortably.</li>
+                <li>Setting up secure local API endpoints to interact with the model from other devices in the home network.</li>
+            </ul>
+
+            <div class="repo-info" style="margin-top: 40px;">
+                <p>Repository and detailed configuration files will be available soon!</p>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Maciej Stefanowicz. All rights reserved.</p>
+        <p>&copy; 2026 Maciej Stefanowicz. All rights reserved.</p>
     </footer>
 </body>
 </html>
