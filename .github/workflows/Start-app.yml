@@ -1,0 +1,24 @@
+name: Start Application
+
+on:
+  workflow_dispatch:
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v3
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      - name: Start App via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: stefan
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/stefan/domain/portfolio_app
+            docker compose up -d
+            echo "The application has been launched."
