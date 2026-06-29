@@ -14,8 +14,7 @@ jobs:
   # STEP 1: BUILD & PUSH APP
   # ==========================================
   build-and-push:
-    runs-on: ubuntu-latest
-    # To jest kluczowe! Zezwala GitHub Actions na logowanie do GHCR bez dodatkowych tokenów
+    runs-on: ubuntu-latest    
     permissions:
       contents: read
       packages: write
@@ -58,16 +57,15 @@ jobs:
           script: |
             cd /home/stefan/domain/portfolio_app || { echo "❌ Error: Project directory not found!"; exit 1; }
             
-            # Pobranie najnowszego pliku docker-compose.yml z repozytorium
+            
             git pull origin main
             
             # Magia GitHuba: Logowanie do GHCR na serwerze za pomocą jednorazowego tokenu z akcji!
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
             docker compose pull
-            docker compose up -d --remove-orphans
+            docker compose up -d --remove-orphans            
             
-            # Czyszczenie starych, nieużywanych obrazów, żeby serwer się nie zapchał
             docker image prune -af
 
   # ==========================================
