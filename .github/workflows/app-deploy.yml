@@ -1,0 +1,120 @@
+name: Deploy App (Auto CI/CD)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ghcr.io/mstefn/portfolio_app
+
+jobs:
+  # ==========================================
+  # STEP 1: BUILD & PUSH APP
+  # ==========================================
+  build-and-push:
+    runs-on: ubuntu-latest
+    # To jest kluczowe! Zezwala GitHub Actions na logowanie do GHCR bez dodatkowych tokenów
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:latest
+
+  # ==========================================
+  # STEP 2: DEPLOY APP ON SERVER
+  # ==========================================
+  deploy-app:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v3
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      - name: Deploy App to Server via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: stefan
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/stefan/domain/portfolio_app || { echo "❌ Error: Project directory not found!"; exit 1; }
+            
+            # Pobranie najnowszego pliku docker-compose.yml z repozytorium
+            git pull origin main
+            
+            # Magia GitHuba: Logowanie do GHCR na serwerze za pomocą jednorazowego tokenu z akcji!
+            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            
+            docker compose pull
+            docker compose up -d --remove-orphans
+            
+            # Czyszczenie starych, nieużywanych obrazów, żeby serwer się nie zapchał
+            docker image prune -af
+
+  # ==========================================
+  # STEP 3: APP HEALTH CHECK
+  # ==========================================
+  health-check-app:
+    needs: deploy-app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v3
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      - name: Check Health
+        run: |
+          echo "Waiting for app to start (up to 60 seconds)..."
+          for i in {1..12}; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://portfolio.m-stefn.com.pl/ || echo "000")
+            if [ "$STATUS" -eq 200 ]; then
+              echo "✅ Portfolio is Healthy!"
+              exit 0
+            fi
+            echo "Attempt $i/12: App returned $STATUS. Waiting 5 seconds..."
+            sleep 5
+          done
+          echo "❌ Error: Portfolio did not start in time!"
+          exit 1
+
+  # ==========================================
+  # STEP 4: DISCORD NOTIFICATION
+  # ==========================================
+  notify:
+    needs: [build-and-push, deploy-app, health-check-app]
+    if: always() 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord Notification
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}          
+          status: ${{ (needs.build-and-push.result == 'success' && needs.health-check-app.result == 'success') && 'success' || 'failure' }}
+          title: "🚀 Portfolio Auto-Deployment Report"
+          description: |
+            **1. Build & Push:** ${{ needs.build-and-push.result }}
+            **2. Server Deploy:** ${{ needs.deploy-app.result }}
+            **3. App Health Check:** ${{ needs.health-check-app.result }}
+            
+            The latest changes to the main branch have been deployed.
+            Check details here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
