@@ -1,0 +1,66 @@
+name: Deploy to Home_LAB
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/mstefn/portfolio_app:latest .
+
+      - name: Push Docker image to GHCR
+        run: |
+          docker push ghcr.io/mstefn/portfolio_app:latest
+
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v3
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      - name: Deploy via SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+          
+          echo "Łączenie z serwerem i uruchamianie kontenerów..."
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no stefan@${{ secrets.SERVER_IP }} << 'EOF'
+            cd /home/stefan/domain/portfolio_app
+            docker compose pull
+            docker compose up -d
+          EOF
+
+      - name: Check App Health
+        run: |
+          echo "Waiting for app to start (up to 60 seconds)..."
+          for i in {1..12}; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://portfolio.m-stefn.com.pl/ || echo "000")
+            if [ "$STATUS" -eq 200 ]; then
+              echo "✅ Portfolio is Healthy!"
+              exit 0
+            fi
+            echo "Attempt $i/12: App returned $STATUS. Waiting 5 seconds..."
+            sleep 5
+          done
+          echo "❌ Error: Portfolio did not start in time!"
+          exit 1
