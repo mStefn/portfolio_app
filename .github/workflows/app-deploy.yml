@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ghcr.io/mstefn/portfolio_app
+  IMAGE_NAME: ghcr.io/mstefn/portfolio_app_v2
 
 jobs:
   # ==========================================
