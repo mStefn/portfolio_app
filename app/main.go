@@ -118,7 +118,7 @@ func main() {
 	http.HandleFunc("/project3", serveProject3)
 
 	// Statyczne pliki
-	fs := http.FileServer(http.Dir("static"))
+	fs := http.FileServer(http.Dir("/home/stefan/domain/portfolio_app/app/static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	// Start serwera
