@@ -24,7 +24,9 @@
 
 <main class="project-page">
 
-    <!-- Hero -->
+    <!-- =========================
+         HERO
+         ========================= -->
 
     <section class="project-hero">
 
@@ -33,202 +35,114 @@
         <h1>Portfolio Infrastructure</h1>
 
         <p>
-            From an AWS-hosted application to a self-hosted Linux environment
-            with automated CI/CD, monitoring and containerized deployment.
+            A self-hosted portfolio infrastructure evolved from an AWS-based
+            deployment into a Linux server environment with automated CI/CD.
         </p>
 
     </section>
 
 
-    <!-- Overview -->
+    <!-- =========================
+         PROJECT OVERVIEW
+         ========================= -->
 
     <section class="project-section">
 
-        <h2>Overview</h2>
+        <h2>Project Overview</h2>
 
         <p>
-            This project started as a simple portfolio application hosted on AWS.
-            Over time, it became a practical infrastructure project where I could
-            learn how to deploy, automate and maintain a publicly accessible
-            application.
+            This project started as a simple portfolio application hosted on
+            AWS. Over time, I used it as a practical environment for learning
+            Linux administration, Docker, CI/CD, networking, security and
+            infrastructure automation.
         </p>
 
         <p>
-            Instead of treating the portfolio as only a web application, I used it
-            to experiment with infrastructure, CI/CD, networking, security and
-            troubleshooting.
+            Instead of treating deployment as a one-time setup, I gradually
+            automated the parts that became repetitive or caused problems.
+            This resulted in a small but realistic infrastructure project where
+            changes to the application could be built, deployed and verified
+            automatically.
         </p>
 
         <p>
-            The infrastructure changed significantly over time. It originally
-            relied on AWS EC2 and Route 53, while the current version runs on my
-            own Linux server using Docker, Docker Compose and GitHub Actions.
+            The infrastructure also evolved because of real constraints.
+            The initial AWS solution was useful for learning cloud deployment,
+            but after the AWS Free Tier ended, maintaining a paid EC2 instance
+            for a personal portfolio no longer made much sense.
         </p>
 
     </section>
 
 
-    <!-- Infrastructure Evolution -->
+    <!-- =========================
+         INFRASTRUCTURE EVOLUTION
+         ========================= -->
 
     <section class="project-section">
 
         <h2>Infrastructure Evolution</h2>
 
-        <div class="infrastructure-evolution">
+        <div class="evolution-diagram">
 
-            <div class="evolution-stage">
+            <div class="evolution-block">
 
-                <h3>Initial AWS Infrastructure</h3>
+                <span class="evolution-label">PHASE 1</span>
 
-                <p>
-                    The portfolio was initially hosted on an AWS EC2 instance
-                    running Linux and Docker. GitHub Actions was used to build
-                    and publish the application image to GitHub Container Registry
-                    and deploy it to the server.
-                </p>
+                <h3>AWS Infrastructure</h3>
 
-                <p>
-                    Route 53 was used for DNS management and the EC2 instance was
-                    started and stopped automatically to avoid keeping it running
-                    continuously.
-                </p>
+                <ul>
+                    <li>EC2 running Linux</li>
+                    <li>Docker & Docker Compose</li>
+                    <li>Nginx</li>
+                    <li>PostgreSQL</li>
+                    <li>Route 53</li>
+                    <li>GitHub Actions</li>
+                </ul>
 
             </div>
 
 
-            <div class="evolution-stage">
-
-                <h3>Current Self-Hosted Infrastructure</h3>
-
-                <p>
-                    When the AWS Free Tier ended, keeping the portfolio on EC2
-                    no longer made sense for a small personal project.
-                    I migrated the application to my own Linux server.
-                </p>
-
-                <p>
-                    The application is now deployed using Docker Compose, while
-                    GitHub Actions handles the build, image publishing and
-                    deployment process.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- AWS Problems -->
-
-    <section class="project-section">
-
-        <h2>Problems & Solutions</h2>
-
-        <div class="problem-list">
-
-            <div class="problem-item">
-
-                <h3>Dynamic EC2 Public IP</h3>
-
-                <p>
-                    The EC2 instance received a different public IP address after
-                    being restarted. Instead of manually updating DNS, the
-                    deployment workflow retrieved the current IP and updated the
-                    Route 53 record automatically.
-                </p>
-
+            <div class="evolution-arrow">
+                →
             </div>
 
 
-            <div class="problem-item">
+            <div class="evolution-block">
 
-                <h3>GitHub Actions Runner IP</h3>
+                <span class="evolution-label">PHASE 2</span>
 
-                <p>
-                    GitHub-hosted runners use changing public IP addresses,
-                    which made permanent SSH access impractical.
-                </p>
+                <h3>Self-Hosted Infrastructure</h3>
 
-                <p>
-                    During deployment, the workflow retrieved the runner's
-                    current public IP and temporarily added it to the EC2
-                    security group for SSH access. After deployment, the rule
-                    was removed again.
-                </p>
-
-            </div>
-
-
-            <div class="problem-item">
-
-                <h3>Docker Disk Usage</h3>
-
-                <p>
-                    Old Docker images gradually consumed the limited disk space
-                    on the server and eventually caused deployment problems.
-                </p>
-
-                <p>
-                    I added a cleanup script that removed unused Docker images
-                    and scheduled it with cron.
-                </p>
-
-            </div>
-
-
-            <div class="problem-item">
-
-                <h3>AWS Cost</h3>
-
-                <p>
-                    Running a personal portfolio continuously on EC2 was not
-                    necessary. To stay within the AWS Free Tier, the instance
-                    was automatically started and stopped using GitHub Actions.
-                </p>
-
-                <p>
-                    This reduced unnecessary resource usage while keeping the
-                    application available when required.
-                </p>
-
-            </div>
-
-
-            <div class="problem-item">
-
-                <h3>Free Tier Expiration</h3>
-
-                <p>
-                    Once the AWS Free Tier ended, continuing to pay for the EC2
-                    infrastructure was difficult to justify for a personal
-                    portfolio.
-                </p>
-
-                <p>
-                    Instead of removing the project or accepting the additional
-                    cost, I migrated it to my own Linux server while keeping the
-                    deployment process containerized and automated.
-                </p>
+                <ul>
+                    <li>Linux server</li>
+                    <li>Docker & Docker Compose</li>
+                    <li>Nginx</li>
+                    <li>PostgreSQL</li>
+                    <li>Tailscale</li>
+                    <li>GitHub Actions</li>
+                </ul>
 
             </div>
 
         </div>
 
-    </section>
-
-
-    <!-- Architecture -->
-
-    <section class="project-section">
-
-        <h2>Current Architecture</h2>
-
-        <p>
-            The current environment is intentionally simple. The goal was not to
-            build a large platform, but to create infrastructure that is easy to
-            maintain and understand.
+        <p class="section-note">
+            The migration was not only a cost decision. It also gave me more
+            control over the environment and turned the server into a broader
+            homelab platform for experimenting with infrastructure.
         </p>
+
+    </section>
+
+
+    <!-- =========================
+         AWS ARCHITECTURE
+         ========================= -->
+
+    <section class="project-section">
+
+        <h2>Initial AWS Architecture</h2>
 
         <div class="architecture">
 
@@ -236,6 +150,370 @@
 
                 <div class="architecture-item">
                     GitHub
+                </div>
+
+                <div class="architecture-arrow">
+                    →
+                </div>
+
+                <div class="architecture-item">
+                    GitHub Actions
+                </div>
+
+                <div class="architecture-arrow">
+                    →
+                </div>
+
+                <div class="architecture-item">
+                    GHCR
+                </div>
+
+                <div class="architecture-arrow">
+                    →
+                </div>
+
+                <div class="architecture-item">
+                    AWS EC2
+                </div>
+
+                <div class="architecture-arrow">
+                    →
+                </div>
+
+                <div class="architecture-item">
+                    Nginx
+                </div>
+
+            </div>
+
+        </div>
+
+        <p>
+            The application was packaged as a Docker image and published to
+            GitHub Container Registry. GitHub Actions then connected to the
+            EC2 instance and deployed the new image.
+        </p>
+
+        <p>
+            Because the portfolio did not need to run continuously, the EC2
+            instance was automatically started and stopped. This reduced
+            unnecessary resource usage while staying within the limitations
+            of the AWS Free Tier.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         PROBLEMS & SOLUTIONS
+         ========================= -->
+
+    <section class="project-section">
+
+        <h2>Problems & Solutions</h2>
+
+        <p>
+            The most valuable part of the project came from problems that
+            appeared after the initial deployment was working.
+        </p>
+
+
+        <div class="problem-list">
+
+            <!-- Problem 1 -->
+
+            <article class="problem-card">
+
+                <div class="problem-header">
+                    <span>01</span>
+                    <h3>Dynamic EC2 Public IP</h3>
+                </div>
+
+                <div class="problem-content">
+
+                    <div class="problem-column">
+
+                        <h4>Problem</h4>
+
+                        <p>
+                            The EC2 instance received a new public IP address
+                            after being restarted. A static DNS configuration
+                            would therefore become invalid after each restart.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-column">
+
+                        <h4>Solution</h4>
+
+                        <p>
+                            The deployment workflow retrieved the current EC2
+                            public IP and automatically updated the Route 53
+                            DNS record before deployment.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-result">
+
+                        <strong>Result</strong>
+
+                        <p>
+                            DNS updates became part of the deployment process
+                            instead of requiring manual intervention.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Problem 2 -->
+
+            <article class="problem-card">
+
+                <div class="problem-header">
+                    <span>02</span>
+                    <h3>GitHub Actions Runner IP</h3>
+                </div>
+
+                <div class="problem-content">
+
+                    <div class="problem-column">
+
+                        <h4>Problem</h4>
+
+                        <p>
+                            GitHub-hosted runners use changing public IP
+                            addresses. Permanently allowing SSH access from
+                            GitHub's infrastructure was therefore not a
+                            practical solution.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-column">
+
+                        <h4>Solution</h4>
+
+                        <p>
+                            The workflow retrieved the current runner IP and
+                            temporarily added it to the EC2 security group
+                            for SSH access.
+                        </p>
+
+                        <p>
+                            After deployment, the temporary rule was removed.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-result">
+
+                        <strong>Result</strong>
+
+                        <p>
+                            Automated deployments could use SSH without
+                            leaving a permanent rule for changing runner
+                            addresses.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Problem 3 -->
+
+            <article class="problem-card">
+
+                <div class="problem-header">
+                    <span>03</span>
+                    <h3>Docker Disk Usage</h3>
+                </div>
+
+                <div class="problem-content">
+
+                    <div class="problem-column">
+
+                        <h4>Problem</h4>
+
+                        <p>
+                            Repeated deployments caused unused Docker images
+                            to accumulate. The limited disk space on the
+                            server eventually became a deployment problem.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-column">
+
+                        <h4>Solution</h4>
+
+                        <p>
+                            I introduced a Docker cleanup script which removed
+                            unused images and scheduled it using cron.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-result">
+
+                        <strong>Result</strong>
+
+                        <p>
+                            Disk usage became predictable and deployments no
+                            longer depended on manually cleaning old images.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Problem 4 -->
+
+            <article class="problem-card">
+
+                <div class="problem-header">
+                    <span>04</span>
+                    <h3>AWS Cost & Resource Usage</h3>
+                </div>
+
+                <div class="problem-content">
+
+                    <div class="problem-column">
+
+                        <h4>Problem</h4>
+
+                        <p>
+                            A personal portfolio did not require a continuously
+                            running EC2 instance. Keeping it online 24/7 would
+                            consume resources unnecessarily.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-column">
+
+                        <h4>Solution</h4>
+
+                        <p>
+                            GitHub Actions was used to start the EC2 instance
+                            when required and stop it after the scheduled
+                            period.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-result">
+
+                        <strong>Result</strong>
+
+                        <p>
+                            The infrastructure remained available when needed
+                            while reducing unnecessary AWS resource usage.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Problem 5 -->
+
+            <article class="problem-card">
+
+                <div class="problem-header">
+                    <span>05</span>
+                    <h3>AWS Free Tier Expiration</h3>
+                </div>
+
+                <div class="problem-content">
+
+                    <div class="problem-column">
+
+                        <h4>Problem</h4>
+
+                        <p>
+                            Once the AWS Free Tier ended, paying for an EC2
+                            instance solely to host a personal portfolio was
+                            difficult to justify.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-column">
+
+                        <h4>Solution</h4>
+
+                        <p>
+                            I migrated the application to my own Linux server
+                            while keeping the deployment containerized and
+                            automated.
+                        </p>
+
+                    </div>
+
+
+                    <div class="problem-result">
+
+                        <strong>Result</strong>
+
+                        <p>
+                            The portfolio continued running without the
+                            recurring AWS infrastructure cost.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CURRENT ARCHITECTURE
+         ========================= -->
+
+    <section class="project-section">
+
+        <h2>Current Architecture</h2>
+
+        <p>
+            The current infrastructure is intentionally simple. It provides
+            enough automation and isolation for the application without adding
+            services that are not necessary for a personal project.
+        </p>
+
+        <div class="architecture">
+
+            <div class="architecture-flow">
+
+                <div class="architecture-item">
+                    Git
                 </div>
 
                 <div class="architecture-arrow">
@@ -267,6 +545,14 @@
                 </div>
 
                 <div class="architecture-item">
+                    Docker Compose
+                </div>
+
+                <div class="architecture-arrow">
+                    →
+                </div>
+
+                <div class="architecture-item">
                     Nginx
                 </div>
 
@@ -275,24 +561,26 @@
         </div>
 
         <p>
-            The application itself runs as Docker services managed with Docker
-            Compose. The server is not directly exposed for administrative
-            access; deployment is performed through a private Tailscale
-            connection and SSH.
+            Administrative access is separated from the public application
+            through Tailscale. Deployment is performed over the private
+            network using SSH.
         </p>
 
     </section>
 
 
-    <!-- Current CI/CD -->
+    <!-- =========================
+         CURRENT CI/CD
+         ========================= -->
 
     <section class="project-section">
 
-        <h2>Current CI/CD</h2>
+        <h2>Current CI/CD Pipeline</h2>
 
         <p>
-            The current deployment process is triggered when changes are pushed
-            to the main branch. It can also be started manually when required.
+            The current pipeline is triggered by changes pushed to the
+            <strong>main</strong> branch. It can also be started manually when
+            required.
         </p>
 
         <div class="pipeline">
@@ -300,7 +588,7 @@
             <div class="pipeline-steps">
 
                 <div class="pipeline-step">
-                    Push to main
+                    Git Push
                 </div>
 
                 <div class="pipeline-arrow">
@@ -308,7 +596,7 @@
                 </div>
 
                 <div class="pipeline-step">
-                    Docker build
+                    Docker Build
                 </div>
 
                 <div class="pipeline-arrow">
@@ -324,7 +612,7 @@
                 </div>
 
                 <div class="pipeline-step">
-                    Deploy
+                    Tailscale
                 </div>
 
                 <div class="pipeline-arrow">
@@ -332,7 +620,7 @@
                 </div>
 
                 <div class="pipeline-step">
-                    Health check
+                    SSH Deploy
                 </div>
 
                 <div class="pipeline-arrow">
@@ -340,7 +628,15 @@
                 </div>
 
                 <div class="pipeline-step">
-                    Discord notification
+                    Health Check
+                </div>
+
+                <div class="pipeline-arrow">
+                    →
+                </div>
+
+                <div class="pipeline-step">
+                    Discord
                 </div>
 
             </div>
@@ -348,44 +644,70 @@
         </div>
 
         <p>
-            During deployment, GitHub Actions connects to the server through
-            Tailscale, pulls the latest container image and recreates the
-            application using Docker Compose.
+            During deployment, the server pulls the latest container image and
+            recreates the application using Docker Compose. Unused Docker
+            images are removed afterwards to keep disk usage under control.
         </p>
 
         <p>
-            After deployment, the workflow performs an external health check
-            against the public application. The result is then reported through
-            Discord.
+            A separate health-check stage verifies the publicly accessible
+            application after deployment. If the deployment or health check
+            fails, the workflow reports the failure through Discord.
         </p>
 
     </section>
 
 
-    <!-- Security -->
+    <!-- =========================
+         SECURITY & MAINTENANCE
+         ========================= -->
 
     <section class="project-section">
 
         <h2>Security & Maintenance</h2>
 
-        <p>
-            Security was kept relatively simple, but several practical measures
-            were introduced as the project evolved.
-        </p>
+        <div class="security-grid">
 
-        <ul>
-            <li>Administrative access is performed through SSH.</li>
-            <li>Server access is handled through a private Tailscale network.</li>
-            <li>Application services run inside Docker containers.</li>
-            <li>Deployment is performed automatically through GitHub Actions.</li>
-            <li>Unused Docker images are removed after deployment.</li>
-            <li>Application availability is verified after deployment.</li>
-        </ul>
+            <div class="security-item">
+                <h3>Private Administration</h3>
+                <p>
+                    Server administration is performed through Tailscale
+                    instead of exposing SSH directly to the public internet.
+                </p>
+            </div>
+
+            <div class="security-item">
+                <h3>Containerization</h3>
+                <p>
+                    Application components are isolated into Docker services
+                    and managed using Docker Compose.
+                </p>
+            </div>
+
+            <div class="security-item">
+                <h3>Automated Deployment</h3>
+                <p>
+                    Deployments are performed through a repeatable GitHub
+                    Actions workflow instead of manual server changes.
+                </p>
+            </div>
+
+            <div class="security-item">
+                <h3>Post-Deployment Verification</h3>
+                <p>
+                    The public endpoint is checked after deployment to verify
+                    that the application is actually available.
+                </p>
+            </div>
+
+        </div>
 
     </section>
 
 
-    <!-- Technologies -->
+    <!-- =========================
+         TECHNOLOGIES
+         ========================= -->
 
     <section class="project-section">
 
@@ -397,6 +719,8 @@
             <span class="tech-item">Docker</span>
             <span class="tech-item">Docker Compose</span>
             <span class="tech-item">Nginx</span>
+            <span class="tech-item">PostgreSQL</span>
+            <span class="tech-item">Git</span>
             <span class="tech-item">GitHub Actions</span>
             <span class="tech-item">GitHub Container Registry</span>
             <span class="tech-item">AWS EC2</span>
@@ -405,56 +729,64 @@
             <span class="tech-item">SSH</span>
             <span class="tech-item">Bash</span>
             <span class="tech-item">Cron</span>
-            <span class="tech-item">PostgreSQL</span>
 
         </div>
 
     </section>
 
 
-    <!-- Reflection -->
+    <!-- =========================
+         LESSONS LEARNED
+         ========================= -->
 
     <section class="project-section">
 
         <h2>What I Learned</h2>
 
         <p>
-            The most valuable part of this project was not setting up Docker or
-            creating a GitHub Actions workflow. It was dealing with problems
-            that appeared after the initial setup.
+            The most valuable part of this project was not getting the first
+            deployment working. It was dealing with the problems that appeared
+            afterwards.
         </p>
 
         <p>
-            Working with changing IP addresses, SSH access, limited disk space,
-            deployment failures and AWS costs showed me that infrastructure is
-            not only about getting a system running. It is also about making it
-            maintainable and understanding what happens when something changes.
+            Changing IP addresses, temporary SSH access, limited disk space,
+            deployment failures and AWS cost constraints forced me to think
+            about the infrastructure as something that needs to be maintained,
+            not just configured once.
         </p>
 
         <p>
             The migration from AWS to my own server was also an important
-            exercise in making infrastructure decisions based on actual
-            requirements rather than simply using cloud services because they
-            are available.
+            infrastructure decision. Instead of using cloud services simply
+            because they were available, I compared the actual requirements
+            of the project with the cost and complexity of the infrastructure.
         </p>
 
         <p>
             Looking back, I would separate the CI and CD responsibilities more
-            clearly, build and publish images only when application code changes,
-            and introduce better image retention and caching. These changes
-            would make the pipeline more efficient without adding unnecessary
-            complexity.
+            clearly. I would also build and publish images only when application
+            code changes, introduce better image retention and caching, and
+            separate infrastructure lifecycle tasks from application
+            deployment.
+        </p>
+
+        <p>
+            These improvements would make the pipeline more efficient without
+            adding unnecessary complexity to a small project.
         </p>
 
     </section>
 
 
-    <!-- Repository -->
+    <!-- =========================
+         REPOSITORY
+         ========================= -->
 
     <section class="repo-info">
 
         <p>
-            Source code and infrastructure configuration:
+            Source code and infrastructure configuration
         </p>
 
         <a
@@ -468,8 +800,6 @@
 
     </section>
 
-
-    <!-- Back -->
 
     <div class="back-to-projects">
 
