@@ -1,338 +1,490 @@
-/* =========================
-   Project Page
-   ========================= */
-
-.project-page {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* =========================
-   Hero
-   ========================= */
-
-.project-hero {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.project-hero span {
-    color: var(--color-accent);
-    font-size: 0.95rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.project-hero h1 {
-    margin: 10px 0;
-    font-size: 3rem;
-    color: var(--color-text-primary);
-}
-
-.project-hero p {
-    max-width: 750px;
-    margin: 0 auto;
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-}
-
-
-/* =========================
-   Sections
-   ========================= */
-
-.project-section {
-    margin-bottom: 55px;
-}
-
-.project-section h2 {
-    margin-bottom: 20px;
-    color: var(--color-accent);
-    font-size: 1.8rem;
-}
-
-.project-section h3 {
-    margin-bottom: 10px;
-    color: var(--color-text-primary);
-    font-size: 1.25rem;
-}
-
-.project-section p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 15px;
-    color: var(--color-text-primary);
-}
-
-.project-section ul {
-    padding-left: 25px;
-    margin-top: 10px;
-}
-
-.project-section li {
-    margin-bottom: 10px;
-    font-size: 1.05rem;
-    line-height: 1.6;
-}
-
-
-/* =========================
-   Links
-   ========================= */
-
-.project-page a {
-    color: var(--color-accent);
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    transition: color 0.3s, opacity 0.3s;
-}
-
-.project-page a:hover {
-    color: var(--color-accent-hover);
-}
-
-
-/* =========================
-   Infrastructure Evolution
-   ========================= */
-
-.infrastructure-evolution {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin-top: 25px;
-}
-
-.evolution-stage {
-    padding: 25px;
-    border-left: 4px solid var(--color-accent);
-    background-color: rgba(15, 27, 43, 0.55);
-    border-radius: 10px;
-}
-
-.evolution-stage h3 {
-    color: var(--color-text-secondary);
-    margin-top: 0;
-}
-
-.evolution-stage p {
-    margin-bottom: 0;
-}
-
-
-/* =========================
-   Architecture
-   ========================= */
-
-.architecture {
-    margin-top: 25px;
-    padding: 25px;
-    background-color: rgba(15, 27, 43, 0.55);
-    border-radius: 12px;
-    border-left: 4px solid var(--color-accent);
-}
-
-.architecture-flow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 20px;
-}
-
-.architecture-item {
-    padding: 12px 18px;
-    border: 1px solid var(--color-accent);
-    border-radius: 8px;
-    color: var(--color-text-primary);
-    font-weight: 600;
-    text-align: center;
-}
-
-.architecture-arrow {
-    color: var(--color-accent);
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
-
-/* =========================
-   Problems & Solutions
-   ========================= */
-
-.problem-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 25px;
-}
-
-.problem-item {
-    padding: 20px 25px;
-    background-color: rgba(15, 27, 43, 0.55);
-    border-radius: 10px;
-    border-left: 4px solid var(--color-accent);
-}
-
-.problem-item h3 {
-    margin-top: 0;
-    color: var(--color-text-secondary);
-}
-
-.problem-item p {
-    margin-bottom: 0;
-}
-
-
-/* =========================
-   CI/CD Pipeline
-   ========================= */
-
-.pipeline {
-    margin-top: 25px;
-    padding: 25px;
-    background-color: rgba(15, 27, 43, 0.55);
-    border-radius: 12px;
-}
-
-.pipeline-steps {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.pipeline-step {
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--color-accent);
-    text-align: center;
-    font-weight: 600;
-}
-
-.pipeline-arrow {
-    color: var(--color-accent);
-    font-size: 1.3rem;
-    font-weight: bold;
-}
-
-
-/* =========================
-   Technologies
-   ========================= */
-
-.tech-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.tech-item {
-    padding: 8px 14px;
-    border-radius: 20px;
-    background-color: rgba(15, 27, 43, 0.7);
-    border: 1px solid rgba(242, 163, 64, 0.5);
-    color: var(--color-text-primary);
-    font-size: 0.95rem;
-}
-
-
-/* =========================
-   GitHub
-   ========================= */
-
-.repo-info {
-    margin-top: 50px;
-    padding-top: 30px;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.repo-info p {
-    margin-bottom: 10px;
-    color: var(--color-text-primary);
-}
-
-.project-github-button {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    border-radius: 25px;
-    background-color: var(--color-accent);
-    color: #000 !important;
-    font-weight: bold;
-    text-decoration: none !important;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.project-github-button:hover {
-    background-color: var(--color-accent-hover);
-    transform: translateY(-2px);
-}
-
-
-/* =========================
-   Back to Projects
-   ========================= */
-
-.back-to-projects {
-    text-align: center;
-    margin: 40px 0 20px;
-}
-
-.back-to-projects a {
-    font-size: 1rem;
-}
-
-
-/* =========================
-   Responsive
-   ========================= */
-
-@media (max-width: 768px) {
-
-    .project-page {
-        padding: 10px;
-    }
-
-    .project-hero {
-        margin-bottom: 40px;
-    }
-
-    .project-hero h1 {
-        font-size: 2.2rem;
-    }
-
-    .project-hero p {
-        font-size: 1.05rem;
-    }
-
-    .infrastructure-evolution {
-        grid-template-columns: 1fr;
-    }
-
-    .architecture-flow,
-    .pipeline-steps {
-        flex-direction: column;
-    }
-
-    .architecture-arrow,
-    .pipeline-arrow {
-        transform: rotate(90deg);
-    }
-
-    .project-section {
-        margin-bottom: 40px;
-    }
-
-    .project-section h2 {
-        font-size: 1.5rem;
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Portfolio Infrastructure</title>
+
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/projects/project1.css">
+</head>
+
+<body>
+
+<header class="main-header">
+    <nav class="nav-container">
+        <a href="/" class="nav-button">Home</a>
+        <a href="/about" class="nav-button">About me</a>
+        <a href="/projects" class="nav-button active">Projects</a>
+        <a href="/contact" class="nav-button">Contact Me</a>
+    </nav>
+</header>
+
+
+<main class="project-page">
+
+    <!-- Hero -->
+
+    <section class="project-hero">
+
+        <span>Infrastructure & DevOps</span>
+
+        <h1>Portfolio Infrastructure</h1>
+
+        <p>
+            From an AWS-hosted application to a self-hosted Linux environment
+            with automated CI/CD, monitoring and containerized deployment.
+        </p>
+
+    </section>
+
+
+    <!-- Overview -->
+
+    <section class="project-section">
+
+        <h2>Overview</h2>
+
+        <p>
+            This project started as a simple portfolio application hosted on AWS.
+            Over time, it became a practical infrastructure project where I could
+            learn how to deploy, automate and maintain a publicly accessible
+            application.
+        </p>
+
+        <p>
+            Instead of treating the portfolio as only a web application, I used it
+            to experiment with infrastructure, CI/CD, networking, security and
+            troubleshooting.
+        </p>
+
+        <p>
+            The infrastructure changed significantly over time. It originally
+            relied on AWS EC2 and Route 53, while the current version runs on my
+            own Linux server using Docker, Docker Compose and GitHub Actions.
+        </p>
+
+    </section>
+
+
+    <!-- Infrastructure Evolution -->
+
+    <section class="project-section">
+
+        <h2>Infrastructure Evolution</h2>
+
+        <div class="infrastructure-evolution">
+
+            <div class="evolution-stage">
+
+                <h3>Initial AWS Infrastructure</h3>
+
+                <p>
+                    The portfolio was initially hosted on an AWS EC2 instance
+                    running Linux and Docker. GitHub Actions was used to build
+                    and publish the application image to GitHub Container Registry
+                    and deploy it to the server.
+                </p>
+
+                <p>
+                    Route 53 was used for DNS management and the EC2 instance was
+                    started and stopped automatically to avoid keeping it running
+                    continuously.
+                </p>
+
+            </div>
+
+
+            <div class="evolution-stage">
+
+                <h3>Current Self-Hosted Infrastructure</h3>
+
+                <p>
+                    When the AWS Free Tier ended, keeping the portfolio on EC2
+                    no longer made sense for a small personal project.
+                    I migrated the application to my own Linux server.
+                </p>
+
+                <p>
+                    The application is now deployed using Docker Compose, while
+                    GitHub Actions handles the build, image publishing and
+                    deployment process.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- AWS Problems -->
+
+    <section class="project-section">
+
+        <h2>Problems & Solutions</h2>
+
+        <div class="problem-list">
+
+            <div class="problem-item">
+
+                <h3>Dynamic EC2 Public IP</h3>
+
+                <p>
+                    The EC2 instance received a different public IP address after
+                    being restarted. Instead of manually updating DNS, the
+                    deployment workflow retrieved the current IP and updated the
+                    Route 53 record automatically.
+                </p>
+
+            </div>
+
+
+            <div class="problem-item">
+
+                <h3>GitHub Actions Runner IP</h3>
+
+                <p>
+                    GitHub-hosted runners use changing public IP addresses,
+                    which made permanent SSH access impractical.
+                </p>
+
+                <p>
+                    During deployment, the workflow retrieved the runner's
+                    current public IP and temporarily added it to the EC2
+                    security group for SSH access. After deployment, the rule
+                    was removed again.
+                </p>
+
+            </div>
+
+
+            <div class="problem-item">
+
+                <h3>Docker Disk Usage</h3>
+
+                <p>
+                    Old Docker images gradually consumed the limited disk space
+                    on the server and eventually caused deployment problems.
+                </p>
+
+                <p>
+                    I added a cleanup script that removed unused Docker images
+                    and scheduled it with cron.
+                </p>
+
+            </div>
+
+
+            <div class="problem-item">
+
+                <h3>AWS Cost</h3>
+
+                <p>
+                    Running a personal portfolio continuously on EC2 was not
+                    necessary. To stay within the AWS Free Tier, the instance
+                    was automatically started and stopped using GitHub Actions.
+                </p>
+
+                <p>
+                    This reduced unnecessary resource usage while keeping the
+                    application available when required.
+                </p>
+
+            </div>
+
+
+            <div class="problem-item">
+
+                <h3>Free Tier Expiration</h3>
+
+                <p>
+                    Once the AWS Free Tier ended, continuing to pay for the EC2
+                    infrastructure was difficult to justify for a personal
+                    portfolio.
+                </p>
+
+                <p>
+                    Instead of removing the project or accepting the additional
+                    cost, I migrated it to my own Linux server while keeping the
+                    deployment process containerized and automated.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Architecture -->
+
+    <section class="project-section">
+
+        <h2>Current Architecture</h2>
+
+        <p>
+            The current environment is intentionally simple. The goal was not to
+            build a large platform, but to create infrastructure that is easy to
+            maintain and understand.
+        </p>
+
+        <div class="architecture">
+
+            <div class="architecture-flow">
+
+                <div class="architecture-item">
+                    GitHub
+                </div>
+
+                <div class="architecture-arrow">
+                    →
+                </div>
+
+                <div class="architecture-item">
+                    GitHub Actions
+                </div>
+
+                <div class="architecture-arrow">
+                    →
+                </div>
+
+                <div class="architecture-item">
+                    GHCR
+                </div>
+
+                <div class="architecture-arrow">
+                    →
+                </div>
+
+                <div class="architecture-item">
+                    Linux Server
+                </div>
+
+                <div class="architecture-arrow">
+                    →
+                </div>
+
+                <div class="architecture-item">
+                    Nginx
+                </div>
+
+            </div>
+
+        </div>
+
+        <p>
+            The application itself runs as Docker services managed with Docker
+            Compose. The server is not directly exposed for administrative
+            access; deployment is performed through a private Tailscale
+            connection and SSH.
+        </p>
+
+    </section>
+
+
+    <!-- Current CI/CD -->
+
+    <section class="project-section">
+
+        <h2>Current CI/CD</h2>
+
+        <p>
+            The current deployment process is triggered when changes are pushed
+            to the main branch. It can also be started manually when required.
+        </p>
+
+        <div class="pipeline">
+
+            <div class="pipeline-steps">
+
+                <div class="pipeline-step">
+                    Push to main
+                </div>
+
+                <div class="pipeline-arrow">
+                    →
+                </div>
+
+                <div class="pipeline-step">
+                    Docker build
+                </div>
+
+                <div class="pipeline-arrow">
+                    →
+                </div>
+
+                <div class="pipeline-step">
+                    Push to GHCR
+                </div>
+
+                <div class="pipeline-arrow">
+                    →
+                </div>
+
+                <div class="pipeline-step">
+                    Deploy
+                </div>
+
+                <div class="pipeline-arrow">
+                    →
+                </div>
+
+                <div class="pipeline-step">
+                    Health check
+                </div>
+
+                <div class="pipeline-arrow">
+                    →
+                </div>
+
+                <div class="pipeline-step">
+                    Discord notification
+                </div>
+
+            </div>
+
+        </div>
+
+        <p>
+            During deployment, GitHub Actions connects to the server through
+            Tailscale, pulls the latest container image and recreates the
+            application using Docker Compose.
+        </p>
+
+        <p>
+            After deployment, the workflow performs an external health check
+            against the public application. The result is then reported through
+            Discord.
+        </p>
+
+    </section>
+
+
+    <!-- Security -->
+
+    <section class="project-section">
+
+        <h2>Security & Maintenance</h2>
+
+        <p>
+            Security was kept relatively simple, but several practical measures
+            were introduced as the project evolved.
+        </p>
+
+        <ul>
+            <li>Administrative access is performed through SSH.</li>
+            <li>Server access is handled through a private Tailscale network.</li>
+            <li>Application services run inside Docker containers.</li>
+            <li>Deployment is performed automatically through GitHub Actions.</li>
+            <li>Unused Docker images are removed after deployment.</li>
+            <li>Application availability is verified after deployment.</li>
+        </ul>
+
+    </section>
+
+
+    <!-- Technologies -->
+
+    <section class="project-section">
+
+        <h2>Technologies</h2>
+
+        <div class="tech-list">
+
+            <span class="tech-item">Linux</span>
+            <span class="tech-item">Docker</span>
+            <span class="tech-item">Docker Compose</span>
+            <span class="tech-item">Nginx</span>
+            <span class="tech-item">GitHub Actions</span>
+            <span class="tech-item">GitHub Container Registry</span>
+            <span class="tech-item">AWS EC2</span>
+            <span class="tech-item">AWS Route 53</span>
+            <span class="tech-item">Tailscale</span>
+            <span class="tech-item">SSH</span>
+            <span class="tech-item">Bash</span>
+            <span class="tech-item">Cron</span>
+            <span class="tech-item">PostgreSQL</span>
+
+        </div>
+
+    </section>
+
+
+    <!-- Reflection -->
+
+    <section class="project-section">
+
+        <h2>What I Learned</h2>
+
+        <p>
+            The most valuable part of this project was not setting up Docker or
+            creating a GitHub Actions workflow. It was dealing with problems
+            that appeared after the initial setup.
+        </p>
+
+        <p>
+            Working with changing IP addresses, SSH access, limited disk space,
+            deployment failures and AWS costs showed me that infrastructure is
+            not only about getting a system running. It is also about making it
+            maintainable and understanding what happens when something changes.
+        </p>
+
+        <p>
+            The migration from AWS to my own server was also an important
+            exercise in making infrastructure decisions based on actual
+            requirements rather than simply using cloud services because they
+            are available.
+        </p>
+
+        <p>
+            Looking back, I would separate the CI and CD responsibilities more
+            clearly, build and publish images only when application code changes,
+            and introduce better image retention and caching. These changes
+            would make the pipeline more efficient without adding unnecessary
+            complexity.
+        </p>
+
+    </section>
+
+
+    <!-- Repository -->
+
+    <section class="repo-info">
+
+        <p>
+            Source code and infrastructure configuration:
+        </p>
+
+        <a
+            href="https://github.com/mStefn/portfolio_app"
+            class="project-github-button"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            View on GitHub
+        </a>
+
+    </section>
+
+
+    <!-- Back -->
+
+    <div class="back-to-projects">
+
+        <a href="/projects">
+            ← Back to Projects
+        </a>
+
+    </div>
+
+</main>
+
+
+<footer>
+    <p>© 2026 Maciej Stefanowicz</p>
+</footer>
+
+</body>
+</html>
