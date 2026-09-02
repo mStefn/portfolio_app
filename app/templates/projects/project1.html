@@ -3,818 +3,1281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Portfolio Infrastructure</title>
 
     <link rel="stylesheet" href="/static/styles/style.css">
-    <link rel="stylesheet" href="/static/styles/projects/project1.css">
+
+    <style>
+        /* =========================================================
+           PROJECT 1 — PORTFOLIO INFRASTRUCTURE
+           ========================================================= */
+
+        .portfolio-project {
+            width: min(1180px, 92%);
+            margin: 0 auto;
+            padding: 70px 0 90px;
+        }
+
+        .project-hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .project-hero .eyebrow {
+            display: inline-block;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .project-hero h1 {
+            margin: 0;
+            font-size: clamp(2.3rem, 5vw, 4.5rem);
+            line-height: 1.05;
+        }
+
+        .project-hero .subtitle {
+            max-width: 760px;
+            margin: 24px auto 0;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            opacity: 0.8;
+        }
+
+        .project-hero .hero-links {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .project-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 20px;
+            border: 1px solid rgba(128, 128, 128, 0.35);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .project-button:hover {
+            transform: translateY(-2px);
+            opacity: 0.85;
+        }
+
+        .project-section {
+            margin-bottom: 80px;
+        }
+
+        .project-section-header {
+            margin-bottom: 28px;
+        }
+
+        .project-section-header span {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            opacity: 0.55;
+        }
+
+        .project-section-header h2 {
+            margin: 0;
+            font-size: clamp(1.8rem, 3vw, 2.7rem);
+        }
+
+        .project-section-header p {
+            max-width: 800px;
+            margin: 14px 0 0;
+            line-height: 1.75;
+            opacity: 0.78;
+        }
+
+        /* =========================================================
+           INTRO
+           ========================================================= */
+
+        .intro-card {
+            padding: 32px;
+            border: 1px solid rgba(128, 128, 128, 0.22);
+            border-radius: 14px;
+            background: rgba(128, 128, 128, 0.04);
+        }
+
+        .intro-card p {
+            margin: 0;
+            font-size: 1.08rem;
+            line-height: 1.85;
+        }
+
+        /* =========================================================
+           EVOLUTION
+           ========================================================= */
+
+        .evolution-wrapper {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: stretch;
+            gap: 24px;
+        }
+
+        .evolution-card {
+            padding: 30px;
+            border: 1px solid rgba(128, 128, 128, 0.22);
+            border-radius: 14px;
+            background: rgba(128, 128, 128, 0.035);
+        }
+
+        .evolution-card.current {
+            border-width: 2px;
+        }
+
+        .evolution-card .phase {
+            margin-bottom: 10px;
+            font-size: 0.78rem;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            font-weight: 700;
+            opacity: 0.58;
+        }
+
+        .evolution-card h3 {
+            margin: 0 0 18px;
+            font-size: 1.5rem;
+        }
+
+        .evolution-card p {
+            margin: 0;
+            line-height: 1.75;
+            opacity: 0.8;
+        }
+
+        .evolution-card ul {
+            margin: 20px 0 0;
+            padding-left: 20px;
+        }
+
+        .evolution-card li {
+            margin-bottom: 9px;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .evolution-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            opacity: 0.5;
+        }
+
+        /* =========================================================
+           ARCHITECTURE DIAGRAM
+           ========================================================= */
+
+        .architecture-container {
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+        }
+
+        .architecture-block {
+            padding: 28px;
+            border: 1px solid rgba(128, 128, 128, 0.22);
+            border-radius: 14px;
+            background: rgba(128, 128, 128, 0.035);
+        }
+
+        .architecture-block h3 {
+            margin: 0 0 22px;
+            font-size: 1.35rem;
+        }
+
+        .architecture-note {
+            margin-top: 20px;
+            font-size: 0.93rem;
+            line-height: 1.65;
+            opacity: 0.68;
+        }
+
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .flow-node {
+            padding: 14px 18px;
+            border: 1px solid rgba(128, 128, 128, 0.28);
+            border-radius: 9px;
+            text-align: center;
+            font-weight: 600;
+            min-width: 120px;
+            background: rgba(128, 128, 128, 0.045);
+        }
+
+        .flow-node small {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.72rem;
+            font-weight: 400;
+            opacity: 0.65;
+        }
+
+        .flow-arrow {
+            font-size: 1.3rem;
+            opacity: 0.5;
+        }
+
+        .architecture-services {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .service-item {
+            padding: 14px;
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* =========================================================
+           WHAT I BUILT
+           ========================================================= */
+
+        .built-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .built-card {
+            padding: 26px;
+            border: 1px solid rgba(128, 128, 128, 0.22);
+            border-radius: 12px;
+            background: rgba(128, 128, 128, 0.035);
+        }
+
+        .built-card h3 {
+            margin: 0 0 12px;
+            font-size: 1.2rem;
+        }
+
+        .built-card p {
+            margin: 0;
+            line-height: 1.7;
+            opacity: 0.76;
+        }
+
+        /* =========================================================
+           PROBLEMS / SOLUTIONS
+           ========================================================= */
+
+        .problem-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .problem-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 1px solid rgba(128, 128, 128, 0.22);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .problem-side,
+        .solution-side {
+            padding: 28px;
+        }
+
+        .problem-side {
+            background: rgba(128, 128, 128, 0.025);
+        }
+
+        .solution-side {
+            border-left: 1px solid rgba(128, 128, 128, 0.16);
+        }
+
+        .problem-side h3,
+        .solution-side h3 {
+            margin: 0 0 12px;
+            font-size: 1.05rem;
+        }
+
+        .problem-side p,
+        .solution-side p {
+            margin: 0;
+            line-height: 1.7;
+            opacity: 0.76;
+        }
+
+        .result-line {
+            margin-top: 14px !important;
+            font-weight: 600;
+            opacity: 0.9 !important;
+        }
+
+        /* =========================================================
+           CI/CD
+           ========================================================= */
+
+        .cicd-flow {
+            padding: 34px;
+            border: 1px solid rgba(128, 128, 128, 0.22);
+            border-radius: 14px;
+            background: rgba(128, 128, 128, 0.035);
+        }
+
+        .cicd-flow .flow {
+            margin-bottom: 26px;
+        }
+
+        .cicd-details {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .cicd-detail {
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(128, 128, 128, 0.18);
+            text-align: center;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        /* =========================================================
+           MAINTENANCE
+           ========================================================= */
+
+        .maintenance-flow {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .maintenance-step {
+            position: relative;
+            padding: 22px 16px;
+            border: 1px solid rgba(128, 128, 128, 0.22);
+            border-radius: 10px;
+            text-align: center;
+            background: rgba(128, 128, 128, 0.035);
+        }
+
+        .maintenance-step strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .maintenance-step span {
+            font-size: 0.82rem;
+            line-height: 1.5;
+            opacity: 0.68;
+        }
+
+        /* =========================================================
+           TECHNOLOGIES
+           ========================================================= */
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .tech-card {
+            padding: 24px;
+            border: 1px solid rgba(128, 128, 128, 0.22);
+            border-radius: 12px;
+            background: rgba(128, 128, 128, 0.035);
+        }
+
+        .tech-card h3 {
+            margin: 0 0 14px;
+            font-size: 1.05rem;
+        }
+
+        .tech-card p {
+            margin: 0;
+            line-height: 1.7;
+            opacity: 0.75;
+        }
+
+        /* =========================================================
+           LESSONS
+           ========================================================= */
+
+        .lessons-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .lesson {
+            padding: 20px 22px;
+            border-left: 3px solid currentColor;
+            background: rgba(128, 128, 128, 0.035);
+            border-radius: 0 8px 8px 0;
+            line-height: 1.65;
+            opacity: 0.82;
+        }
+
+        /* =========================================================
+           CTA
+           ========================================================= */
+
+        .project-end {
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .project-end h2 {
+            margin: 0 0 14px;
+            font-size: 2rem;
+        }
+
+        .project-end p {
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.75;
+            opacity: 0.72;
+        }
+
+        .project-end .hero-links {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 26px;
+            flex-wrap: wrap;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 950px) {
+            .evolution-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .evolution-arrow {
+                transform: rotate(90deg);
+            }
+
+            .architecture-services,
+            .cicd-details,
+            .tech-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .maintenance-flow {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            .portfolio-project {
+                padding-top: 45px;
+            }
+
+            .project-section {
+                margin-bottom: 58px;
+            }
+
+            .project-hero {
+                margin-bottom: 58px;
+            }
+
+            .built-grid,
+            .problem-card,
+            .lessons-list {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-side {
+                border-left: 0;
+                border-top: 1px solid rgba(128, 128, 128, 0.16);
+            }
+
+            .architecture-services,
+            .cicd-details,
+            .tech-grid,
+            .maintenance-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .flow {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .intro-card,
+            .architecture-block,
+            .cicd-flow,
+            .evolution-card {
+                padding: 22px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header class="main-header">
-    <nav class="nav-container">
-        <a href="/" class="nav-button">Home</a>
-        <a href="/about" class="nav-button">About me</a>
-        <a href="/projects" class="nav-button active">Projects</a>
-        <a href="/contact" class="nav-button">Contact Me</a>
-    </nav>
-</header>
+    <header class="main-header">
+        <nav class="nav-container">
+            <a href="/" class="nav-button">Home</a>
+            <a href="/about" class="nav-button">About me</a>
+            <a href="/projects" class="nav-button active">Projects</a>
+            <a href="/contact" class="nav-button">Contact Me</a>
+        </nav>
+    </header>
+
+    <main class="portfolio-project">
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
+
+        <section class="project-hero">
+            <span class="eyebrow">Infrastructure &amp; DevOps</span>
+
+            <h1>Portfolio Infrastructure</h1>
+
+            <p class="subtitle">
+                A personal infrastructure project that evolved from an AWS-hosted application
+                into a self-hosted Linux environment with automated CI/CD, containerized deployment
+                and automated health checks.
+            </p>
+
+            <div class="hero-links">
+                <a
+                    href="https://github.com/mStefn/portfolio_app"
+                    class="project-button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View on GitHub
+                </a>
+            </div>
+        </section>
 
 
-<main class="project-page">
+        <!-- =====================================================
+             PROJECT OVERVIEW
+             ===================================================== -->
 
-    <!-- =========================
-         HERO
-         ========================= -->
-
-    <section class="project-hero">
-
-        <span>Infrastructure & DevOps</span>
-
-        <h1>Portfolio Infrastructure</h1>
-
-        <p>
-            A self-hosted portfolio infrastructure evolved from an AWS-based
-            deployment into a Linux server environment with automated CI/CD.
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         PROJECT OVERVIEW
-         ========================= -->
-
-    <section class="project-section">
-
-        <h2>Project Overview</h2>
-
-        <p>
-            This project started as a simple portfolio application hosted on
-            AWS. Over time, I used it as a practical environment for learning
-            Linux administration, Docker, CI/CD, networking, security and
-            infrastructure automation.
-        </p>
-
-        <p>
-            Instead of treating deployment as a one-time setup, I gradually
-            automated the parts that became repetitive or caused problems.
-            This resulted in a small but realistic infrastructure project where
-            changes to the application could be built, deployed and verified
-            automatically.
-        </p>
-
-        <p>
-            The infrastructure also evolved because of real constraints.
-            The initial AWS solution was useful for learning cloud deployment,
-            but after the AWS Free Tier ended, maintaining a paid EC2 instance
-            for a personal portfolio no longer made much sense.
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         INFRASTRUCTURE EVOLUTION
-         ========================= -->
-
-    <section class="project-section">
-
-        <h2>Infrastructure Evolution</h2>
-
-        <div class="evolution-diagram">
-
-            <div class="evolution-block">
-
-                <span class="evolution-label">PHASE 1</span>
-
-                <h3>AWS Infrastructure</h3>
-
-                <ul>
-                    <li>EC2 running Linux</li>
-                    <li>Docker & Docker Compose</li>
-                    <li>Nginx</li>
-                    <li>PostgreSQL</li>
-                    <li>Route 53</li>
-                    <li>GitHub Actions</li>
-                </ul>
-
+        <section class="project-section">
+            <div class="project-section-header">
+                <span>01 / Overview</span>
+                <h2>The portfolio is also an infrastructure project</h2>
             </div>
 
-
-            <div class="evolution-arrow">
-                →
-            </div>
-
-
-            <div class="evolution-block">
-
-                <span class="evolution-label">PHASE 2</span>
-
-                <h3>Self-Hosted Infrastructure</h3>
-
-                <ul>
-                    <li>Linux server</li>
-                    <li>Docker & Docker Compose</li>
-                    <li>Nginx</li>
-                    <li>PostgreSQL</li>
-                    <li>Tailscale</li>
-                    <li>GitHub Actions</li>
-                </ul>
-
-            </div>
-
-        </div>
-
-        <p class="section-note">
-            The migration was not only a cost decision. It also gave me more
-            control over the environment and turned the server into a broader
-            homelab platform for experimenting with infrastructure.
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         AWS ARCHITECTURE
-         ========================= -->
-
-    <section class="project-section">
-
-        <h2>Initial AWS Architecture</h2>
-
-        <div class="architecture">
-
-            <div class="architecture-flow">
-
-                <div class="architecture-item">
-                    GitHub
-                </div>
-
-                <div class="architecture-arrow">
-                    →
-                </div>
-
-                <div class="architecture-item">
-                    GitHub Actions
-                </div>
-
-                <div class="architecture-arrow">
-                    →
-                </div>
-
-                <div class="architecture-item">
-                    GHCR
-                </div>
-
-                <div class="architecture-arrow">
-                    →
-                </div>
-
-                <div class="architecture-item">
-                    AWS EC2
-                </div>
-
-                <div class="architecture-arrow">
-                    →
-                </div>
-
-                <div class="architecture-item">
-                    Nginx
-                </div>
-
-            </div>
-
-        </div>
-
-        <p>
-            The application was packaged as a Docker image and published to
-            GitHub Container Registry. GitHub Actions then connected to the
-            EC2 instance and deployed the new image.
-        </p>
-
-        <p>
-            Because the portfolio did not need to run continuously, the EC2
-            instance was automatically started and stopped. This reduced
-            unnecessary resource usage while staying within the limitations
-            of the AWS Free Tier.
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         PROBLEMS & SOLUTIONS
-         ========================= -->
-
-    <section class="project-section">
-
-        <h2>Problems & Solutions</h2>
-
-        <p>
-            The most valuable part of the project came from problems that
-            appeared after the initial deployment was working.
-        </p>
-
-
-        <div class="problem-list">
-
-            <!-- Problem 1 -->
-
-            <article class="problem-card">
-
-                <div class="problem-header">
-                    <span>01</span>
-                    <h3>Dynamic EC2 Public IP</h3>
-                </div>
-
-                <div class="problem-content">
-
-                    <div class="problem-column">
-
-                        <h4>Problem</h4>
-
-                        <p>
-                            The EC2 instance received a new public IP address
-                            after being restarted. A static DNS configuration
-                            would therefore become invalid after each restart.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-column">
-
-                        <h4>Solution</h4>
-
-                        <p>
-                            The deployment workflow retrieved the current EC2
-                            public IP and automatically updated the Route 53
-                            DNS record before deployment.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-result">
-
-                        <strong>Result</strong>
-
-                        <p>
-                            DNS updates became part of the deployment process
-                            instead of requiring manual intervention.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- Problem 2 -->
-
-            <article class="problem-card">
-
-                <div class="problem-header">
-                    <span>02</span>
-                    <h3>GitHub Actions Runner IP</h3>
-                </div>
-
-                <div class="problem-content">
-
-                    <div class="problem-column">
-
-                        <h4>Problem</h4>
-
-                        <p>
-                            GitHub-hosted runners use changing public IP
-                            addresses. Permanently allowing SSH access from
-                            GitHub's infrastructure was therefore not a
-                            practical solution.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-column">
-
-                        <h4>Solution</h4>
-
-                        <p>
-                            The workflow retrieved the current runner IP and
-                            temporarily added it to the EC2 security group
-                            for SSH access.
-                        </p>
-
-                        <p>
-                            After deployment, the temporary rule was removed.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-result">
-
-                        <strong>Result</strong>
-
-                        <p>
-                            Automated deployments could use SSH without
-                            leaving a permanent rule for changing runner
-                            addresses.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- Problem 3 -->
-
-            <article class="problem-card">
-
-                <div class="problem-header">
-                    <span>03</span>
-                    <h3>Docker Disk Usage</h3>
-                </div>
-
-                <div class="problem-content">
-
-                    <div class="problem-column">
-
-                        <h4>Problem</h4>
-
-                        <p>
-                            Repeated deployments caused unused Docker images
-                            to accumulate. The limited disk space on the
-                            server eventually became a deployment problem.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-column">
-
-                        <h4>Solution</h4>
-
-                        <p>
-                            I introduced a Docker cleanup script which removed
-                            unused images and scheduled it using cron.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-result">
-
-                        <strong>Result</strong>
-
-                        <p>
-                            Disk usage became predictable and deployments no
-                            longer depended on manually cleaning old images.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- Problem 4 -->
-
-            <article class="problem-card">
-
-                <div class="problem-header">
-                    <span>04</span>
-                    <h3>AWS Cost & Resource Usage</h3>
-                </div>
-
-                <div class="problem-content">
-
-                    <div class="problem-column">
-
-                        <h4>Problem</h4>
-
-                        <p>
-                            A personal portfolio did not require a continuously
-                            running EC2 instance. Keeping it online 24/7 would
-                            consume resources unnecessarily.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-column">
-
-                        <h4>Solution</h4>
-
-                        <p>
-                            GitHub Actions was used to start the EC2 instance
-                            when required and stop it after the scheduled
-                            period.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-result">
-
-                        <strong>Result</strong>
-
-                        <p>
-                            The infrastructure remained available when needed
-                            while reducing unnecessary AWS resource usage.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- Problem 5 -->
-
-            <article class="problem-card">
-
-                <div class="problem-header">
-                    <span>05</span>
-                    <h3>AWS Free Tier Expiration</h3>
-                </div>
-
-                <div class="problem-content">
-
-                    <div class="problem-column">
-
-                        <h4>Problem</h4>
-
-                        <p>
-                            Once the AWS Free Tier ended, paying for an EC2
-                            instance solely to host a personal portfolio was
-                            difficult to justify.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-column">
-
-                        <h4>Solution</h4>
-
-                        <p>
-                            I migrated the application to my own Linux server
-                            while keeping the deployment containerized and
-                            automated.
-                        </p>
-
-                    </div>
-
-
-                    <div class="problem-result">
-
-                        <strong>Result</strong>
-
-                        <p>
-                            The portfolio continued running without the
-                            recurring AWS infrastructure cost.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         CURRENT ARCHITECTURE
-         ========================= -->
-
-    <section class="project-section">
-
-        <h2>Current Architecture</h2>
-
-        <p>
-            The current infrastructure is intentionally simple. It provides
-            enough automation and isolation for the application without adding
-            services that are not necessary for a personal project.
-        </p>
-
-        <div class="architecture">
-
-            <div class="architecture-flow">
-
-                <div class="architecture-item">
-                    Git
-                </div>
-
-                <div class="architecture-arrow">
-                    →
-                </div>
-
-                <div class="architecture-item">
-                    GitHub Actions
-                </div>
-
-                <div class="architecture-arrow">
-                    →
-                </div>
-
-                <div class="architecture-item">
-                    GHCR
-                </div>
-
-                <div class="architecture-arrow">
-                    →
-                </div>
-
-                <div class="architecture-item">
-                    Linux Server
-                </div>
-
-                <div class="architecture-arrow">
-                    →
-                </div>
-
-                <div class="architecture-item">
-                    Docker Compose
-                </div>
-
-                <div class="architecture-arrow">
-                    →
-                </div>
-
-                <div class="architecture-item">
-                    Nginx
-                </div>
-
-            </div>
-
-        </div>
-
-        <p>
-            Administrative access is separated from the public application
-            through Tailscale. Deployment is performed over the private
-            network using SSH.
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         CURRENT CI/CD
-         ========================= -->
-
-    <section class="project-section">
-
-        <h2>Current CI/CD Pipeline</h2>
-
-        <p>
-            The current pipeline is triggered by changes pushed to the
-            <strong>main</strong> branch. It can also be started manually when
-            required.
-        </p>
-
-        <div class="pipeline">
-
-            <div class="pipeline-steps">
-
-                <div class="pipeline-step">
-                    Git Push
-                </div>
-
-                <div class="pipeline-arrow">
-                    →
-                </div>
-
-                <div class="pipeline-step">
-                    Docker Build
-                </div>
-
-                <div class="pipeline-arrow">
-                    →
-                </div>
-
-                <div class="pipeline-step">
-                    Push to GHCR
-                </div>
-
-                <div class="pipeline-arrow">
-                    →
-                </div>
-
-                <div class="pipeline-step">
-                    Tailscale
-                </div>
-
-                <div class="pipeline-arrow">
-                    →
-                </div>
-
-                <div class="pipeline-step">
-                    SSH Deploy
-                </div>
-
-                <div class="pipeline-arrow">
-                    →
-                </div>
-
-                <div class="pipeline-step">
-                    Health Check
-                </div>
-
-                <div class="pipeline-arrow">
-                    →
-                </div>
-
-                <div class="pipeline-step">
-                    Discord
-                </div>
-
-            </div>
-
-        </div>
-
-        <p>
-            During deployment, the server pulls the latest container image and
-            recreates the application using Docker Compose. Unused Docker
-            images are removed afterwards to keep disk usage under control.
-        </p>
-
-        <p>
-            A separate health-check stage verifies the publicly accessible
-            application after deployment. If the deployment or health check
-            fails, the workflow reports the failure through Discord.
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         SECURITY & MAINTENANCE
-         ========================= -->
-
-    <section class="project-section">
-
-        <h2>Security & Maintenance</h2>
-
-        <div class="security-grid">
-
-            <div class="security-item">
-                <h3>Private Administration</h3>
+            <div class="intro-card">
                 <p>
-                    Server administration is performed through Tailscale
-                    instead of exposing SSH directly to the public internet.
+                    This portfolio was built not only as a personal website, but also as a practical
+                    environment for learning Linux administration, Docker, AWS, networking,
+                    automation and CI/CD. The infrastructure has changed over time as new problems
+                    appeared and as the requirements of the project changed.
+                    It originally ran on AWS and was later migrated to my own Linux server after
+                    the AWS Free Tier ended. Instead of treating the migration as a rebuild from
+                    scratch, I used it as an opportunity to simplify the deployment process and
+                    keep the parts of the infrastructure that were actually useful.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             EVOLUTION
+             ===================================================== -->
+
+        <section class="project-section">
+            <div class="project-section-header">
+                <span>02 / Evolution</span>
+                <h2>From AWS to self-hosted Linux</h2>
+
+                <p>
+                    The biggest change in the project was not a new technology, but a change in
+                    infrastructure strategy. The application remained containerized, while the
+                    environment around it evolved to match the actual needs of a personal project.
                 </p>
             </div>
 
-            <div class="security-item">
-                <h3>Containerization</h3>
+            <div class="evolution-wrapper">
+
+                <article class="evolution-card">
+                    <div class="phase">Previous environment</div>
+
+                    <h3>AWS</h3>
+
+                    <p>
+                        The portfolio originally ran on AWS using EC2 and a set of automated
+                        workflows designed around the limitations of a small personal deployment.
+                    </p>
+
+                    <ul>
+                        <li>Linux-based EC2 server</li>
+                        <li>Docker containerized application</li>
+                        <li>GitHub Actions CI/CD</li>
+                        <li>GitHub Container Registry</li>
+                        <li>Route 53 DNS management</li>
+                        <li>Scheduled EC2 start and stop</li>
+                        <li>Temporary SSH access for CI runners</li>
+                    </ul>
+                </article>
+
+                <div class="evolution-arrow">
+                    →
+                </div>
+
+                <article class="evolution-card current">
+                    <div class="phase">Current environment</div>
+
+                    <h3>Self-hosted Linux</h3>
+
+                    <p>
+                        After the AWS Free Tier ended, the application was moved to my own Linux
+                        server. The deployment remains containerized and GitHub Actions continues
+                        to handle the delivery process.
+                    </p>
+
+                    <ul>
+                        <li>Self-hosted Linux server</li>
+                        <li>Docker Compose</li>
+                        <li>Nginx</li>
+                        <li>PostgreSQL</li>
+                        <li>GitHub Actions</li>
+                        <li>GHCR</li>
+                        <li>Tailscale + SSH deployment</li>
+                        <li>Automated health check and notifications</li>
+                    </ul>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             ARCHITECTURE
+             ===================================================== -->
+
+        <section class="project-section">
+            <div class="project-section-header">
+                <span>03 / Architecture</span>
+                <h2>How the infrastructure changed</h2>
+            </div>
+
+            <div class="architecture-container">
+
+                <article class="architecture-block">
+                    <h3>Previous — AWS deployment</h3>
+
+                    <div class="flow">
+
+                        <div class="flow-node">
+                            GitHub
+                            <small>source code</small>
+                        </div>
+
+                        <div class="flow-arrow">→</div>
+
+                        <div class="flow-node">
+                            GitHub Actions
+                            <small>build &amp; deploy</small>
+                        </div>
+
+                        <div class="flow-arrow">→</div>
+
+                        <div class="flow-node">
+                            GHCR
+                            <small>Docker image</small>
+                        </div>
+
+                        <div class="flow-arrow">→</div>
+
+                        <div class="flow-node">
+                            AWS EC2
+                            <small>Linux server</small>
+                        </div>
+
+                    </div>
+
+                    <div class="architecture-services">
+                        <div class="service-item">Route 53</div>
+                        <div class="service-item">Security Groups</div>
+                        <div class="service-item">Docker</div>
+                        <div class="service-item">Nginx / PostgreSQL</div>
+                    </div>
+
+                    <p class="architecture-note">
+                        The deployment also included automated EC2 lifecycle management and
+                        DNS updates because the instance did not use a permanently assigned
+                        public IP address.
+                    </p>
+                </article>
+
+
+                <article class="architecture-block">
+                    <h3>Current — self-hosted deployment</h3>
+
+                    <div class="flow">
+
+                        <div class="flow-node">
+                            GitHub
+                            <small>push to main</small>
+                        </div>
+
+                        <div class="flow-arrow">→</div>
+
+                        <div class="flow-node">
+                            GitHub Actions
+                            <small>CI/CD</small>
+                        </div>
+
+                        <div class="flow-arrow">→</div>
+
+                        <div class="flow-node">
+                            GHCR
+                            <small>Docker image</small>
+                        </div>
+
+                        <div class="flow-arrow">→</div>
+
+                        <div class="flow-node">
+                            Tailscale
+                            <small>private access</small>
+                        </div>
+
+                        <div class="flow-arrow">→</div>
+
+                        <div class="flow-node">
+                            Linux Server
+                            <small>Docker Compose</small>
+                        </div>
+
+                    </div>
+
+                    <div class="architecture-services">
+                        <div class="service-item">Nginx</div>
+                        <div class="service-item">PostgreSQL</div>
+                        <div class="service-item">Health Check</div>
+                        <div class="service-item">Discord Notification</div>
+                    </div>
+
+                    <p class="architecture-note">
+                        The current deployment focuses on a simple and maintainable containerized
+                        environment. GitHub Actions builds and publishes the image, connects to the
+                        server through Tailscale, updates the running deployment and verifies the
+                        application afterwards.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             WHAT I BUILT
+             ===================================================== -->
+
+        <section class="project-section">
+            <div class="project-section-header">
+                <span>04 / Implementation</span>
+                <h2>What I built</h2>
+
                 <p>
-                    Application components are isolated into Docker services
-                    and managed using Docker Compose.
+                    The project combines application deployment with infrastructure management.
+                    The goal was to reduce repetitive manual work and make deployments predictable.
                 </p>
             </div>
 
-            <div class="security-item">
-                <h3>Automated Deployment</h3>
+            <div class="built-grid">
+
+                <article class="built-card">
+                    <h3>Containerized deployment</h3>
+                    <p>
+                        The application is packaged as a Docker image and deployed through
+                        Docker Compose. This keeps the application environment reproducible
+                        between different hosts.
+                    </p>
+                </article>
+
+                <article class="built-card">
+                    <h3>Automated CI/CD</h3>
+                    <p>
+                        Changes pushed to the main branch automatically trigger the build,
+                        image publishing and deployment process.
+                    </p>
+                </article>
+
+                <article class="built-card">
+                    <h3>Infrastructure automation</h3>
+                    <p>
+                        AWS-specific tasks such as DNS updates, server lifecycle management
+                        and SSH access were automated instead of being handled manually.
+                    </p>
+                </article>
+
+                <article class="built-card">
+                    <h3>Deployment verification</h3>
+                    <p>
+                        The current pipeline performs a health check after deployment and sends
+                        a Discord notification with the result of the workflow.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             PROBLEMS & SOLUTIONS
+             ===================================================== -->
+
+        <section class="project-section">
+            <div class="project-section-header">
+                <span>05 / Troubleshooting</span>
+                <h2>Problems I had to solve</h2>
+
                 <p>
-                    Deployments are performed through a repeatable GitHub
-                    Actions workflow instead of manual server changes.
+                    Most of the useful infrastructure work came from problems that appeared after
+                    the initial deployment. Instead of solving them manually each time, I automated
+                    the recurring parts.
                 </p>
             </div>
 
-            <div class="security-item">
-                <h3>Post-Deployment Verification</h3>
+            <div class="problem-list">
+
+                <article class="problem-card">
+
+                    <div class="problem-side">
+                        <h3>Problem — dynamic EC2 public IP</h3>
+
+                        <p>
+                            The AWS instance received a different public IP address when it was
+                            started again. A static DNS record would therefore point to the wrong
+                            address after a restart.
+                        </p>
+                    </div>
+
+                    <div class="solution-side">
+                        <h3>Solution — automatic DNS update</h3>
+
+                        <p>
+                            The workflow retrieved the current EC2 public IP and automatically
+                            updated the Route 53 record during the startup process.
+                        </p>
+
+                        <p class="result-line">
+                            Result: the deployment did not require manual DNS changes after
+                            restarting the instance.
+                        </p>
+                    </div>
+
+                </article>
+
+
+                <article class="problem-card">
+
+                    <div class="problem-side">
+                        <h3>Problem — changing GitHub Actions runner IP</h3>
+
+                        <p>
+                            GitHub-hosted runners use changing public IP addresses, so permanently
+                            allowing one address for SSH access was not practical.
+                        </p>
+                    </div>
+
+                    <div class="solution-side">
+                        <h3>Solution — temporary SSH access</h3>
+
+                        <p>
+                            The AWS workflow detected the current runner IP, temporarily added it
+                            to the EC2 Security Group for SSH access, performed the deployment and
+                            removed the rule afterwards.
+                        </p>
+
+                        <p class="result-line">
+                            Result: CI/CD could connect to the server without leaving the runner's
+                            previous address permanently authorized.
+                        </p>
+                    </div>
+
+                </article>
+
+
+                <article class="problem-card">
+
+                    <div class="problem-side">
+                        <h3>Problem — Docker storage usage</h3>
+
+                        <p>
+                            Repeated image builds caused old Docker images to accumulate on the
+                            server. With limited disk space, this eventually became a deployment
+                            problem.
+                        </p>
+                    </div>
+
+                    <div class="solution-side">
+                        <h3>Solution — automatic cleanup</h3>
+
+                        <p>
+                            Unused Docker images were periodically removed using an automated
+                            cleanup process so that disk space did not have to be managed manually.
+                        </p>
+
+                        <p class="result-line">
+                            Result: fewer deployment failures caused by exhausted Docker storage.
+                        </p>
+                    </div>
+
+                </article>
+
+
+                <article class="problem-card">
+
+                    <div class="problem-side">
+                        <h3>Problem — unnecessary AWS runtime</h3>
+
+                        <p>
+                            A personal portfolio did not need an EC2 instance running continuously,
+                            especially while staying within the constraints of the AWS Free Tier.
+                        </p>
+                    </div>
+
+                    <div class="solution-side">
+                        <h3>Solution — scheduled EC2 lifecycle</h3>
+
+                        <p>
+                            The AWS workflow automatically started the instance on weekday mornings
+                            and allowed it to be stopped outside the required time window.
+                        </p>
+
+                        <p class="result-line">
+                            Result: the infrastructure used fewer AWS compute hours while the
+                            portfolio remained available during the intended period.
+                        </p>
+                    </div>
+
+                </article>
+
+
+                <article class="problem-card">
+
+                    <div class="problem-side">
+                        <h3>Problem — AWS Free Tier ended</h3>
+
+                        <p>
+                            Once the AWS Free Tier was no longer available, continuing to run a
+                            small personal portfolio on paid EC2 infrastructure was difficult to
+                            justify.
+                        </p>
+                    </div>
+
+                    <div class="solution-side">
+                        <h3>Solution — migration to self-hosted Linux</h3>
+
+                        <p>
+                            The application was migrated to my own Linux server. Docker and the
+                            existing deployment model made it possible to move the application
+                            without changing its core packaging.
+                        </p>
+
+                        <p class="result-line">
+                            Result: the portfolio continued running without the recurring EC2
+                            infrastructure cost.
+                        </p>
+                    </div>
+
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             CI/CD
+             ===================================================== -->
+
+        <section class="project-section">
+            <div class="project-section-header">
+                <span>06 / CI/CD</span>
+                <h2>Current deployment pipeline</h2>
+
                 <p>
-                    The public endpoint is checked after deployment to verify
-                    that the application is actually available.
+                    The current workflow is intentionally simple: build a new image, publish it,
+                    deploy it to the server and verify that the application is responding correctly.
                 </p>
             </div>
 
-        </div>
+            <div class="cicd-flow">
 
-    </section>
+                <div class="flow">
 
+                    <div class="flow-node">
+                        Git Push
+                        <small>main branch</small>
+                    </div>
 
-    <!-- =========================
-         TECHNOLOGIES
-         ========================= -->
+                    <div class="flow-arrow">→</div>
 
-    <section class="project-section">
+                    <div class="flow-node">
+                        Build
+                        <small>Docker image</small>
+                    </div>
 
-        <h2>Technologies</h2>
+                    <div class="flow-arrow">→</div>
 
-        <div class="tech-list">
+                    <div class="flow-node">
+                        GHCR
+                        <small>publish image</small>
+                    </div>
 
-            <span class="tech-item">Linux</span>
-            <span class="tech-item">Docker</span>
-            <span class="tech-item">Docker Compose</span>
-            <span class="tech-item">Nginx</span>
-            <span class="tech-item">PostgreSQL</span>
-            <span class="tech-item">Git</span>
-            <span class="tech-item">GitHub Actions</span>
-            <span class="tech-item">GitHub Container Registry</span>
-            <span class="tech-item">AWS EC2</span>
-            <span class="tech-item">AWS Route 53</span>
-            <span class="tech-item">Tailscale</span>
-            <span class="tech-item">SSH</span>
-            <span class="tech-item">Bash</span>
-            <span class="tech-item">Cron</span>
+                    <div class="flow-arrow">→</div>
 
-        </div>
+                    <div class="flow-node">
+                        Deploy
+                        <small>SSH via Tailscale</small>
+                    </div>
 
-    </section>
+                    <div class="flow-arrow">→</div>
 
+                    <div class="flow-node">
+                        Health Check
+                        <small>HTTP 200</small>
+                    </div>
 
-    <!-- =========================
-         LESSONS LEARNED
-         ========================= -->
+                    <div class="flow-arrow">→</div>
 
-    <section class="project-section">
+                    <div class="flow-node">
+                        Discord
+                        <small>result</small>
+                    </div>
 
-        <h2>What I Learned</h2>
+                </div>
 
-        <p>
-            The most valuable part of this project was not getting the first
-            deployment working. It was dealing with the problems that appeared
-            afterwards.
-        </p>
+                <div class="cicd-details">
 
-        <p>
-            Changing IP addresses, temporary SSH access, limited disk space,
-            deployment failures and AWS cost constraints forced me to think
-            about the infrastructure as something that needs to be maintained,
-            not just configured once.
-        </p>
+                    <div class="cicd-detail">
+                        Automatic trigger after changes are pushed to <strong>main</strong>.
+                    </div>
 
-        <p>
-            The migration from AWS to my own server was also an important
-            infrastructure decision. Instead of using cloud services simply
-            because they were available, I compared the actual requirements
-            of the project with the cost and complexity of the infrastructure.
-        </p>
+                    <div class="cicd-detail">
+                        Docker image is built and published to <strong>GHCR</strong>.
+                    </div>
 
-        <p>
-            Looking back, I would separate the CI and CD responsibilities more
-            clearly. I would also build and publish images only when application
-            code changes, introduce better image retention and caching, and
-            separate infrastructure lifecycle tasks from application
-            deployment.
-        </p>
+                    <div class="cicd-detail">
+                        Server pulls the new image and recreates the required containers.
+                    </div>
 
-        <p>
-            These improvements would make the pipeline more efficient without
-            adding unnecessary complexity to a small project.
-        </p>
+                    <div class="cicd-detail">
+                        The public application is checked before the workflow is marked successful.
+                    </div>
 
-    </section>
+                </div>
+
+            </div>
+        </section>
 
 
-    <!-- =========================
-         REPOSITORY
-         ========================= -->
+        <!-- =====================================================
+             MAINTENANCE
+             ===================================================== -->
 
-    <section class="repo-info">
+        <section class="project-section">
+            <div class="project-section-header">
+                <span>07 / Operations</span>
+                <h2>Built → Deployed → Verified → Maintained → Migrated</h2>
 
-        <p>
-            Source code and infrastructure configuration
-        </p>
+                <p>
+                    One of the main lessons from this project was that infrastructure does not end
+                    when the first deployment works. The project required ongoing troubleshooting,
+                    cleanup and eventually a migration to a different environment.
+                </p>
+            </div>
 
-        <a
-            href="https://github.com/mStefn/portfolio_app"
-            class="project-github-button"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            View on GitHub
-        </a>
+            <div class="maintenance-flow">
 
-    </section>
+                <div class="maintenance-step">
+                    <strong>Built</strong>
+                    <span>Containerized application and deployment environment.</span>
+                </div>
+
+                <div class="maintenance-step">
+                    <strong>Deployed</strong>
+                    <span>Automated delivery through GitHub Actions.</span>
+                </div>
+
+                <div class="maintenance-step">
+                    <strong>Verified</strong>
+                    <span>Post-deployment HTTP health checks.</span>
+                </div>
+
+                <div class="maintenance-step">
+                    <strong>Maintained</strong>
+                    <span>Storage cleanup and infrastructure troubleshooting.</span>
+                </div>
+
+                <div class="maintenance-step">
+                    <strong>Migrated</strong>
+                    <span>AWS environment replaced with self-hosted Linux.</span>
+                </div>
+
+            </div>
+        </section>
 
 
-    <div class="back-to-projects">
+        <!-- =====================================================
+             TECHNOLOGIES
+             ===================================================== -->
 
-        <a href="/projects">
-            ← Back to Projects
-        </a>
+        <section class="project-section">
+            <div class="project-section-header">
+                <span>08 / Technologies</span>
+                <h2>Technologies used</h2>
+            </div>
 
-    </div>
+            <div class="tech-grid">
 
-</main>
+                <article class="tech-card">
+                    <h3>Linux &amp; Containers</h3>
+                    <p>
+                        Linux, Docker, Docker Compose, Nginx, PostgreSQL
+                    </p>
+                </article>
+
+                <article class="tech-card">
+                    <h3>CI/CD</h3>
+                    <p>
+                        GitHub Actions, Git, GitHub Container Registry, SSH
+                    </p>
+                </article>
+
+                <article class="tech-card">
+                    <h3>AWS</h3>
+                    <p>
+                        EC2, Route 53, Security Groups, S3, CloudFront
+                    </p>
+                </article>
+
+                <article class="tech-card">
+                    <h3>Networking &amp; Automation</h3>
+                    <p>
+                        Tailscale, Bash, DNS automation, scheduled workflows
+                    </p>
+                </article>
+
+            </div>
+        </section>
 
 
-<footer>
-    <p>© 2026 Maciej Stefanowicz</p>
-</footer>
+        <!-- =====================================================
+             LESSONS
+             ===================================================== -->
+
+        <section class="project-section">
+            <div class="project-section-header">
+                <span>09 / Lessons learned</span>
+                <h2>What this project taught me</h2>
+            </div>
+
+            <div class="lessons-list">
+
+                <div class="lesson">
+                    Infrastructure problems are often easier to solve by automating the repeated
+                    task instead of fixing the symptom manually every time.
+                </div>
+
+                <div class="lesson">
+                    A small project can still require real infrastructure decisions around
+                    networking, security, storage and deployment reliability.
+                </div>
+
+                <div class="lesson">
+                    Cost is part of infrastructure design. The technically possible solution is
+                    not always the most sensible solution for a personal system.
+                </div>
+
+                <div class="lesson">
+                    Containerization made the migration from AWS to a self-hosted Linux server
+                    significantly simpler.
+                </div>
+
+                <div class="lesson">
+                    CI/CD is not only about building software. The deployment process also needs
+                    access control, verification and failure handling.
+                </div>
+
+                <div class="lesson">
+                    Troubleshooting and maintaining an existing environment taught me more about
+                    infrastructure than simply setting up the first working deployment.
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             END / CTA
+             ===================================================== -->
+
+        <section class="project-end">
+
+            <h2>A real infrastructure project, not just a website</h2>
+
+            <p>
+                The portfolio started as an AWS deployment experiment and evolved into a
+                self-hosted Linux environment. Along the way, it became a practical project for
+                learning deployment automation, troubleshooting, networking, containers and
+                infrastructure maintenance.
+            </p>
+
+            <div class="hero-links">
+                <a
+                    href="https://github.com/mStefn/portfolio_app"
+                    class="project-button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View Project on GitHub
+                </a>
+
+                <a href="/projects" class="project-button">
+                    Back to Projects
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Maciej Stefanowicz</p>
+    </footer>
 
 </body>
 </html>
