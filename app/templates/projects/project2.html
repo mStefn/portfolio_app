@@ -3,68 +3,1085 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{{ .Title }}</title>
+
     <link rel="stylesheet" href="/static/styles/style.css">
-    <link rel="stylesheet" href="/static/styles/projects/project1.css">
+    <link rel="stylesheet" href="/static/styles/projects/project2.css">
 </head>
+
 <body>
-    <header class="main-header">
-        <nav class="nav-container">
-            <a href="/" class="nav-button">Home</a>
-            <a href="/about" class="nav-button">About me</a>
-            <a href="/projects" class="nav-button active">Projects</a>
-            <a href="/contact" class="nav-button">Contact Me</a>
-        </nav>
-    </header>
 
-    <main>
-        <section class="project-detail">
-            <h1>Gym Tracker: PWA & Full-Stack DevOps Architecture</h1>
-            
+<header class="main-header">
+    <nav class="nav-container">
+        <a href="/" class="nav-button">Home</a>
+        <a href="/about" class="nav-button">About me</a>
+        <a href="/projects" class="nav-button active">Projects</a>
+        <a href="/contact" class="nav-button">Contact Me</a>
+    </nav>
+</header>
+
+
+<main class="gym-project">
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="project-hero">
+
+        <span class="eyebrow">SELF-HOSTED APPLICATION</span>
+
+        <h1>Gym Tracker</h1>
+
+        <p class="subtitle">
+            A self-hosted Progressive Web App for tracking workouts,
+            built around a containerized application and a separate
+            infrastructure and observability layer.
+        </p>
+
+        <div class="hero-links">
+
+            <a
+                href="https://gym.m-stefn.com.pl/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-button project-button-primary"
+            >
+                Live Application
+            </a>
+
+            <a
+                href="https://github.com/mStefn/gym-tracker"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-button"
+            >
+                View on GitHub
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         OVERVIEW
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>01 — Overview</span>
+            <h2>More than just a workout tracker</h2>
+        </div>
+
+        <div class="intro-card">
+
             <p>
-                A self-hosted Progressive Web App (PWA) designed for tracking gym workouts. While the application provides a clean and intuitive user interface, the primary focus of this project is the <strong>production-ready infrastructure and advanced DevOps practices</strong> running under the hood.
+                Gym Tracker started as a personal application for recording
+                workouts, but evolved into a practical environment for
+                working with Linux, Docker, networking, CI/CD, monitoring
+                and secure self-hosted infrastructure.
             </p>
 
-            <div style="margin: 25px 0;">
-                <a href="https://gym.m-stefn.com.pl/" target="_blank" class="cv-download">Live Application</a>
+            <p>
+                The application is built as a full-stack system with a
+                Go backend, Vanilla JavaScript frontend and MariaDB.
+                The application stack is separated from the monitoring
+                and infrastructure stack, allowing both parts to be
+                deployed and maintained independently.
+            </p>
+
+            <p>
+                The system is hosted on my own Linux server and exposed
+                through a Cloudflare Tunnel, while administrative access
+                and CI/CD deployment traffic use a private Tailscale
+                network.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ARCHITECTURE
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>02 — Architecture</span>
+            <h2>Application & Infrastructure</h2>
+            <p>
+                The project is divided into two independent Docker Compose
+                environments: the application stack and the infrastructure
+                stack.
+            </p>
+        </div>
+
+
+        <div class="architecture-container">
+
+            <!-- APPLICATION -->
+
+            <div class="architecture-block">
+
+                <h3>Application Layer</h3>
+
+                <div class="flow">
+
+                    <div class="flow-node">
+                        Browser
+                        <small>PWA</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Nginx
+                        <small>Frontend</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Go API
+                        <small>Backend</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        MariaDB
+                        <small>Database</small>
+                    </div>
+
+                </div>
+
+                <div class="architecture-services">
+
+                    <div class="service-item">
+                        Vanilla JavaScript
+                    </div>
+
+                    <div class="service-item">
+                        Go / Gin
+                    </div>
+
+                    <div class="service-item">
+                        MariaDB
+                    </div>
+
+                    <div class="service-item">
+                        Docker Compose
+                    </div>
+
+                </div>
+
             </div>
 
-            <p>
-                The system is fully containerized using Docker and is logically split into two independent environments: the Application Layer and the Infrastructure Layer. This separation reflects real-world system design, improving both scalability and maintainability.
-            </p>
 
-            <h2>Architecture & Technology Stack</h2>
-            <ul>
-                <li><strong>Application Layer:</strong> A high-performance Backend API written in Go, an Nginx-served Vanilla JS Frontend, and a MariaDB database.</li>
-                <li><strong>Infrastructure & Observability:</strong> A robust monitoring stack utilizing Prometheus, Loki, and Grafana Alloy. Dashboards are managed as code in Grafana to provide comprehensive visibility.</li>
-                <li><strong>Code Quality:</strong> Integrated SonarQube (backed by PostgreSQL) ensures strict code quality checks before any deployment.</li>
-                <li><strong>Data Persistence:</strong> Stateful data is secured using Host Bind Mounts, guaranteeing reliable backups across all databases and monitoring states.</li>
-            </ul>
+            <!-- INFRASTRUCTURE -->
 
-            <h2>CI/CD & Secure Deployment</h2>
-            <p>
-                The deployment pipeline is fully automated via <strong>GitHub Actions</strong>. Docker images are built and pushed to the GitHub Container Registry. 
-            </p>
-            <p>
-                Crucially, the deployment process executes over a private <strong>Tailscale VPN</strong>. This zero-trust security model means there is no public SSH exposure. Additionally, the pipeline handles real-time deployment notifications via Discord and performs post-deployment health checks to ensure system stability.
-            </p>
+            <div class="architecture-block">
 
-            <h2>Project Purpose & Future Scope</h2>
-            <p>
-                This project was built to demonstrate practical DevOps skills, real-world deployment workflows, and secure infrastructure design. In the future, the infrastructure will be further automated using Ansible for server provisioning and Terraform for Infrastructure as Code (IaC).
-            </p>
+                <h3>Infrastructure & Observability</h3>
 
-            <div class="repo-info">
-                <p>The whole repo is available for viewing here:</p>
-                <a href="https://github.com/mStefn/gym-tracker" target="_blank" class="repo-link" aria-label="Link do repozytorium GitHub">
-                    <img src="/static/icons/github-icon.svg" alt="GitHub Repo Icon" />
-                </a>
+                <div class="flow">
+
+                    <div class="flow-node">
+                        Host
+                        <small>Linux</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        cAdvisor
+                        <small>Containers</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Prometheus
+                        <small>Metrics</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Grafana
+                        <small>Dashboards</small>
+                    </div>
+
+                </div>
+
+                <div class="flow secondary-flow">
+
+                    <div class="flow-node">
+                        Docker
+                        <small>Logs</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Grafana Alloy
+                        <small>Collection</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Loki
+                        <small>Log storage</small>
+                    </div>
+
+                </div>
+
+                <p class="architecture-note">
+                    Monitoring is deployed as a separate stack so that
+                    infrastructure changes do not require rebuilding or
+                    restarting the main application.
+                </p>
+
             </div>
-        </section>
-    </main>
 
-    <footer>
-        <p>© 2026 Maciej Stefanowicz</p>
-    </footer>
+
+            <!-- EXTERNAL ACCESS -->
+
+            <div class="architecture-block">
+
+                <h3>External Access & Security</h3>
+
+                <div class="flow">
+
+                    <div class="flow-node">
+                        User
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Cloudflare
+                        <small>Tunnel</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Nginx
+                        <small>Server</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Gym Tracker
+                    </div>
+
+                </div>
+
+                <p class="architecture-note">
+                    The application is publicly accessible through the
+                    Cloudflare Tunnel without exposing the home server
+                    directly to inbound Internet traffic.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WHAT I BUILT
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>03 — What I built</span>
+            <h2>From application to infrastructure</h2>
+        </div>
+
+
+        <div class="built-grid">
+
+            <div class="built-card">
+                <h3>Containerized Application</h3>
+
+                <p>
+                    The frontend and backend are built as separate Docker
+                    images and deployed through Docker Compose together
+                    with the MariaDB database.
+                </p>
+            </div>
+
+
+            <div class="built-card">
+                <h3>Separate Infrastructure Stack</h3>
+
+                <p>
+                    Monitoring and logging run independently from the
+                    application using a dedicated Compose stack.
+                </p>
+            </div>
+
+
+            <div class="built-card">
+                <h3>Automated CI/CD</h3>
+
+                <p>
+                    GitHub Actions builds versioned backend and frontend
+                    images, publishes them to GHCR and deploys them
+                    automatically to the server.
+                </p>
+            </div>
+
+
+            <div class="built-card">
+                <h3>Secure Deployment</h3>
+
+                <p>
+                    Deployment traffic travels through Tailscale and the
+                    server is accessed through SSH without exposing SSH
+                    directly to the public Internet.
+                </p>
+            </div>
+
+
+            <div class="built-card">
+                <h3>Observability</h3>
+
+                <p>
+                    Prometheus, Grafana, Grafana Alloy and Loki provide
+                    metrics, dashboards and centralized container logs.
+                </p>
+            </div>
+
+
+            <div class="built-card">
+                <h3>Code Quality</h3>
+
+                <p>
+                    SonarQube is integrated into the project to analyse
+                    code quality alongside the development workflow.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CI/CD
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>04 — CI/CD</span>
+            <h2>Automated application deployment</h2>
+            <p>
+                Application changes pushed to the main branch trigger
+                the deployment pipeline. Infrastructure configuration
+                is deliberately excluded from application builds.
+            </p>
+        </div>
+
+
+        <div class="cicd-flow">
+
+            <div class="flow">
+
+                <div class="flow-node">
+                    Git Push
+                    <small>main</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    GitHub Actions
+                    <small>Build</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Docker
+                    <small>Backend + Frontend</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    GHCR
+                    <small>Image Registry</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Tailscale
+                    <small>Private Network</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    SSH
+                    <small>Deployment</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Health Check
+                    <small>HTTP 200</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Discord
+                    <small>Notification</small>
+                </div>
+
+            </div>
+
+
+            <div class="cicd-details">
+
+                <div class="cicd-detail">
+                    Backend image tagged with commit SHA
+                </div>
+
+                <div class="cicd-detail">
+                    Frontend image tagged with commit SHA
+                </div>
+
+                <div class="cicd-detail">
+                    Old unused Docker images are removed
+                </div>
+
+                <div class="cicd-detail">
+                    Deployment must complete before health check
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         INFRASTRUCTURE DEPLOYMENT
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>05 — Infrastructure</span>
+            <h2>Application and infrastructure are deployed separately</h2>
+        </div>
+
+
+        <div class="problem-list">
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+                    <h3>Application changes</h3>
+
+                    <p>
+                        A normal push to <strong>main</strong> builds and
+                        deploys the backend and frontend automatically.
+                    </p>
+                </div>
+
+                <div class="solution-side">
+                    <h3>Automated workflow</h3>
+
+                    <p>
+                        GitHub Actions builds the images, pushes them to
+                        GHCR and deploys the selected version through
+                        Tailscale and SSH.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+                    <h3>Monitoring changes</h3>
+
+                    <p>
+                        Changes to monitoring configuration should not
+                        rebuild or restart the application.
+                    </p>
+                </div>
+
+                <div class="solution-side">
+                    <h3>Separate infrastructure workflow</h3>
+
+                    <p>
+                        Monitoring configuration is deployed independently
+                        using a manual infrastructure workflow and its own
+                        Docker Compose project.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+                    <h3>Full stack maintenance</h3>
+
+                    <p>
+                        Sometimes the complete application and monitoring
+                        environment needs to be stopped.
+                    </p>
+                </div>
+
+                <div class="solution-side">
+                    <h3>Controlled teardown</h3>
+
+                    <p>
+                        A separate manual workflow stops both Compose
+                        stacks while preserving persistent data.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PROBLEMS / SOLUTIONS
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>06 — Problems & Solutions</span>
+            <h2>Infrastructure problems became part of the project</h2>
+            <p>
+                The project evolved through solving practical problems
+                rather than simply assembling a technology stack.
+            </p>
+        </div>
+
+
+        <div class="problem-list">
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+                    <h3>Problem</h3>
+
+                    <p>
+                        The server is located in a home network and does
+                        not provide a simple public inbound path to the
+                        application.
+                    </p>
+                </div>
+
+                <div class="solution-side">
+                    <h3>Solution</h3>
+
+                    <p>
+                        Cloudflare Tunnel provides external access to the
+                        application without directly exposing the home
+                        server to incoming Internet traffic.
+                    </p>
+
+                    <p class="result-line">
+                        Result: public application without traditional
+                        port forwarding.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+                    <h3>Problem</h3>
+
+                    <p>
+                        CI/CD runners need administrative access to the
+                        server, but exposing SSH publicly would increase
+                        the attack surface.
+                    </p>
+                </div>
+
+                <div class="solution-side">
+                    <h3>Solution</h3>
+
+                    <p>
+                        GitHub Actions connects to the server through
+                        Tailscale and performs deployment over SSH inside
+                        the private network.
+                    </p>
+
+                    <p class="result-line">
+                        Result: no public SSH endpoint required.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+                    <h3>Problem</h3>
+
+                    <p>
+                        Application containers and monitoring services
+                        have different lifecycle requirements.
+                    </p>
+                </div>
+
+                <div class="solution-side">
+                    <h3>Solution</h3>
+
+                    <p>
+                        The project uses separate Docker Compose projects
+                        for the application and infrastructure layers.
+                    </p>
+
+                    <p class="result-line">
+                        Result: monitoring can be updated independently.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+                    <h3>Problem</h3>
+
+                    <p>
+                        Repeated deployments leave unused Docker images
+                        on a server with limited storage.
+                    </p>
+                </div>
+
+                <div class="solution-side">
+                    <h3>Solution</h3>
+
+                    <p>
+                        The deployment workflow performs Docker image
+                        cleanup after updating the application.
+                    </p>
+
+                    <p class="result-line">
+                        Result: unnecessary image accumulation is reduced.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+                    <h3>Problem</h3>
+
+                    <p>
+                        A successful deployment does not necessarily mean
+                        that the application started correctly.
+                    </p>
+                </div>
+
+                <div class="solution-side">
+                    <h3>Solution</h3>
+
+                    <p>
+                        A dedicated post-deployment health check repeatedly
+                        requests the backend health endpoint and expects
+                        HTTP 200 before the workflow is considered successful.
+                    </p>
+
+                    <p class="result-line">
+                        Result: failed application startup is detected automatically.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         OBSERVABILITY
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>07 — Observability</span>
+            <h2>Knowing what is happening inside the server</h2>
+        </div>
+
+
+        <div class="architecture-block">
+
+            <div class="flow">
+
+                <div class="flow-node">
+                    Linux Host
+                    <small>System</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Node Exporter
+                    <small>Host metrics</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Prometheus
+                    <small>Metrics</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Grafana
+                    <small>Visualization</small>
+                </div>
+
+            </div>
+
+
+            <div class="flow secondary-flow">
+
+                <div class="flow-node">
+                    Docker
+                    <small>Container logs</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Grafana Alloy
+                    <small>Collection</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Loki
+                    <small>Log storage</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Grafana
+                    <small>Visualization</small>
+                </div>
+
+            </div>
+
+            <p class="architecture-note">
+                Grafana dashboards are managed as configuration, while
+                Prometheus and Loki provide separate paths for metrics
+                and logs.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         OPERATIONS
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>08 — Operations</span>
+            <h2>Build → Deploy → Verify → Monitor → Maintain</h2>
+        </div>
+
+
+        <div class="maintenance-flow">
+
+            <div class="maintenance-step">
+                <strong>Build</strong>
+                <span>
+                    Application changes are converted into Docker images.
+                </span>
+            </div>
+
+            <div class="maintenance-step">
+                <strong>Deploy</strong>
+                <span>
+                    Images are pulled and started on the self-hosted server.
+                </span>
+            </div>
+
+            <div class="maintenance-step">
+                <strong>Verify</strong>
+                <span>
+                    Health check confirms that the backend responds correctly.
+                </span>
+            </div>
+
+            <div class="maintenance-step">
+                <strong>Monitor</strong>
+                <span>
+                    Metrics and logs are collected by the infrastructure stack.
+                </span>
+            </div>
+
+            <div class="maintenance-step">
+                <strong>Maintain</strong>
+                <span>
+                    Infrastructure can be updated or fully stopped independently.
+                </span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         TECHNOLOGIES
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>09 — Technologies</span>
+            <h2>Technology stack</h2>
+        </div>
+
+
+        <div class="tech-grid">
+
+            <div class="tech-card">
+
+                <h3>Application</h3>
+
+                <p>
+                    Go, Gin, Vanilla JavaScript, PWA,
+                    Nginx, MariaDB
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <h3>Containers</h3>
+
+                <p>
+                    Docker, Docker Compose,
+                    GHCR
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <h3>CI/CD</h3>
+
+                <p>
+                    GitHub Actions, Git,
+                    SSH, automated health checks
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <h3>Security & Networking</h3>
+
+                <p>
+                    Tailscale, Cloudflare Tunnel,
+                    private SSH access
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <h3>Observability</h3>
+
+                <p>
+                    Prometheus, Grafana,
+                    Grafana Alloy, Loki
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <h3>Infrastructure</h3>
+
+                <p>
+                    Linux, Docker Compose,
+                    Node Exporter, cAdvisor
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <h3>Code Quality</h3>
+
+                <p>
+                    SonarQube
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <h3>Automation</h3>
+
+                <p>
+                    GitHub Actions workflows,
+                    image cleanup and deployment automation
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LESSONS
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>10 — Lessons Learned</span>
+            <h2>What this project taught me</h2>
+        </div>
+
+
+        <div class="lessons-list">
+
+            <div class="lesson">
+                Infrastructure is part of the application.
+                A working backend and frontend are only one part
+                of running a usable system.
+            </div>
+
+            <div class="lesson">
+                Separating application and infrastructure lifecycles
+                makes deployments easier to control and maintain.
+            </div>
+
+            <div class="lesson">
+                CI/CD should not only deploy software — it should also
+                verify that the deployment actually works.
+            </div>
+
+            <div class="lesson">
+                Secure networking can remove the need to expose
+                administrative services such as SSH publicly.
+            </div>
+
+            <div class="lesson">
+                Monitoring becomes much more useful when metrics,
+                logs and application health checks are considered together.
+            </div>
+
+            <div class="lesson">
+                Self-hosting introduces real operational constraints:
+                storage, networking, availability and maintenance
+                become part of the engineering problem.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         END
+         ===================================================== -->
+
+    <section class="project-end">
+
+        <h2>A workout tracker built as an infrastructure project</h2>
+
+        <p>
+            Gym Tracker combines application development with Linux,
+            containers, CI/CD, secure networking and observability.
+            The result is a system that I can actually run, monitor,
+            break, fix and improve on my own infrastructure.
+        </p>
+
+
+        <div class="hero-links">
+
+            <a
+                href="https://github.com/mStefn/gym-tracker"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-button project-button-primary"
+            >
+                View on GitHub
+            </a>
+
+            <a
+                href="/projects"
+                class="project-button"
+            >
+                Back to Projects
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <p>© 2026 Maciej Stefanowicz</p>
+</footer>
+
 </body>
 </html>
