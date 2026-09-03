@@ -1,0 +1,783 @@
+/* =========================================================
+   PROJECT 3 — SELF-HOSTED AI INFRASTRUCTURE
+   ========================================================= */
+
+.ai-project {
+    width: min(1180px, 92%);
+    margin: 0 auto;
+    padding: 70px 0 90px;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.project-hero {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.project-hero .eyebrow {
+    display: inline-block;
+    margin-bottom: 16px;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+
+    color: var(--color-accent);
+}
+
+.project-hero h1 {
+    margin: 0;
+
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+    line-height: 1.05;
+}
+
+.project-hero .subtitle {
+    max-width: 800px;
+    margin: 24px auto 0;
+
+    font-size: 1.2rem;
+    line-height: 1.7;
+
+    opacity: 0.8;
+}
+
+.status-badge {
+    display: inline-block;
+
+    margin-top: 22px;
+    padding: 7px 14px;
+
+    border: 1px solid var(--color-accent);
+    border-radius: 20px;
+
+    color: var(--color-accent);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.hero-links {
+    display: flex;
+    justify-content: center;
+
+    gap: 14px;
+    flex-wrap: wrap;
+
+    margin-top: 30px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.project-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 180px;
+    padding: 12px 22px;
+
+    color: var(--color-text-primary);
+    background: rgba(242, 163, 64, 0.08);
+
+    border: 1px solid var(--color-accent);
+    border-radius: 8px;
+
+    text-decoration: none;
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.project-button:hover {
+    color: #000;
+    background-color: var(--color-accent);
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 18px rgba(242, 163, 64, 0.22);
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.project-section {
+    margin-bottom: 80px;
+}
+
+.project-section-header {
+    margin-bottom: 28px;
+}
+
+.project-section-header span {
+    display: block;
+    margin-bottom: 10px;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+    color: var(--color-accent);
+}
+
+.project-section-header h2 {
+    margin: 0;
+
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+}
+
+.project-section-header p {
+    max-width: 820px;
+    margin: 14px 0 0;
+
+    line-height: 1.75;
+
+    opacity: 0.78;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.intro-card {
+    padding: 32px;
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 14px;
+
+    background: rgba(128, 128, 128, 0.04);
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.intro-card p {
+    margin: 0 0 20px;
+
+    font-size: 1.08rem;
+    line-height: 1.85;
+}
+
+.intro-card p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   ARCHITECTURE
+   ========================================================= */
+
+.architecture-container {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.architecture-block {
+    padding: 28px;
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 14px;
+
+    background: rgba(128, 128, 128, 0.035);
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+}
+
+.architecture-block h3 {
+    margin: 0 0 24px;
+    font-size: 1.35rem;
+}
+
+.architecture-note {
+    margin: 20px 0 0;
+
+    font-size: 0.93rem;
+    line-height: 1.65;
+
+    opacity: 0.68;
+}
+
+
+/* =========================================================
+   HARDWARE
+   ========================================================= */
+
+.hardware-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.hardware-card {
+    padding: 20px;
+
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 10px;
+
+    background: rgba(128, 128, 128, 0.025);
+
+    text-align: center;
+}
+
+.hardware-card strong,
+.hardware-card span,
+.hardware-card small {
+    display: block;
+}
+
+.hardware-card strong {
+    margin-bottom: 8px;
+
+    color: var(--color-accent);
+
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.hardware-card span {
+    font-weight: 700;
+}
+
+.hardware-card small {
+    margin-top: 7px;
+
+    font-size: 0.78rem;
+    opacity: 0.62;
+}
+
+
+/* =========================================================
+   FLOWS
+   ========================================================= */
+
+.flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flow-node {
+    min-width: 120px;
+    padding: 14px 18px;
+
+    border: 1px solid rgba(128, 128, 128, 0.28);
+    border-radius: 9px;
+
+    text-align: center;
+    font-weight: 600;
+
+    background: rgba(128, 128, 128, 0.045);
+
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.flow-node:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+}
+
+.flow-node small {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 0.72rem;
+    font-weight: 400;
+
+    opacity: 0.65;
+}
+
+.flow-arrow {
+    font-size: 1.3rem;
+
+    color: var(--color-accent);
+    opacity: 0.7;
+}
+
+.architecture-services {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.service-item {
+    padding: 14px;
+
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 8px;
+
+    text-align: center;
+    font-size: 0.9rem;
+
+    background: rgba(128, 128, 128, 0.025);
+
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   WHAT I BUILT
+   ========================================================= */
+
+.built-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.built-card {
+    padding: 26px;
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 12px;
+
+    background: rgba(128, 128, 128, 0.035);
+
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.built-card:hover {
+    border-color: rgba(242, 163, 64, 0.55);
+    transform: translateY(-2px);
+}
+
+.built-card h3 {
+    margin: 0 0 12px;
+
+    font-size: 1.2rem;
+    color: var(--color-accent);
+}
+
+.built-card p {
+    margin: 0;
+
+    line-height: 1.7;
+    opacity: 0.76;
+}
+
+
+/* =========================================================
+   PROBLEMS / SOLUTIONS
+   ========================================================= */
+
+.problem-list {
+    display: grid;
+    gap: 20px;
+}
+
+.problem-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.problem-side,
+.solution-side {
+    padding: 28px;
+}
+
+.problem-side {
+    background: rgba(128, 128, 128, 0.025);
+}
+
+.solution-side {
+    border-left: 1px solid rgba(128, 128, 128, 0.16);
+}
+
+.problem-side h3,
+.solution-side h3 {
+    margin: 0 0 12px;
+
+    font-size: 1.05rem;
+}
+
+.solution-side h3 {
+    color: var(--color-accent);
+}
+
+.problem-side p,
+.solution-side p {
+    margin: 0;
+
+    line-height: 1.7;
+    opacity: 0.76;
+}
+
+.result-line {
+    margin-top: 14px !important;
+
+    font-weight: 600;
+    opacity: 0.9 !important;
+}
+
+
+/* =========================================================
+   AI WORKFLOW / CI/CD STYLE BLOCK
+   ========================================================= */
+
+.cicd-flow {
+    padding: 34px;
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 14px;
+
+    background: rgba(128, 128, 128, 0.035);
+}
+
+.cicd-flow .flow {
+    margin-bottom: 28px;
+}
+
+.cicd-details {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+.cicd-detail {
+    padding: 16px;
+
+    border: 1px solid rgba(128, 128, 128, 0.18);
+    border-radius: 8px;
+
+    text-align: center;
+    line-height: 1.5;
+    font-size: 0.9rem;
+
+    background: rgba(128, 128, 128, 0.025);
+}
+
+
+/* =========================================================
+   MONITORING
+   ========================================================= */
+
+.monitoring-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+.monitor-card {
+    padding: 24px;
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 12px;
+
+    background: rgba(128, 128, 128, 0.035);
+}
+
+.monitor-value {
+    margin-bottom: 12px;
+
+    color: var(--color-accent);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.monitor-card h3 {
+    margin: 0 0 12px;
+    font-size: 1.15rem;
+}
+
+.monitor-card p {
+    margin: 0;
+
+    line-height: 1.7;
+    opacity: 0.75;
+}
+
+
+/* =========================================================
+   OPERATIONS / SYSTEM ADMIN
+   ========================================================= */
+
+.maintenance-flow {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+.maintenance-step {
+    padding: 22px 16px;
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 10px;
+
+    text-align: center;
+
+    background: rgba(128, 128, 128, 0.035);
+
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.maintenance-step:hover {
+    border-color: rgba(242, 163, 64, 0.55);
+    transform: translateY(-2px);
+}
+
+.maintenance-step strong {
+    display: block;
+    margin-bottom: 8px;
+
+    color: var(--color-accent);
+}
+
+.maintenance-step span {
+    font-size: 0.82rem;
+    line-height: 1.5;
+
+    opacity: 0.68;
+}
+
+
+/* =========================================================
+   TECHNOLOGIES
+   ========================================================= */
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.tech-card {
+    padding: 24px;
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 12px;
+
+    background: rgba(128, 128, 128, 0.035);
+}
+
+.tech-card h3 {
+    margin: 0 0 14px;
+
+    font-size: 1.05rem;
+    color: var(--color-accent);
+}
+
+.tech-card p {
+    margin: 0;
+
+    line-height: 1.7;
+    opacity: 0.75;
+}
+
+
+/* =========================================================
+   FUTURE
+   ========================================================= */
+
+.future-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    background: rgba(128, 128, 128, 0.035);
+}
+
+.future-item {
+    padding: 28px;
+}
+
+.future-item + .future-item {
+    border-left: 1px solid rgba(128, 128, 128, 0.16);
+}
+
+.future-item strong {
+    display: block;
+    margin-bottom: 12px;
+
+    color: var(--color-accent);
+
+    font-size: 1.1rem;
+}
+
+.future-item p {
+    margin: 0;
+
+    line-height: 1.7;
+    opacity: 0.76;
+}
+
+
+/* =========================================================
+   LESSONS
+   ========================================================= */
+
+.lessons-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+.lesson {
+    padding: 20px 22px;
+
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 8px 8px 0;
+
+    background: rgba(128, 128, 128, 0.035);
+
+    line-height: 1.65;
+
+    opacity: 0.82;
+}
+
+
+/* =========================================================
+   END
+   ========================================================= */
+
+.project-end {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.project-end h2 {
+    margin: 0 0 14px;
+
+    font-size: 2rem;
+}
+
+.project-end p {
+    max-width: 720px;
+    margin: 0 auto;
+
+    line-height: 1.75;
+
+    opacity: 0.72;
+}
+
+.project-end .hero-links {
+    margin-top: 28px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .hardware-grid,
+    .monitoring-grid,
+    .architecture-services,
+    .cicd-details,
+    .tech-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .maintenance-flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+@media (max-width: 720px) {
+
+    .ai-project {
+        padding-top: 45px;
+    }
+
+    .project-section {
+        margin-bottom: 58px;
+    }
+
+    .project-hero {
+        margin-bottom: 58px;
+    }
+
+    .built-grid,
+    .problem-card,
+    .lessons-list,
+    .future-card {
+        grid-template-columns: 1fr;
+    }
+
+    .future-item + .future-item {
+        border-left: 0;
+        border-top: 1px solid rgba(128, 128, 128, 0.16);
+    }
+
+    .solution-side {
+        border-left: 0;
+        border-top: 1px solid rgba(128, 128, 128, 0.16);
+    }
+
+    .hardware-grid,
+    .monitoring-grid,
+    .architecture-services,
+    .cicd-details,
+    .tech-grid,
+    .maintenance-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .flow {
+        flex-direction: column;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+
+    .intro-card,
+    .architecture-block,
+    .cicd-flow {
+        padding: 22px;
+    }
+
+    .project-button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
