@@ -3,64 +3,1041 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{{ .Title }}</title>
+
     <link rel="stylesheet" href="/static/styles/style.css">
-    <link rel="stylesheet" href="/static/styles/projects/project1.css">
+    <link rel="stylesheet" href="/static/styles/projects/project3.css">
 </head>
+
 <body>
-    <header class="main-header">
-        <nav class="nav-container">
-            <a href="/" class="nav-button">Home</a>
-            <a href="/about" class="nav-button">About me</a>
-            <a href="/projects" class="nav-button active">Projects</a>
-            <a href="/contact" class="nav-button">Contact Me</a>
-        </nav>
-    </header>
 
-    <main>
-        <section class="project-detail">
-            <h1>Local AI Home Server: Arch Linux, Nvidia & Qwen</h1>
-            
+<header class="main-header">
+    <nav class="nav-container">
+        <a href="/" class="nav-button">Home</a>
+        <a href="/about" class="nav-button">About me</a>
+        <a href="/projects" class="nav-button active">Projects</a>
+        <a href="/contact" class="nav-button">Contact Me</a>
+    </nav>
+</header>
+
+
+<main class="ai-project">
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="project-hero">
+
+        <span class="eyebrow">SELF-HOSTED AI INFRASTRUCTURE</span>
+
+        <h1>Self-Hosted AI Infrastructure</h1>
+
+        <p class="subtitle">
+            A Linux-based local AI environment built around limited
+            GPU resources, local language models, AI-assisted development
+            and self-hosted tooling.
+        </p>
+
+        <div class="status-badge">
+            Work in Progress
+        </div>
+
+        <div class="hero-links">
+
+            <a
+                href="https://github.com/mStefn"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-button"
+            >
+                View on GitHub
+            </a>
+
+            <a
+                href="/projects"
+                class="project-button"
+            >
+                Back to Projects
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         OVERVIEW
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>01 — Overview</span>
+            <h2>Turning a personal PC into a local AI environment</h2>
+        </div>
+
+        <div class="intro-card">
+
             <p>
-                <strong>Status: Work in Progress</strong>
+                This project started as an experiment with running
+                language models locally and evolved into a small
+                self-hosted environment for AI-assisted development.
             </p>
+
             <p>
-                This upcoming project focuses on repurposing a personal PC equipped with an Nvidia GPU into a dedicated, self-hosted Artificial Intelligence server. The primary goal is to run a Small Language Model (SLM) locally, ensuring 100% data privacy and offline capabilities.
+                The machine runs a headless Arch Linux installation
+                directly on bare metal and uses an NVIDIA RTX 2070 Super
+                with 8 GB of VRAM for GPU-accelerated workloads.
             </p>
 
-            <h2>Why Arch Linux?</h2>
             <p>
-                Instead of standard server distributions like Ubuntu or AlmaLinux, this project utilizes <strong>Arch Linux</strong> (CLI-only). While configuring Arch requires more hands-on Linux administration, its rolling-release model is a massive advantage for AI workloads. It provides immediate access to the bleeding-edge Nvidia drivers, CUDA toolkits, and Python packages via the Arch User Repository (AUR), avoiding the dependency hell often found in older, stable distributions.
+                Instead of relying entirely on external AI services,
+                the environment allows me to run models locally,
+                work with project-specific context and use AI tools
+                directly against code and infrastructure repositories.
             </p>
 
-            <h2>Architecture & Technology Stack</h2>
-            <ul>
-                <li><strong>Hardware:</strong> Personal PC repurposed as a bare-metal server, leveraging an Nvidia GPU for hardware acceleration.</li>
-                <li><strong>OS:</strong> Arch Linux (CLI) for absolute control over the system footprint and package management.</li>
-                <li><strong>AI Model:</strong> <strong>Qwen</strong> (Small Language Model) - chosen for its excellent balance between hardware requirements and reasoning capabilities.</li>
-                <li><strong>Inference Engine:</strong> Utilizing tools like Ollama or vLLM to serve the model efficiently over a local network.</li>
-            </ul>
+        </div>
 
-            <h2>Project Goals</h2>
+    </section>
+
+
+    <!-- =====================================================
+         HARDWARE / ARCHITECTURE
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>02 — Architecture</span>
+            <h2>Hardware, Linux and AI stack</h2>
+
             <p>
-                Once completed, this server will act as a completely private, personal AI assistant. It will be capable of processing documents, assisting with coding tasks, and integrating with other self-hosted home lab services, all without sending a single byte of data to external corporate APIs.
+                The system is intentionally lightweight and headless.
+                Hardware limitations are part of the engineering problem
+                rather than something hidden behind a cloud service.
             </p>
+        </div>
 
-            <h2>Expected Challenges</h2>
-            <ul>
-                <li>Headless Nvidia driver and CUDA toolkit configuration on Arch Linux.</li>
-                <li>Optimizing GPU VRAM usage to fit the Qwen SLM comfortably.</li>
-                <li>Setting up secure local API endpoints to interact with the model from other devices in the home network.</li>
-            </ul>
 
-            <div class="repo-info" style="margin-top: 40px;">
-                <p>Repository and detailed configuration files will be available soon!</p>
+        <div class="architecture-container">
+
+            <!-- HARDWARE -->
+
+            <div class="architecture-block">
+
+                <h3>Hardware Layer</h3>
+
+                <div class="hardware-grid">
+
+                    <div class="hardware-card">
+                        <strong>GPU</strong>
+                        <span>NVIDIA RTX 2070 Super</span>
+                        <small>8 GB VRAM</small>
+                    </div>
+
+                    <div class="hardware-card">
+                        <strong>Memory</strong>
+                        <span>16 GB RAM</span>
+                        <small>Hardware constrained</small>
+                    </div>
+
+                    <div class="hardware-card">
+                        <strong>Storage</strong>
+                        <span>Samsung SSD</span>
+                        <small>Local project & model storage</small>
+                    </div>
+
+                    <div class="hardware-card">
+                        <strong>System</strong>
+                        <span>Bare-metal PC</span>
+                        <small>Headless server</small>
+                    </div>
+
+                </div>
+
             </div>
-        </section>
-    </main>
 
-    <footer>
-        <p>© 2026 Maciej Stefanowicz</p>
-    </footer>
+
+            <!-- SOFTWARE -->
+
+            <div class="architecture-block">
+
+                <h3>Software Stack</h3>
+
+                <div class="flow">
+
+                    <div class="flow-node">
+                        Arch Linux
+                        <small>Headless OS</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        NVIDIA / CUDA
+                        <small>GPU acceleration</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Ollama
+                        <small>Local inference</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Qwen
+                        <small>Local model</small>
+                    </div>
+
+                </div>
+
+                <div class="architecture-services">
+
+                    <div class="service-item">
+                        Open WebUI
+                    </div>
+
+                    <div class="service-item">
+                        Aider
+                    </div>
+
+                    <div class="service-item">
+                        Git
+                    </div>
+
+                    <div class="service-item">
+                        SSH
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT WORKSPACE -->
+
+            <div class="architecture-block">
+
+                <h3>Project Workspace</h3>
+
+                <div class="flow">
+
+                    <div class="flow-node">
+                        Server
+                        <small>Local workspace</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Projects
+                        <small>Dedicated directories</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Git Repository
+                        <small>Source code</small>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Aider
+                        <small>AI-assisted work</small>
+                    </div>
+
+                </div>
+
+                <p class="architecture-note">
+                    Projects are kept in a dedicated directory on the server,
+                    making it easy to move between repositories and work on
+                    infrastructure or application code directly from the machine.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WHAT I BUILT
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>03 — What I built</span>
+            <h2>More than just a local chatbot</h2>
+        </div>
+
+
+        <div class="built-grid">
+
+            <div class="built-card">
+
+                <h3>Arch Linux Server</h3>
+
+                <p>
+                    Installed and configured a headless Arch Linux system
+                    directly on the machine, including hardware, networking,
+                    services and system hardening.
+                </p>
+
+            </div>
+
+
+            <div class="built-card">
+
+                <h3>Local AI Runtime</h3>
+
+                <p>
+                    Configured GPU-accelerated local inference using
+                    Ollama and a Qwen model selected around the available
+                    hardware resources.
+                </p>
+
+            </div>
+
+
+            <div class="built-card">
+
+                <h3>AI Development Environment</h3>
+
+                <p>
+                    Added Open WebUI and Aider to use local models not only
+                    for conversation, but also for working directly with
+                    code and infrastructure projects.
+                </p>
+
+            </div>
+
+
+            <div class="built-card">
+
+                <h3>Project Workspace</h3>
+
+                <p>
+                    Created a dedicated server-side workspace where multiple
+                    repositories can be cloned, maintained and accessed
+                    directly by development tools.
+                </p>
+
+            </div>
+
+
+            <div class="built-card">
+
+                <h3>System Prompt</h3>
+
+                <p>
+                    Prepared a dedicated system prompt for coding and
+                    infrastructure tasks so the local model can follow
+                    consistent rules while working within a project.
+                </p>
+
+            </div>
+
+
+            <div class="built-card">
+
+                <h3>Resource Awareness</h3>
+
+                <p>
+                    Hardware monitoring became an important part of the
+                    environment because GPU VRAM, system RAM, temperature
+                    and workload directly affect local AI performance.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RESOURCE CONSTRAINTS
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>04 — Hardware Constraints</span>
+            <h2>The 8 GB VRAM problem</h2>
+
+            <p>
+                Running local AI on an RTX 2070 Super changes the way
+                the system has to be used. The main limitation is not
+                API cost — it is available hardware resources.
+            </p>
+        </div>
+
+
+        <div class="problem-list">
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+
+                    <h3>Problem</h3>
+
+                    <p>
+                        The GPU has only <strong>8 GB of VRAM</strong>,
+                        while model size and context directly influence
+                        memory consumption.
+                    </p>
+
+                </div>
+
+                <div class="solution-side">
+
+                    <h3>Solution</h3>
+
+                    <p>
+                        Models and workloads have to be selected according
+                        to the actual hardware rather than simply choosing
+                        the largest available model.
+                    </p>
+
+                    <p class="result-line">
+                        Result: predictable local inference within
+                        the limits of the machine.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+
+                    <h3>Problem</h3>
+
+                    <p>
+                        Feeding an entire repository into the model can
+                        consume context unnecessarily and reduce the
+                        usefulness of the available context window.
+                    </p>
+
+                </div>
+
+                <div class="solution-side">
+
+                    <h3>Solution</h3>
+
+                    <p>
+                        Work is organized around a specific project,
+                        relevant files and a dedicated system prompt
+                        instead of sending everything at once.
+                    </p>
+
+                    <p class="result-line">
+                        Result: more focused AI-assisted development.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-side">
+
+                    <h3>Problem</h3>
+
+                    <p>
+                        AI workloads compete for the same limited GPU,
+                        RAM and system resources as the rest of the server.
+                    </p>
+
+                </div>
+
+                <div class="solution-side">
+
+                    <h3>Solution</h3>
+
+                    <p>
+                        GPU and system resource monitoring is treated as
+                        part of normal operation rather than an optional
+                        extra.
+                    </p>
+
+                    <p class="result-line">
+                        Result: workloads can be adjusted based on
+                        the actual state of the machine.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         AI WORKFLOW
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>05 — AI Workflow</span>
+            <h2>Working with context instead of flooding the model</h2>
+
+            <p>
+                Hardware limitations changed the way I use AI tools.
+                The goal is not to provide as much context as possible,
+                but to provide the right context.
+            </p>
+        </div>
+
+
+        <div class="cicd-flow ai-workflow">
+
+            <div class="flow">
+
+                <div class="flow-node">
+                    Choose Project
+                    <small>Repository</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Project Directory
+                    <small>Relevant files</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    System Prompt
+                    <small>Rules & role</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Local Model
+                    <small>Qwen / Ollama</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Aider
+                    <small>AI-assisted changes</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Test & Review
+                    <small>Human control</small>
+                </div>
+
+            </div>
+
+
+            <div class="cicd-details">
+
+                <div class="cicd-detail">
+                    Keep the model focused on one project
+                </div>
+
+                <div class="cicd-detail">
+                    Provide only relevant context
+                </div>
+
+                <div class="cicd-detail">
+                    Keep project-specific instructions consistent
+                </div>
+
+                <div class="cicd-detail">
+                    Review changes instead of blindly accepting output
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MONITORING
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>06 — Monitoring</span>
+            <h2>Watching the hardware behind the model</h2>
+        </div>
+
+
+        <div class="monitoring-grid">
+
+            <div class="monitor-card">
+                <div class="monitor-value">VRAM</div>
+
+                <h3>GPU Memory</h3>
+
+                <p>
+                    Monitoring available and used VRAM is essential
+                    when running models close to the hardware limit.
+                </p>
+            </div>
+
+
+            <div class="monitor-card">
+                <div class="monitor-value">GPU</div>
+
+                <h3>Utilization</h3>
+
+                <p>
+                    GPU utilization provides visibility into whether
+                    the workload is actually using hardware acceleration.
+                </p>
+            </div>
+
+
+            <div class="monitor-card">
+                <div class="monitor-value">TEMP</div>
+
+                <h3>Temperature</h3>
+
+                <p>
+                    Temperature is monitored during longer workloads
+                    to keep the machine within reasonable operating conditions.
+                </p>
+            </div>
+
+
+            <div class="monitor-card">
+                <div class="monitor-value">RAM</div>
+
+                <h3>System Memory</h3>
+
+                <p>
+                    With only 16 GB of system RAM, memory usage also
+                    becomes an important constraint for local workloads.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         3D GAUSSIAN SPLATTING
+         ===================================================== -->
+
+    <section class="project-section hobby-section">
+
+        <div class="project-section-header">
+
+            <span>07 — Hobby Experiment</span>
+
+            <h2>3D Gaussian Splatting</h2>
+
+            <p>
+                A smaller side experiment using the same machine for
+                GPU-based 3D reconstruction and rendering.
+            </p>
+
+        </div>
+
+
+        <div class="architecture-block">
+
+            <div class="flow">
+
+                <div class="flow-node">
+                    Images
+                    <small>Input frames</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Nerfstudio
+                    <small>Processing</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Gaussian Splatting
+                    <small>3D scene</small>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="flow-node">
+                    Render
+                    <small>New views / video</small>
+                </div>
+
+            </div>
+
+
+            <p class="architecture-note">
+
+                I configured a dedicated Python and CUDA environment for
+                Nerfstudio and gsplat and used the server to experiment
+                with generating 3D scenes and interpolated camera renders
+                from image sequences.
+
+                This is a hobby experiment rather than the main purpose
+                of the server.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SYSTEM ADMINISTRATION
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>08 — System Administration</span>
+            <h2>The infrastructure starts before the AI</h2>
+
+            <p>
+                Running local AI required configuring the entire machine,
+                not only installing a model runtime.
+            </p>
+        </div>
+
+
+        <div class="maintenance-flow">
+
+            <div class="maintenance-step">
+
+                <strong>Hardware</strong>
+
+                <span>
+                    BIOS and motherboard configuration
+                    for the dedicated machine.
+                </span>
+
+            </div>
+
+
+            <div class="maintenance-step">
+
+                <strong>Arch Linux</strong>
+
+                <span>
+                    Headless installation and system configuration.
+                </span>
+
+            </div>
+
+
+            <div class="maintenance-step">
+
+                <strong>Hardening</strong>
+
+                <span>
+                    SSH, services, permissions and system security.
+                </span>
+
+            </div>
+
+
+            <div class="maintenance-step">
+
+                <strong>GPU Stack</strong>
+
+                <span>
+                    NVIDIA drivers and CUDA environment
+                    for GPU workloads.
+                </span>
+
+            </div>
+
+
+            <div class="maintenance-step">
+
+                <strong>AI Runtime</strong>
+
+                <span>
+                    Local model serving and development tools.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         TECHNOLOGIES
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>09 — Technologies</span>
+            <h2>Technology stack</h2>
+        </div>
+
+
+        <div class="tech-grid">
+
+            <div class="tech-card">
+                <h3>Operating System</h3>
+
+                <p>
+                    Arch Linux, systemd, SSH,
+                    CLI-only environment
+                </p>
+            </div>
+
+
+            <div class="tech-card">
+                <h3>AI</h3>
+
+                <p>
+                    Ollama, Qwen,
+                    Open WebUI
+                </p>
+            </div>
+
+
+            <div class="tech-card">
+                <h3>AI Development</h3>
+
+                <p>
+                    Aider, system prompts,
+                    project-specific context
+                </p>
+            </div>
+
+
+            <div class="tech-card">
+                <h3>GPU</h3>
+
+                <p>
+                    NVIDIA RTX 2070 Super,
+                    CUDA
+                </p>
+            </div>
+
+
+            <div class="tech-card">
+                <h3>Development</h3>
+
+                <p>
+                    Git, Git repositories,
+                    dedicated project workspaces
+                </p>
+            </div>
+
+
+            <div class="tech-card">
+                <h3>Monitoring</h3>
+
+                <p>
+                    GPU utilization, VRAM,
+                    temperature, RAM and system resources
+                </p>
+            </div>
+
+
+            <div class="tech-card">
+                <h3>3D / GPU Experiments</h3>
+
+                <p>
+                    Nerfstudio, gsplat,
+                    PyTorch, CUDA 11.8
+                </p>
+            </div>
+
+
+            <div class="tech-card">
+                <h3>Infrastructure</h3>
+
+                <p>
+                    Bare-metal server,
+                    Linux administration,
+                    system hardening
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FUTURE
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>10 — Future Direction</span>
+            <h2>Growing the hardware, not just the software</h2>
+        </div>
+
+
+        <div class="future-card">
+
+            <div class="future-item">
+
+                <strong>More GPU Resources</strong>
+
+                <p>
+                    A future hardware upgrade should allow larger models,
+                    larger contexts and more demanding local workloads.
+                </p>
+
+            </div>
+
+
+            <div class="future-item">
+
+                <strong>Separate AMD Gaming System</strong>
+
+                <p>
+                    I also plan to build a separate AMD-based Steam Machine
+                    as a gaming-oriented project, taking advantage of the
+                    strong Linux and SteamOS compatibility of AMD hardware.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LESSONS
+         ===================================================== -->
+
+    <section class="project-section">
+
+        <div class="project-section-header">
+            <span>11 — Lessons Learned</span>
+            <h2>What the project taught me</h2>
+        </div>
+
+
+        <div class="lessons-list">
+
+            <div class="lesson">
+                Local AI is not only a model-selection problem.
+                Hardware limitations directly affect how the system
+                has to be used.
+            </div>
+
+
+            <div class="lesson">
+                More context is not automatically better.
+                Relevant context is often more useful than sending
+                an entire project to the model.
+            </div>
+
+
+            <div class="lesson">
+                GPU and system resource monitoring becomes part of
+                normal operation when hardware resources are limited.
+            </div>
+
+
+            <div class="lesson">
+                Running AI locally requires a properly configured
+                operating system, drivers, dependencies and services.
+            </div>
+
+
+            <div class="lesson">
+                A dedicated project workspace makes local AI-assisted
+                development easier to organize and repeat.
+            </div>
+
+
+            <div class="lesson">
+                Self-hosting turns hardware constraints into an actual
+                engineering problem instead of hiding them behind
+                a cloud platform.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         END / CTA
+         ===================================================== -->
+
+    <section class="project-end">
+
+        <h2>A local AI system built around real constraints</h2>
+
+        <p>
+            This project combines Linux administration, GPU workloads,
+            local AI inference and AI-assisted development into one
+            self-hosted environment. The main challenge is not simply
+            making a model run, but making the available hardware useful.
+        </p>
+
+
+        <div class="hero-links">
+
+            <a
+                href="https://github.com/mStefn"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-button"
+            >
+                View on GitHub
+            </a>
+
+            <a
+                href="/projects"
+                class="project-button"
+            >
+                Back to Projects
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <p>© 2026 Maciej Stefanowicz</p>
+</footer>
+
 </body>
 </html>
