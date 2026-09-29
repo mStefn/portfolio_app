@@ -50,12 +50,29 @@ jobs:
           echo "Checking Tailscale connection..."
           tailscale status
 
+      - name: Test GitHub DNS
+        run: |
+          echo "========================================"
+          echo "Testing DNS resolution for github.com"
+          echo "========================================"
+
+          getent hosts github.com
+
+          echo ""
+          echo "========================================"
+          echo "Testing HTTPS connection to github.com"
+          echo "========================================"
+
+          curl -I https://github.com
+
       - name: Deploy App to Server via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SERVER_IP }}
           username: stefan
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          timeout: 30s
+          command_timeout: 10m
           script: |
             set -e
 
