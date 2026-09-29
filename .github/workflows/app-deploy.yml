@@ -10,11 +10,9 @@ env:
   IMAGE_NAME: ghcr.io/mstefn/portfolio_app_v2
 
 jobs:
-  # ==========================================
-  # STEP 1: BUILD & PUSH APP
-  # ==========================================
   build-and-push:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       packages: write
@@ -30,17 +28,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
 
-
-  # ==========================================
-  # STEP 2: DEPLOY APP ON SERVER
-  # ==========================================
   deploy-app:
     needs: build-and-push
     runs-on: ubuntu-latest
@@ -68,7 +62,7 @@ jobs:
             echo "🚀 Starting deployment..."
 
             cd /home/stefan/domain/portfolio_app || {
-              echo "❌ Error: Project directory not found!"
+              echo "❌ Project directory not found!"
               exit 1
             }
 
@@ -76,6 +70,7 @@ jobs:
             git pull origin main
 
             echo "🔐 Logging in to GHCR..."
+
             echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io \
               -u "${{ secrets.GHCR_USERNAME }}" \
               --password-stdin
@@ -91,10 +86,6 @@ jobs:
 
             echo "✅ Deployment completed."
 
-
-  # ==========================================
-  # STEP 3: APP HEALTH CHECK
-  # ==========================================
   health-check-app:
     needs: deploy-app
     runs-on: ubuntu-latest
@@ -117,13 +108,9 @@ jobs:
             sleep 5
           done
 
-          echo "❌ Error: Portfolio did not start in time!"
+          echo "❌ Portfolio did not start in time!"
           exit 1
 
-
-  # ==========================================
-  # STEP 4: DISCORD NOTIFICATION
-  # ==========================================
   notify:
     needs:
       - build-and-push
@@ -139,15 +126,8 @@ jobs:
         uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-
-          status: ${{ (
-            needs.build-and-push.result == 'success' &&
-            needs.deploy-app.result == 'success' &&
-            needs.health-check-app.result == 'success'
-          ) && 'success' || 'failure' }}
-
+          status: ${{ (needs.build-and-push.result == 'success' && needs.deploy-app.result == 'success' && needs.health-check-app.result == 'success') && 'success' || 'failure' }}
           title: "🚀 Portfolio Auto-Deployment Report"
-
           description: |
             **1. Build & Push:** ${{ needs.build-and-push.result }}
             **2. Server Deploy:** ${{ needs.deploy-app.result }}
