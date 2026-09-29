@@ -40,30 +40,52 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Test DNS BEFORE Tailscale
+        run: |
+          echo "========================================"
+          echo "DNS BEFORE TAILSCALE"
+          echo "========================================"
+
+          echo "=== /etc/resolv.conf ==="
+          cat /etc/resolv.conf
+
+          echo ""
+          echo "=== github.com ==="
+          getent hosts github.com
+
+          echo ""
+          echo "=== HTTPS test ==="
+          curl -I https://github.com
+
       - name: Connect to Tailscale
         uses: tailscale/github-action@v3
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
-      - name: Check Tailscale connection
-        run: |
-          echo "Checking Tailscale connection..."
-          tailscale status
-
-      - name: Test GitHub DNS
+      - name: Test DNS AFTER Tailscale
         run: |
           echo "========================================"
-          echo "Testing DNS resolution for github.com"
+          echo "DNS AFTER TAILSCALE"
           echo "========================================"
 
+          echo "=== /etc/resolv.conf ==="
+          cat /etc/resolv.conf
+
+          echo ""
+          echo "=== github.com ==="
           getent hosts github.com
 
           echo ""
+          echo "=== HTTPS test ==="
+          curl -I https://github.com
+
+      - name: Check Tailscale connection
+        run: |
           echo "========================================"
-          echo "Testing HTTPS connection to github.com"
+          echo "TAILSCALE STATUS"
           echo "========================================"
 
-          curl -I https://github.com
+          tailscale status
 
       - name: Deploy App to Server via SSH
         uses: appleboy/ssh-action@v1.2.0
@@ -96,9 +118,11 @@ jobs:
             docker compose pull
 
             echo "🚀 Starting containers..."
+
             docker compose up -d --remove-orphans
 
             echo "🧹 Cleaning unused Docker images..."
+
             docker image prune -af
 
             echo "✅ Deployment completed."
@@ -110,9 +134,14 @@ jobs:
     steps:
       - name: Check Health
         run: |
+          echo "========================================"
+          echo "PORTFOLIO HEALTH CHECK"
+          echo "========================================"
+
           echo "Waiting for app to start (up to 60 seconds)..."
 
           for i in {1..12}; do
+
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
               https://portfolio.m-stefn.com.pl/ || echo "000")
 
@@ -121,7 +150,9 @@ jobs:
               exit 0
             fi
 
-            echo "Attempt $i/12: App returned $STATUS. Waiting 5 seconds..."
+            echo "Attempt $i/12: App returned $STATUS."
+            echo "Waiting 5 seconds..."
+
             sleep 5
           done
 
@@ -153,4 +184,4 @@ jobs:
             The latest changes to the main branch have been deployed.
 
             Check details here:
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            ${{ github.server_url }}/${{ github.repository }}/${{ github.run_id }}
