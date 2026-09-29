@@ -2,11 +2,11 @@
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-    CREATE TABLE IF NOT EXISTS visits (
+    CREATE TABLE IF NOT EXISTS visit_counter (
         id SERIAL PRIMARY KEY,
-        count INTEGER NOT NULL
+        visits INTEGER NOT NULL
     );
 
-    INSERT INTO visits (count) VALUES (0);
+    INSERT INTO visit_counter (visits) VALUES (0);
 EOSQL
 
