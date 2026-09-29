@@ -40,51 +40,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test DNS BEFORE Tailscale
-        run: |
-          echo "========================================"
-          echo "DNS BEFORE TAILSCALE"
-          echo "========================================"
-
-          echo "=== /etc/resolv.conf ==="
-          cat /etc/resolv.conf
-
-          echo ""
-          echo "=== github.com ==="
-          getent hosts github.com
-
-          echo ""
-          echo "=== HTTPS test ==="
-          curl -I https://github.com
-
       - name: Connect to Tailscale
         uses: tailscale/github-action@v3
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-
-      - name: Test DNS AFTER Tailscale
-        run: |
-          echo "========================================"
-          echo "DNS AFTER TAILSCALE"
-          echo "========================================"
-
-          echo "=== /etc/resolv.conf ==="
-          cat /etc/resolv.conf
-
-          echo ""
-          echo "=== github.com ==="
-          getent hosts github.com
-
-          echo ""
-          echo "=== HTTPS test ==="
-          curl -I https://github.com
+          args: --accept-dns=false
 
       - name: Check Tailscale connection
         run: |
-          echo "========================================"
-          echo "TAILSCALE STATUS"
-          echo "========================================"
-
+          echo "Checking Tailscale connection..."
           tailscale status
 
       - name: Deploy App to Server via SSH
@@ -134,14 +98,9 @@ jobs:
     steps:
       - name: Check Health
         run: |
-          echo "========================================"
-          echo "PORTFOLIO HEALTH CHECK"
-          echo "========================================"
-
           echo "Waiting for app to start (up to 60 seconds)..."
 
           for i in {1..12}; do
-
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
               https://portfolio.m-stefn.com.pl/ || echo "000")
 
@@ -150,8 +109,7 @@ jobs:
               exit 0
             fi
 
-            echo "Attempt $i/12: App returned $STATUS."
-            echo "Waiting 5 seconds..."
+            echo "Attempt $i/12: App returned $STATUS. Waiting 5 seconds..."
 
             sleep 5
           done
@@ -184,4 +142,4 @@ jobs:
             The latest changes to the main branch have been deployed.
 
             Check details here:
-            ${{ github.server_url }}/${{ github.repository }}/${{ github.run_id }}
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
