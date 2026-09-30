@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  app:    
-    image: ghcr.io/mstefn/portfolio_app_v2:latest
+  app:
+    image: ghcr.io/mstefn/portfolio_app_v2:${APP_VERSION:-latest}
     container_name: portfolio-app
     expose:
       - "8080"
@@ -43,5 +43,6 @@ services:
 networks:
   portfolio_network:
     driver: bridge
+
   cloudflare_net:
     external: true
