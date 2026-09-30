@@ -11,15 +11,26 @@ env:
 
 jobs:
   build-and-push:
+    name: Build & Push Image
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
       packages: write
 
+    outputs:
+      app_tag: ${{ steps.set-tag.outputs.app_tag }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Set Image Tag
+        id: set-tag
+        run: |
+          APP_TAG=$(TZ=Europe/Warsaw date +'%Y-%m-%d-%H%M')
+          echo "app_tag=$APP_TAG" >> "$GITHUB_OUTPUT"
+          echo "🏷️ Image tag: $APP_TAG"
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -28,16 +39,22 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_NAME }}:latest
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ steps.set-tag.outputs.app_tag }}
 
   deploy-app:
+    name: Deploy to Homelab
     needs: build-and-push
     runs-on: ubuntu-latest
+
+    env:
+      APP_VERSION: ${{ needs.build-and-push.outputs.app_tag }}
 
     steps:
       - name: Connect to Tailscale
@@ -53,16 +70,21 @@ jobs:
 
       - name: Deploy App to Server via SSH
         uses: appleboy/ssh-action@v1.2.0
+        env:
+          APP_VERSION: ${{ needs.build-and-push.outputs.app_tag }}
         with:
           host: ${{ secrets.SERVER_IP }}
           username: stefan
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           timeout: 30s
           command_timeout: 10m
+          envs: APP_VERSION
+
           script: |
             set -e
 
             echo "🚀 Starting deployment..."
+            echo "🏷️ Application version: ${APP_VERSION}"
 
             cd /home/stefan/domain/portfolio_app || {
               echo "❌ Project directory not found!"
@@ -78,7 +100,10 @@ jobs:
               -u "${{ secrets.GHCR_USERNAME }}" \
               --password-stdin
 
-            echo "📦 Pulling latest Docker images..."
+            echo "📦 Pulling Docker images..."
+
+            export APP_VERSION="${APP_VERSION}"
+
             docker compose pull
 
             echo "🚀 Starting containers..."
@@ -89,16 +114,21 @@ jobs:
 
             docker image prune -af
 
-            echo "✅ Deployment completed."
+            echo "📊 Container status:"
+
+            docker compose ps
+
+            echo "✅ Deployment completed successfully."
 
   health-check-app:
+    name: Health Check
     needs: deploy-app
     runs-on: ubuntu-latest
 
     steps:
       - name: Check Health
         run: |
-          echo "Waiting for app to start (up to 60 seconds)..."
+          echo "🏥 Waiting for app to start (up to 60 seconds)..."
 
           for i in {1..12}; do
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
@@ -118,6 +148,7 @@ jobs:
           exit 1
 
   notify:
+    name: Deployment Notification
     needs:
       - build-and-push
       - deploy-app
@@ -138,8 +169,9 @@ jobs:
             **1. Build & Push:** ${{ needs.build-and-push.result }}
             **2. Server Deploy:** ${{ needs.deploy-app.result }}
             **3. App Health Check:** ${{ needs.health-check-app.result }}
+            **Image Tag:** ${{ needs.build-and-push.outputs.app_tag }}
 
-            The latest changes to the main branch have been deployed.
+            The latest version of Portfolio has been deployed.
 
             Check details here:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
