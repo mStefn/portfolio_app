@@ -4,6 +4,7 @@ services:
   app:
     image: ghcr.io/mstefn/portfolio_app_v2:${APP_VERSION:-latest}
     container_name: portfolio-app
+    restart: unless-stopped
     expose:
       - "8080"
     environment:
@@ -17,6 +18,7 @@ services:
     build:
       context: ./nginx
     container_name: portfolio-nginx
+    restart: unless-stopped
     expose:
       - "80"
     depends_on:
@@ -28,6 +30,7 @@ services:
   db:
     image: postgres:13
     container_name: portfolio-db
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
